@@ -25,6 +25,14 @@ namespace LearnDepthChapterOne
 
             ArrayList list = ClassCSharpVersion1.GetSample();
             List<ClassCSharpVersion2> list2 = ClassCSharpVersion2.GetSample();
+            List<ClassCSharpVersion4> list4 = ClassCSharpVersion4.GetSample();
+
+            list4.Sort(new ClassSort());
+            foreach(ClassCSharpVersion4 listsort in list4)
+            {
+                Console.WriteLine(listsort.ToString());
+            }
+            
 
             string A = list[2].ToString();
             string B = list2[1].ToString();

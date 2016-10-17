@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 
 namespace LearnDepthChapterOne
 {
+    class ClassSort : IComparer<ClassCSharpVersion4>
+    {
+        public int Compare(ClassCSharpVersion4 x,ClassCSharpVersion4 y)
+        {
+            return x.Name.CompareTo(y.Name);
+        }
+    }
     class ClassCSharpVersion1
     {
         string name;
@@ -158,14 +165,18 @@ namespace LearnDepthChapterOne
         {
             return new List<ClassCSharpVersion4>
             {
-                new ClassCSharpVersion4(name:"P1",price:10m),
+                new ClassCSharpVersion4(name:"P1",price:30m),
+                new ClassCSharpVersion4(name:"P6",price:10m),
+                new ClassCSharpVersion4(name:"P4",price:60m),
+                new ClassCSharpVersion4(name:"P5",price:50m),
+                new ClassCSharpVersion4(name:"P3",price:40m),
                 new ClassCSharpVersion4(name:"P2",price:20m)
             };
         }
 
         public override string ToString()
         {
-            return string.Format("{0};{1}", Name, Price);
+            return string.Format(" 产品名称：{0};产品价格{1}", Name, Price);
         }
 
         public static void print()
