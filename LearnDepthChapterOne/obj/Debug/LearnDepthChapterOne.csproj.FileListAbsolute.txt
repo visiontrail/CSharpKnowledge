@@ -1,0 +1,6 @@
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterOne\bin\Debug\LearnDepthChapterOne.exe.config
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterOne\obj\Debug\LearnDepthChapterOne.csprojResolveAssemblyReference.cache
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterOne\bin\Debug\LearnDepthChapterOne.exe
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterOne\bin\Debug\LearnDepthChapterOne.pdb
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterOne\obj\Debug\LearnDepthChapterOne.exe
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterOne\obj\Debug\LearnDepthChapterOne.pdb
