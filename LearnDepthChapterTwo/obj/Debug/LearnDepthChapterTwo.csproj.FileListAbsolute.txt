@@ -1,0 +1,6 @@
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterTwo\bin\Debug\LearnDepthChapterTwo.exe.config
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterTwo\bin\Debug\LearnDepthChapterTwo.exe
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterTwo\bin\Debug\LearnDepthChapterTwo.pdb
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterTwo\obj\Debug\LearnDepthChapterTwo.exe
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterTwo\obj\Debug\LearnDepthChapterTwo.pdb
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterTwo\obj\Debug\LearnDepthChapterTwo.csprojResolveAssemblyReference.cache
