@@ -11,63 +11,30 @@ namespace LearnDepthChapterOne
     {
         static void Main(string[] args)
         {
+            // decimal类型是一个128位的数据类型
             decimal da1 = 34287786090351m;
             int i = 10;
             decimal abc = da1 + i;
 
-            Classtry2 P1 = new Classtry2("P3",100);
-            Classtry2 P2;
+            ClassCSharpVersion1 P1 = new ClassCSharpVersion1("P3",100);
+            ClassCSharpVersion2 P2;
 
-            Classtry1.print();
+            // 岔开一句，静态类型是类中与其属性无关的方法都可以被声明成静态方法
+            // 静态方法与实例化方法的执行效率其实并没有太大差别
+            ClassCSharpVersion1.print();
 
-            ArrayList list = Classtry1.GetSample();
+            ArrayList list = ClassCSharpVersion1.GetSample();
+            List<ClassCSharpVersion2> list2 = ClassCSharpVersion2.GetSample();
 
-            string A = list[1].ToString();
+            string A = list[2].ToString();
+            string B = list2[1].ToString();
 
             Console.WriteLine(A);
+            Console.WriteLine(B);
 
             Console.Read();
             return;
         }
     }
 
-    class Classtry2
-    {
-        string name;
-        public string Name
-        {
-            get { return name; }
-        }
-
-        decimal price;
-        public decimal Price
-        {
-            get { return price; }
-        }
-
-        public Classtry2(string name, decimal price)
-        {
-            this.name = name;
-            this.price = price;
-        }
-
-        public static ArrayList GetSample()
-        {
-            ArrayList list = new ArrayList();
-            list.Add(new Classtry1("P1", 100));
-            list.Add(new Classtry1("P2", 200));
-            return list;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("{0};{1}", name, price);
-        }
-
-        public static void print()
-        {
-            Console.WriteLine("123");
-        }
-
-    }
 }

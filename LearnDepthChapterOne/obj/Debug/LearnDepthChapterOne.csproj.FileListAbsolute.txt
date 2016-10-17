@@ -4,3 +4,9 @@ E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterOne\bin\Debu
 E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterOne\bin\Debug\LearnDepthChapterOne.pdb
 E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterOne\obj\Debug\LearnDepthChapterOne.exe
 E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterOne\obj\Debug\LearnDepthChapterOne.pdb
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterOne\bin\Debug\LearnDepthChapterOne.exe.config
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterOne\obj\Debug\LearnDepthChapterOne.exe
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterOne\obj\Debug\LearnDepthChapterOne.pdb
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterOne\bin\Debug\LearnDepthChapterOne.exe
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterOne\bin\Debug\LearnDepthChapterOne.pdb
+F:\Workspaces\C#learn\C-Learn\LearnDepthChapterOne\obj\Debug\LearnDepthChapterOne.csprojResolveAssemblyReference.cache
