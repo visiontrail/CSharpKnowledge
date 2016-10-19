@@ -7,6 +7,15 @@ using System.Threading.Tasks;
 
 namespace LearnDepthChapterOne
 {
+    class ClassSortCSharpVer1 : IComparer
+    {
+        public int Compare(object x ,object y)
+        {
+            ClassCSharpVersion1 instance1 = (ClassCSharpVersion1)x;
+            ClassCSharpVersion1 instance2 = (ClassCSharpVersion1)y;
+            return instance1.Name.CompareTo(instance2.Name);
+        }
+    }
     class ClassSort : IComparer<ClassCSharpVersion4>
     {
         public int Compare(ClassCSharpVersion4 x,ClassCSharpVersion4 y)
@@ -14,6 +23,8 @@ namespace LearnDepthChapterOne
             return x.Name.CompareTo(y.Name);
         }
     }
+
+    // C#1版本的编程风格
     class ClassCSharpVersion1
     {
         string name;
@@ -38,15 +49,19 @@ namespace LearnDepthChapterOne
         public static ArrayList GetSample()
         {
             ArrayList list = new ArrayList();
-            list.Add(new ClassCSharpVersion1("P1", 100));
-            list.Add(new ClassCSharpVersion1("P2", 200));
-            list.Add("123123");
+            list.Add(new ClassCSharpVersion1("C#1-P1", 100m));
+            list.Add(new ClassCSharpVersion1("C#1-P2", 200m));
+            list.Add(new ClassCSharpVersion1("C#1-P5", 600m));
+            list.Add(new ClassCSharpVersion1("C#1-P4", 300m));
+            list.Add(new ClassCSharpVersion1("C#1-P3", 500m));
+            // 当误将list添加了一个非Class类型的时候
+            //list.Add("123123");
             return list;
         }
 
         public override string ToString()
         {
-            return string.Format("{0};{1}", name, price);
+            return string.Format("C#Version1--产品名称：{0};价格：{1}", name, price);
         }
 
         public static void print()
@@ -176,7 +191,7 @@ namespace LearnDepthChapterOne
 
         public override string ToString()
         {
-            return string.Format(" 产品名称：{0};产品价格{1}", Name, Price);
+            return string.Format(" C#Version4--产品名称：{0};产品价格：{1}", Name, Price);
         }
 
         public static void print()

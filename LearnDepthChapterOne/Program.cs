@@ -27,13 +27,31 @@ namespace LearnDepthChapterOne
             List<ClassCSharpVersion2> list2 = ClassCSharpVersion2.GetSample();
             List<ClassCSharpVersion4> list4 = ClassCSharpVersion4.GetSample();
 
-            list4.Sort(new ClassSort());
-            foreach(ClassCSharpVersion4 listsort in list4)
+            Console.WriteLine("----以下是C#1的排序结果----");
+            list.Sort(new ClassSortCSharpVer1());
+            foreach(ClassCSharpVersion1 listsort in list)
             {
                 Console.WriteLine(listsort.ToString());
             }
-            
+            Console.WriteLine("----C#1的排序结束----");
 
+            Console.WriteLine("----以下是C#2的排序结果----");
+            list4.Sort(new ClassSort());
+            foreach(ClassCSharpVersion4 listsort in list4)
+            {
+                
+                Console.WriteLine(listsort.ToString());
+
+            }
+            Console.WriteLine("----C#2的排序结束----");
+
+            list2.Sort(
+                delegate (ClassCSharpVersion2 x, ClassCSharpVersion2 y)
+                {
+                    return x.Name.CompareTo(y.Name);
+                }
+            );
+                 
             string A = list[2].ToString();
             string B = list2[1].ToString();
 
