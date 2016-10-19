@@ -23,10 +23,13 @@ namespace LearnDepthChapterOne
             // 静态方法与实例化方法的执行效率其实并没有太大差别
             ClassCSharpVersion1.print();
 
+            //实例化4个版本C#的类
             ArrayList list = ClassCSharpVersion1.GetSample();
             List<ClassCSharpVersion2> list2 = ClassCSharpVersion2.GetSample();
+            List<ClassCSharpVersion3> list3 = ClassCSharpVersion3.GetSample();
             List<ClassCSharpVersion4> list4 = ClassCSharpVersion4.GetSample();
 
+            // C#1调用实现ICompare接口的排序类
             Console.WriteLine("----以下是C#1的排序结果----");
             list.Sort(new ClassSortCSharpVer1());
             foreach(ClassCSharpVersion1 listsort in list)
@@ -45,13 +48,22 @@ namespace LearnDepthChapterOne
             }
             Console.WriteLine("----C#2的排序结束----");
 
+            // 这个也是一个C#2特性的写法，使用委托（匿名方法）将CompareTo这样的方法直接返回
             list2.Sort(
                 delegate (ClassCSharpVersion2 x, ClassCSharpVersion2 y)
                 {
                     return x.Name.CompareTo(y.Name);
                 }
             );
-                 
+
+            // 以下这两个是利用了Lambda表达式中使用compare
+            list3.Sort((x, y) => x.Name.CompareTo(y.Name));
+
+            foreach (ClassCSharpVersion3 listsort in list3.OrderBy(p => p.Name))
+            {
+                Console.WriteLine(listsort);
+            }
+
             string A = list[2].ToString();
             string B = list2[1].ToString();
 

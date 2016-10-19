@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace LearnDepthChapterOne
 {
+    // C#1风格的排序编程方式
     class ClassSortCSharpVer1 : IComparer
     {
         public int Compare(object x ,object y)
@@ -16,6 +17,7 @@ namespace LearnDepthChapterOne
             return instance1.Name.CompareTo(instance2.Name);
         }
     }
+    // C#2风格的排序编程方式，利用了泛型
     class ClassSort : IComparer<ClassCSharpVersion4>
     {
         public int Compare(ClassCSharpVersion4 x,ClassCSharpVersion4 y)
@@ -24,7 +26,7 @@ namespace LearnDepthChapterOne
         }
     }
 
-    // C#1版本的编程风格
+    // C#1风格的编程方式，并没有指定list中可以放什么类型的数据
     class ClassCSharpVersion1
     {
         string name;
@@ -71,6 +73,7 @@ namespace LearnDepthChapterOne
 
     }
 
+    // C#2风格的编程方式，使用了泛型作为list的类型
     class ClassCSharpVersion2
     {
         string name;
@@ -107,13 +110,10 @@ namespace LearnDepthChapterOne
             return string.Format("{0};{1}", name, price);
         }
 
-        public static void print()
-        {
-            Console.WriteLine("123");
-        }
-
     }
 
+    // C#3风格的编程方式，简化了的属性声明，以及list中的Lambda表达式
+    // 好处是可以简化代码;
     class ClassCSharpVersion3
     {
         public string Name
@@ -132,7 +132,6 @@ namespace LearnDepthChapterOne
         {
         }
 
-        // 该程序使用了泛型，在List中，只能使用ClassCSharpVersoin2类型进行填充
         public static List<ClassCSharpVersion3> GetSample()
         {
             return new List<ClassCSharpVersion3>
@@ -147,13 +146,9 @@ namespace LearnDepthChapterOne
             return string.Format("{0};{1}", Name, Price);
         }
 
-        public static void print()
-        {
-            Console.WriteLine("123");
-        }
-
     }
 
+    // C#4风格的编程方式，其允许我们在调用构造函数的时候，指定实参的名称
     class ClassCSharpVersion4
     {
         // 对于C#4来说，在涉及属性和构造函数的时候，允许我们在调用构造函数的时候，指定实参的名称
