@@ -196,4 +196,48 @@ namespace LearnDepthChapterOne
 
     }
 
+    // C#2到4中是如何处理Null参数以及函数中的可选参数和默认值的;
+    class ClassCSharpVersion4DisposeNull
+    {
+        // 对于C#4来说，在涉及属性和构造函数的时候，允许我们在调用构造函数的时候，指定实参的名称
+        // 它为我们提供了在C#3中一样清晰的初始化，而又移除了易变性
+        readonly string name;
+        public string Name
+        {
+            get { return name; }
+        }
+
+        readonly decimal?price;
+        public decimal?Price
+        {
+            get { return price; }
+        }
+
+        public ClassCSharpVersion4DisposeNull(string name, decimal?price = 9999m)
+        {
+            this.name = name;
+            this.price = price;
+        }
+
+        public static List<ClassCSharpVersion4DisposeNull> GetSample()
+        {
+            return new List<ClassCSharpVersion4DisposeNull>
+            {
+                new ClassCSharpVersion4DisposeNull("Unreleased P1"),
+                new ClassCSharpVersion4DisposeNull(name:"P6",price:10m),
+                new ClassCSharpVersion4DisposeNull(name:"P4",price:null),
+                new ClassCSharpVersion4DisposeNull(name:"P5",price:50m),
+                new ClassCSharpVersion4DisposeNull(name:"P3",price:40m),
+                new ClassCSharpVersion4DisposeNull(name:"P2",price:null)
+            };
+        }
+
+        public override string ToString()
+        {
+            return string.Format(" C#ClassCSharpVersion4Linq--产品名称：{0};产品价格：{1}", Name, Price);
+        }
+
+
+    }
+
 }
