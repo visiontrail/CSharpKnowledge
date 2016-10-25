@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace LearnDepthChapterOne
 {
+    delegate void StringProcessor(string str);
+
     class Program
     {
         static void Main(string[] args)
@@ -75,6 +77,7 @@ namespace LearnDepthChapterOne
                 }
             }
 
+            // 以下是C#2特性的查询代码，主要带来的特性就是条件和操作分开
             // 实现了一个委托，这个委托入参为ClassCSharpVersion2,并且返回值为Predicate<ClassCSharpVersion2>
             Predicate<ClassCSharpVersion2> test = delegate (ClassCSharpVersion2 p) { return p.Price > 100; };
             // FindAll的签名为：FindAll(Predicate<T>),所以在上边要实现一个委托;
@@ -83,6 +86,7 @@ namespace LearnDepthChapterOne
             // print变量也是一个委托;
             Action<ClassCSharpVersion2> print = Console.WriteLine;
             match.ForEach(print);
+
 
             // ClassCSharpVersion重载ToString尝试下打印
             string A = list[2].ToString();
