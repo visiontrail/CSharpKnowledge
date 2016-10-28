@@ -29,6 +29,7 @@ namespace LearnDepthChapterOne
             List<ClassCSharpVersion2> list2 = ClassCSharpVersion2.GetSample();
             List<ClassCSharpVersion3> list3 = ClassCSharpVersion3.GetSample();
             List<ClassCSharpVersion4> list4 = ClassCSharpVersion4.GetSample();
+            List<ClassCSharpVersion4DisposeNull> listlinq = ClassCSharpVersion4DisposeNull.GetSample();
 
             // C#1调用实现ICompare接口的排序类
             Console.WriteLine("----以下是C#1的排序结果----");
@@ -90,7 +91,7 @@ namespace LearnDepthChapterOne
 
             // ClassCSharpVersion重载ToString尝试下打印
             string A = list[2].ToString();
-            string B = list2[1].ToString();
+            string B = listlinq[0].ToString();
 
             Console.WriteLine(A);
             Console.WriteLine(B);
