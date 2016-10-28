@@ -4,3 +4,9 @@ F:\Workspaces\C#learn\C-Learn\LearnDepthChapterTwo\bin\Debug\LearnDepthChapterTw
 F:\Workspaces\C#learn\C-Learn\LearnDepthChapterTwo\obj\Debug\LearnDepthChapterTwo.exe
 F:\Workspaces\C#learn\C-Learn\LearnDepthChapterTwo\obj\Debug\LearnDepthChapterTwo.pdb
 F:\Workspaces\C#learn\C-Learn\LearnDepthChapterTwo\obj\Debug\LearnDepthChapterTwo.csprojResolveAssemblyReference.cache
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterTwo\bin\Debug\LearnDepthChapterTwo.exe.config
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterTwo\obj\Debug\LearnDepthChapterTwo.exe
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterTwo\obj\Debug\LearnDepthChapterTwo.pdb
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterTwo\bin\Debug\LearnDepthChapterTwo.exe
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterTwo\bin\Debug\LearnDepthChapterTwo.pdb
+E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\LearnDepthChapterTwo\obj\Debug\LearnDepthChapterTwo.csprojResolveAssemblyReference.cache
