@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace LearnDepthChapterTwo
 {
     // 声明了一个委托;
+    // 这个委托表示一个string类型的入参，并且返回值为void的函数委托;
     delegate void StringProcessor(string str);
     delegate void StringProcessor2(string str);
 
@@ -15,7 +16,7 @@ namespace LearnDepthChapterTwo
         static void Main(string[] args)
         {
             // 创建委托类型的实例;
-            // 将委托实例就相当于创建了一个属性，这个属性可以为起“赋值”，即订阅对应的方法，且可以订阅多个方法
+            // 将委托实例就相当于创建了一个属性，这个属性可以为起“赋值”，即订阅对应的方法，且可以订阅多个方法;
             StringProcessor printstring;
             StringProcessor2 printstring2;
             // 创建委托实例，使用静态方法;
@@ -32,6 +33,12 @@ namespace LearnDepthChapterTwo
             printstringinstance = new StringProcessor(C2.PrintStringInstance);
             printstringinstance += C2.PrintStringInstance2;
             printstringinstance("Delegate~printstringinstance");
+
+            // 静态类型和动态类型;
+            object o = "length";
+            // 此处编译不会通过，以为String类型才有Length属性
+            //int OLength = o.Length;
+            Console.WriteLine(((string)o).Length);
 
             Console.ReadLine();
 
