@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace LearnDepthChapterTwo
 {
@@ -15,6 +17,7 @@ namespace LearnDepthChapterTwo
     {
         static void Main(string[] args)
         {
+            // ================== 以下是委托的简单用法 =========================
             // 创建委托类型的实例;
             // 将委托实例就相当于创建了一个属性，这个属性可以为起“赋值”，即订阅对应的方法，且可以订阅多个方法;
             StringProcessor printstring;
@@ -33,6 +36,44 @@ namespace LearnDepthChapterTwo
             printstringinstance = new StringProcessor(C2.PrintStringInstance);
             printstringinstance += C2.PrintStringInstance2;
             printstringinstance("Delegate~printstringinstance");
+            // ================== 委托的简单用法 End =========================
+
+            // ================== C#2使用匿名方法进行委托操作 ================
+
+            // 指定委托类型和方法;
+            EventHandler eventhandler;
+            eventhandler = new EventHandler(ChapterTwoClass.HandleDemoEvent);
+            eventhandler("Hello", EventArgs.Empty);
+
+            // 隐式转换成委托实例;
+            EventHandler handler2;
+            handler2 = ChapterTwoClass.HandleDemoEvent;
+            handler2("hello2", EventArgs.Empty);
+
+            // 用一个匿名方法来指定操作;
+            EventHandler handler3;
+            handler3 = delegate (object obj, EventArgs e)
+            {
+                Console.WriteLine("handled anonymously:" +obj.ToString());
+            };
+            handler3("handler3", EventArgs.Empty);
+
+            // 用匿名方法指定操作的简写形式;
+            EventHandler handler4;
+            handler4 = delegate
+            {
+                Console.WriteLine("handled anonymously sample");
+            };
+            handler4("handler4",EventArgs.Empty);
+
+            
+
+
+
+            // ================== C#2使用匿名方法进行委托操作 End ============
+
+
+            // ================= C#基础的一些尝试; ===========================
 
             // 静态类型和动态类型;
             object o = "length";
