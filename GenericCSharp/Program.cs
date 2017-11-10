@@ -51,12 +51,12 @@ namespace GenericCSharp
         {
             return 0;
         }
+
+
         static void Main(string[] args)
         {
-            // ++++泛型尝试+++++++++++++++++++++++++++++
+            // ++++泛型尝试;+++++++++++++++++++++++++++++
             List<ITemp> TempList = new List<ITemp>();
-            ArrayList TempArrayList = new ArrayList();
-            Itemp2<string> itemp2 = null;
             Random ram = new Random();
 
             for (int i = 0; i < 10; ++i)
@@ -74,7 +74,7 @@ namespace GenericCSharp
             {
                 Console.WriteLine(i.TempereatureC);
             }
-            // ++++泛型尝试+++++++++++++++++++++++++++++
+            // ++++泛型尝试;+++++++++++++++++++++++++++++
 
             // ++++CompareToDefault+++++++++++++++++++++
             Console.WriteLine("String Compare To Default:"+CompareToDefault<string>("a"));
@@ -87,6 +87,7 @@ namespace GenericCSharp
 
             DerivedClass dc = new DerivedClass("string1", "string2");
             dc.PrintName();
+
 
             IAsnycDelayTime ass = DelayTimeAsync;
             // 参数1、参数2：委托调用的参数

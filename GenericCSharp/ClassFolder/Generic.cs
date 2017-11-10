@@ -13,7 +13,6 @@ namespace GenericCSharp
 
         public int CompareTo(object obj)
         {
-
             return 0;
         }
     }
@@ -43,6 +42,7 @@ namespace GenericCSharp
             Console.WriteLine(_className);
         }
     }
+
     class DerivedClass : BaseClass
     {
         public string _className = "DerivedClass";
@@ -57,7 +57,7 @@ namespace GenericCSharp
         public override void PrintName()
         {
             Console.Write("The BaseClass Name is:");
-            //调用基类方法
+            //调用基类方法;
             base.PrintName();
             Console.WriteLine("This DerivedClass is:" +_className+ "s1 and s2 is {0},{1}", s,s2);
         }

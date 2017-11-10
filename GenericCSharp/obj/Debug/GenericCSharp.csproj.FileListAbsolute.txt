@@ -1,6 +1,0 @@
-E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\GenericCSharp\bin\Debug\GenericCSharp.exe.config
-E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\GenericCSharp\bin\Debug\GenericCSharp.exe
-E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\GenericCSharp\bin\Debug\GenericCSharp.pdb
-E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\GenericCSharp\obj\Debug\GenericCSharp.exe
-E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\GenericCSharp\obj\Debug\GenericCSharp.pdb
-E:\WorkSpace\Personal\C#Learn\LearnDepthChapterOne\GenericCSharp\obj\Debug\GenericCSharp.csprojResolveAssemblyReference.cache

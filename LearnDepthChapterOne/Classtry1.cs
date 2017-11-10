@@ -17,6 +17,7 @@ namespace LearnDepthChapterOne
             return instance1.Name.CompareTo(instance2.Name);
         }
     }
+
     // C#2风格的排序编程方式，利用了泛型
     class ClassSort : IComparer<ClassCSharpVersion4>
     {
