@@ -33,12 +33,15 @@ namespace LearnDepthChapterOne
 
             // C#1调用实现ICompare接口的排序类
             Console.WriteLine("----以下是C#1的排序结果----");
+            //list.Sort(new ClassSortCSharpVer1());
             list.Sort(new ClassSortCSharpVer1());
-            foreach(ClassCSharpVersion1 listsort in list)
+            foreach (ClassCSharpVersion1 listsort in list)
             {
                 Console.WriteLine(listsort.ToString());
             }
             Console.WriteLine("----C#1的排序结束----");
+
+
 
             Console.WriteLine("----以下是C#2的排序结果----");
             list4.Sort(new ClassSort());
@@ -49,6 +52,20 @@ namespace LearnDepthChapterOne
 
             }
             Console.WriteLine("----C#2的排序结束----");
+
+            // 排序之后是查找，C#1.0使用迭代的方法就不写了;
+            // C#2.0使用委托的方法进行查找;
+            Predicate<ClassCSharpVersion4> FindFunc = delegate(ClassCSharpVersion4 obj) { return obj.Name == "P5";  };
+            List<ClassCSharpVersion4> FindRet = list4.FindAll(FindFunc);
+
+            Predicate<ClassCSharpVersion4> FindFunc2 = p => p.Name == "P5";
+            List<ClassCSharpVersion4> FindRet2 = list4.FindAll(FindFunc2);
+
+            // C#3.0使用lambda表达式的方法进行查找;
+            foreach(ClassCSharpVersion4 listobj in list4.Where( p => p.Name == "P5" ))
+            {
+
+            }
 
             // 这个也是一个C#2特性的写法，使用委托（匿名方法）将CompareTo这样的方法直接返回
             list2.Sort(

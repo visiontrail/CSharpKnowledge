@@ -28,7 +28,7 @@ namespace LearnDepthChapterOne
     }
 
     // C#1风格的编程方式，并没有指定list中可以放什么类型的数据
-    class ClassCSharpVersion1
+    class ClassCSharpVersion1 : IComparer
     {
         string name;
         public string Name
@@ -70,6 +70,13 @@ namespace LearnDepthChapterOne
         public static void print()
         {
             Console.WriteLine("123");
+        }
+
+        public int Compare(object x, object y)
+        {
+            ClassCSharpVersion1 instance1 = (ClassCSharpVersion1)x;
+            ClassCSharpVersion1 instance2 = (ClassCSharpVersion1)y;
+            return instance1.Name.CompareTo(instance2.Name);
         }
 
     }
