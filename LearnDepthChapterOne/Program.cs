@@ -58,13 +58,14 @@ namespace LearnDepthChapterOne
             Predicate<ClassCSharpVersion4> FindFunc = delegate(ClassCSharpVersion4 obj) { return obj.Name == "P5";  };
             List<ClassCSharpVersion4> FindRet = list4.FindAll(FindFunc);
 
+            // C#3.0使用lambda表达式，以下两句说明了lambda表达式实际上就是一个委托;
             Predicate<ClassCSharpVersion4> FindFunc2 = p => p.Name == "P5";
             List<ClassCSharpVersion4> FindRet2 = list4.FindAll(FindFunc2);
 
             // C#3.0使用lambda表达式的方法进行查找;
             foreach(ClassCSharpVersion4 listobj in list4.Where( p => p.Name == "P5" ))
             {
-
+                Console.WriteLine(listobj.Name);
             }
 
             // 这个也是一个C#2特性的写法，使用委托（匿名方法）将CompareTo这样的方法直接返回

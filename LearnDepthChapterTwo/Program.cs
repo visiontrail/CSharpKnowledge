@@ -65,20 +65,8 @@ namespace LearnDepthChapterTwo
             };
             handler4("handler4",EventArgs.Empty);
 
-            
-
-
-
             // ================== C#2使用匿名方法进行委托操作 End ============
 
-
-            // ================= C#基础的一些尝试; ===========================
-
-            // 静态类型和动态类型;
-            object o = "length";
-            // 此处编译不会通过，以为String类型才有Length属性
-            //int OLength = o.Length;
-            Console.WriteLine(((string)o).Length);
 
             Console.ReadLine();
 
