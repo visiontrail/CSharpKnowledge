@@ -54,9 +54,13 @@ namespace LearnDepthChapterOne
             Console.WriteLine("----C#2的排序结束----");
 
             // 排序之后是查找，C#1.0使用迭代的方法就不写了;
-            // C#2.0使用委托的方法进行查找;
-            Predicate<ClassCSharpVersion4> FindFunc = delegate(ClassCSharpVersion4 obj) { return obj.Name == "P5";  };
-            List<ClassCSharpVersion4> FindRet = list4.FindAll(FindFunc);
+            // C#2.0使用委托的方法进行查找，其一：直接使用委托;
+            Predicate<ClassCSharpVersion4> FindFuncDele = FindName;
+            List<ClassCSharpVersion4> FindRetDele = list4.FindAll(FindFuncDele);
+
+            // C#2.0使用委托的方法进行查找，其二：使用匿名委托;
+            Predicate<ClassCSharpVersion4> FindFuncNoNameDele = delegate(ClassCSharpVersion4 obj) { return obj.Name == "P5";  };
+            List<ClassCSharpVersion4> FindRet = list4.FindAll(FindFuncNoNameDele);
 
             // C#3.0使用lambda表达式，以下两句说明了lambda表达式实际上就是一个委托;
             Predicate<ClassCSharpVersion4> FindFunc2 = p => p.Name == "P5";
@@ -116,6 +120,12 @@ namespace LearnDepthChapterOne
 
             Console.Read();
             return;
+        }
+
+
+        static bool FindName(ClassCSharpVersion4 obj)
+        {
+            return obj.Name == "P5";
         }
     }
 
