@@ -40,9 +40,7 @@ namespace LearnDepthChapterOne
                 Console.WriteLine(listsort.ToString());
             }
             Console.WriteLine("----C#1的排序结束----");
-
-
-
+            
             Console.WriteLine("----以下是C#2的排序结果----");
             list4.Sort(new ClassSort());
             foreach(ClassCSharpVersion4 listsort in list4)
@@ -52,25 +50,6 @@ namespace LearnDepthChapterOne
 
             }
             Console.WriteLine("----C#2的排序结束----");
-
-            // 排序之后是查找，C#1.0使用迭代的方法就不写了;
-            // C#2.0使用委托的方法进行查找，其一：直接使用委托;
-            Predicate<ClassCSharpVersion4> FindFuncDele = FindName;
-            List<ClassCSharpVersion4> FindRetDele = list4.FindAll(FindFuncDele);
-
-            // C#2.0使用委托的方法进行查找，其二：使用匿名委托;
-            Predicate<ClassCSharpVersion4> FindFuncNoNameDele = delegate(ClassCSharpVersion4 obj) { return obj.Name == "P5";  };
-            List<ClassCSharpVersion4> FindRet = list4.FindAll(FindFuncNoNameDele);
-
-            // C#3.0使用lambda表达式，以下两句说明了lambda表达式实际上就是一个委托;
-            Predicate<ClassCSharpVersion4> FindFunc2 = p => p.Name == "P5";
-            List<ClassCSharpVersion4> FindRet2 = list4.FindAll(FindFunc2);
-
-            // C#3.0使用lambda表达式的方法进行查找;
-            foreach(ClassCSharpVersion4 listobj in list4.Where( p => p.Name == "P5" ))
-            {
-                Console.WriteLine(listobj.Name);
-            }
 
             // 这个也是一个C#2特性的写法，使用委托（匿名方法）将CompareTo这样的方法直接返回
             list2.Sort(
@@ -90,9 +69,28 @@ namespace LearnDepthChapterOne
                 Console.WriteLine(listsort);
             }
 
+            // 排序之后是查找，C#1.0使用迭代的方法就不写了;
+            // C#2.0使用委托的方法进行查找，其一：直接使用委托;
+            Predicate<ClassCSharpVersion4> FindFuncDele = FindName;
+            List<ClassCSharpVersion4> FindRetDele = list4.FindAll(FindFuncDele);
+
+            // C#2.0使用委托的方法进行查找，其二：使用匿名委托;
+            Predicate<ClassCSharpVersion4> FindFuncNoNameDele = delegate (ClassCSharpVersion4 obj) { return obj.Name == "P5"; };
+            List<ClassCSharpVersion4> FindRet = list4.FindAll(FindFuncNoNameDele);
+
+            // C#3.0使用lambda表达式，以下两句说明了lambda表达式实际上就是一个委托;
+            Predicate<ClassCSharpVersion4> FindFunc2 = p => p.Name == "P5";
+            List<ClassCSharpVersion4> FindRet2 = list4.FindAll(FindFunc2);
+
+            // C#3.0使用lambda表达式的方法进行查找;
+            foreach (ClassCSharpVersion4 listobj in list4.Where(p => p.Name == "P5"))
+            {
+                Console.WriteLine(listobj.Name);
+            }
+            
             // 以下是查询代码;
             // 通过循环遍历，查询出来价格大于10的产品
-            foreach(ClassCSharpVersion1 listselect in list)
+            foreach (ClassCSharpVersion1 listselect in list)
             {
                 if(listselect.Price >= 300)
                 {
@@ -109,8 +107,7 @@ namespace LearnDepthChapterOne
             // print变量也是一个委托;
             Action<ClassCSharpVersion2> print = Console.WriteLine;
             match.ForEach(print);
-
-
+            
             // ClassCSharpVersion重载ToString尝试下打印
             string A = list[2].ToString();
             string B = listlinq[0].ToString();
