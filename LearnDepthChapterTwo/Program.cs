@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace LearnDepthChapterTwo
+namespace Delegate
 {
     // 声明了一个委托;
     // 这个委托表示一个string类型的入参，并且返回值为void的函数委托;

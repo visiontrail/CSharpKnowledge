@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GenericCSharp
+namespace TryAnyCSharp
 {
     class Program
     {
@@ -110,6 +110,20 @@ namespace GenericCSharp
 
             string abc = null;
             abc = delstr.EndInvoke(irs);
+
+            foreach(var iter1 in Enumerable.Range(10, 20))
+            {
+                Console.WriteLine("Enumerable Range" + iter1);
+            }
+
+            Console.WriteLine("---------------------------");
+
+            // Enumerable的使用;
+            IEnumerable<int> ret = Enumerable.Range(10, 20).Where(delegate (int x) { return x < 20; });
+            foreach (var iter1 in ret)
+            {
+                Console.WriteLine("Enumerable Range" + iter1);
+            }
 
             Console.ReadLine();
             

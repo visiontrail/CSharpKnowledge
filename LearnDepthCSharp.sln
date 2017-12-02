@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnDepthChapterOne", "LearnDepthChapterOne\LearnDepthChapterOne.csproj", "{EEF5E5C6-EDBB-4CC7-B640-6E0E3D21DC8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS_DepthChapterOne", "LearnDepthChapterOne\CS_DepthChapterOne.csproj", "{EEF5E5C6-EDBB-4CC7-B640-6E0E3D21DC8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnDepthChapterTwo", "LearnDepthChapterTwo\LearnDepthChapterTwo.csproj", "{0791059D-F6A7-4427-83FC-966A96E3589A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delegate", "LearnDepthChapterTwo\Delegate.csproj", "{0791059D-F6A7-4427-83FC-966A96E3589A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericCSharp", "GenericCSharp\GenericCSharp.csproj", "{DBC37949-5C87-42E9-BE43-CADC8F3BFE7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryAnyCSharp", "GenericCSharp\TryAnyCSharp.csproj", "{DBC37949-5C87-42E9-BE43-CADC8F3BFE7C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thread", "Thread\Thread.csproj", "{C29F676A-7AFC-408D-9727-B10B86BE6BC4}"
 EndProject
