@@ -118,15 +118,30 @@ namespace TryAnyCSharp
 
             Console.WriteLine("---------------------------");
 
-            // Enumerable的使用;
+            // 类Enumerable的使用;
+            // 这个delegate是一个x作为入参，返回一个bool类型的匿名函数;
             IEnumerable<int> ret = Enumerable.Range(10, 20).Where(delegate (int x) { return x < 20; });
+            ret = Enumerable.Range(10, 20).Where(underTwenty);
             foreach (var iter1 in ret)
             {
-                Console.WriteLine("Enumerable Range" + iter1);
+                Console.WriteLine("Enumerable Range delegate" + iter1);
             }
 
-            Console.ReadLine();
+            var ret2 = Enumerable.Range(10, 40).Where(x => x % 2 != 0);
+            foreach(var iter in ret2)
+            {
+                Console.WriteLine("Enumerable Range Lambda" +iter);
+            }
+
+            bool a = Comparer.Equals(ret, ret2);
+
+            Console.ReadKey();
             
+        }
+
+        static bool underTwenty(int x)
+        {
+            return x < 20;
         }
     }
 }

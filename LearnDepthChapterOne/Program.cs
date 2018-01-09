@@ -58,7 +58,7 @@ namespace LearnDepthChapterOne
                     return x.Name.CompareTo(y.Name);
                 }
             );
-
+            
             // 以下这两个是利用了Lambda表达式中使用compare
             list3.Sort((x, y) => x.Name.CompareTo(y.Name));
             // 此处不打印了;
