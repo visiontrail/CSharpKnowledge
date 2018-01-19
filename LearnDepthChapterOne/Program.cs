@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Dynamic;
 
 namespace LearnDepthChapterOne
 {
@@ -17,6 +18,13 @@ namespace LearnDepthChapterOne
             decimal da1 = 34287786090351m;
             int i = 10;
             decimal abc = da1 + i;
+
+            dynamic Customer = new ExpandoObject();
+            Customer.Name = "Guoliang";
+            Customer.Age = 29;
+            Customer.Female = false;
+            Customer.Company = "DTMobile";
+            Console.ReadKey();
 
             ClassCSharpVersion1 P1 = new ClassCSharpVersion1("P3",100);
 
