@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ThreadLearn1;
 
 namespace ThreadLearn
 {
@@ -58,6 +59,8 @@ namespace ThreadLearn
             Mt2.Start();
 
             Console.ReadLine();
+
+            CLRThreadBasic_Delegate cb = new CLRThreadBasic_Delegate();
 
         }
     }

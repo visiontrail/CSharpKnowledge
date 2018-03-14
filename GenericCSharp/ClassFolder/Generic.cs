@@ -62,4 +62,18 @@ namespace TryAnyCSharp
             Console.WriteLine("This DerivedClass is:" +_className+ "s1 and s2 is {0},{1}", s,s2);
         }
     }
+
+    public sealed class OperationTimer : IDisposable
+    {
+        private int m_collectionCount;
+        public OperationTimer(string txt)
+        {
+            m_collectionCount = GC.CollectionCount(0);
+            
+        }
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
