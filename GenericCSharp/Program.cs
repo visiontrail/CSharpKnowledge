@@ -122,6 +122,7 @@ namespace TryAnyCSharp
             // 类Enumerable的使用;
             // 这个delegate是一个x作为入参，返回一个bool类型的匿名函数;
             IEnumerable<int> ret = Enumerable.Range(10, 20).Where(delegate (int x) { return x < 20; });
+
             ret = Enumerable.Range(10, 20).Where(underTwenty);
             foreach (var iter1 in ret)
             {
