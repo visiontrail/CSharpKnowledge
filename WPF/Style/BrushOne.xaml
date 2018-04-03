@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WPF.Style">
+
+    <LinearGradientBrush EndPoint="1,0" x:Key="BlueToBrown">
+        <GradientStop Color="Blue" Offset="0" />
+        <GradientStop Color="Orange" Offset=".7" />
+        <GradientStop Color="Brown" Offset="1" />
+    </LinearGradientBrush>
+
+</ResourceDictionary>

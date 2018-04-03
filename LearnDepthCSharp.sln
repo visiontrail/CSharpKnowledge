@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS_DepthChapterOne", "LearnDepthChapterOne\CS_DepthChapterOne.csproj", "{EEF5E5C6-EDBB-4CC7-B640-6E0E3D21DC8C}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delegate", "LearnDepthChapt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryAnyCSharp", "GenericCSharp\TryAnyCSharp.csproj", "{DBC37949-5C87-42E9-BE43-CADC8F3BFE7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadLearn", "Thread\ThreadLearn.csproj", "{C29F676A-7AFC-408D-9727-B10B86BE6BC4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thread", "Thread\Thread.csproj", "{C29F676A-7AFC-408D-9727-B10B86BE6BC4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrySomeInterface", "TrySomeInterface\TrySomeInterface.csproj", "{FB2612C9-CCE1-4D79-AB90-809A96666D1F}"
 EndProject
@@ -114,5 +114,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8462AB2-2876-4860-80C2-F655939F872E}
 	EndGlobalSection
 EndGlobal

@@ -6,10 +6,26 @@
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+
+    <Window.Resources>
+        
+    </Window.Resources>
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0">
+            <Button Style="{StaticResource BlueButton}">蓝色按钮</Button>
+            <Button Style="{StaticResource ButtonTriger}">蓝色按钮和触发事件</Button>
+        </StackPanel>
 
-        <Canvas x:Name="canvas1" Height="400" Width="400">
-        </Canvas>
+        <Canvas x:Name="canvas1" Grid.Row="1"></Canvas>
 
+        <ToggleButton Grid.Row="2">111</ToggleButton>
+        
     </Grid>
 </Window>

@@ -11,7 +11,7 @@ namespace TrySomeInterface
     {
         public IEnumerator GetEnumerator()
         {
-            
+            throw new NotImplementedException();
         }
     }
 }
