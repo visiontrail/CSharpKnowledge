@@ -7,6 +7,11 @@
         
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+
+    <Window.DataContext>
+        <local:ShowString x:Name="PageMain"></local:ShowString>
+    </Window.DataContext>
+    
     <Grid>
         <StackPanel>
             <TextBox x:Name="text" Text="{Binding m_Name}" Height="50"></TextBox>

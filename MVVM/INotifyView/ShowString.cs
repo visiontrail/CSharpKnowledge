@@ -34,6 +34,9 @@ namespace INotifyView
             }
         }
 
+        /// <summary>
+        /// 构造函数，初始化属性;
+        /// </summary>
         public ShowString()
         {
             this.m_Name = "1111";

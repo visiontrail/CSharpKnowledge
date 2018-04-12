@@ -20,16 +20,28 @@ namespace INotifyView
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ShowString PageMain = new ShowString();
+        //public ShowString PageMain = new ShowString();
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = PageMain;
+            //DataContext = PageMain;       // 通过这行语句绑定前端与后台的关系;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            this.text.Text = "Modify the Text";
             PageMain.m_Name = "222";
+        }
+    }
+
+    public class Person
+    {
+        public string m_Name;
+        public DateTime m_Birthday;
+
+        public Person()
+        {
+
         }
     }
 }
