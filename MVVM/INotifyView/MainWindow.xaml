@@ -7,14 +7,14 @@
         
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-
-    <Window.DataContext>
-        <local:ShowString x:Name="PageMain"></local:ShowString>
-    </Window.DataContext>
     
     <Grid>
+        <!-- 一个最简单的MVVM架构（没有M，只有V和VM） -->
         <StackPanel>
+            <!-- 在UI端直接Binding，需要在初始化的时候，将DataContext赋值给对应的类型 -->
             <TextBox x:Name="text" Text="{Binding m_Name}" Height="50"></TextBox>
+            <!-- 这种没有使用Binding的，可以在后台通过setBinding的函数进行绑定 -->
+            <TextBox x:Name="Birthday" Height="50"></TextBox>
             <Button Click="Button_Click" Height="50">Button</Button>
         </StackPanel>
     </Grid>

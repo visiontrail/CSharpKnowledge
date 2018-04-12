@@ -65,6 +65,7 @@
                                 <Label>控件绑定前端元素：</Label>
                                 <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=OneWay}"></TextBox>
                                 <Slider x:Name="slider1" Maximum="20"></Slider>
+                                
                             </StackPanel>
 
                         </Grid>
@@ -81,8 +82,22 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="H2">
-                
+            <TabItem Header="前后台数据通信">
+
+                <DockPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel>
+                            <TextBox x:Name="Name"></TextBox>
+                            <TextBox x:Name="Birthday"></TextBox>
+                        </StackPanel>
+
+                    </Grid>
+                </DockPanel>
                 
             </TabItem>
 
