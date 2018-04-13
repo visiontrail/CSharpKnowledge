@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1000">
+        Title="MainWindow" Height="800" Width="1000" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
 
@@ -17,7 +18,9 @@
                 <TextBox x:Name="textBox3" Margin="6"/>
             </StackPanel>
         </ControlTemplate>
-        
+
+        <sys:String x:Key="BindingStatic">关联静态资源以及圆角Style</sys:String>
+
     </Window.Resources>
 
 
@@ -36,35 +39,48 @@
                     <DockPanel Grid.Column="0" Margin="10,0,10,0">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="50"></RowDefinition>
-                                <RowDefinition Height="50"></RowDefinition>
-                                <RowDefinition Height="50"></RowDefinition>
                                 <RowDefinition Height="100"></RowDefinition>
-                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition Height="150"></RowDefinition>
+                                <RowDefinition Height="120"></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
                                 <RowDefinition Height="100"></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <!-- 使用所谓的CSS和Javascript -->
-                            <StackPanel Grid.Row="0">
-                                <Button Style="{StaticResource BlueButton}">蓝色按钮</Button>
-                                <Button Style="{StaticResource ButtonTrigger}">蓝色按钮和触发事件</Button>
-                            </StackPanel>
+                            <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1">
+                                <StackPanel  Margin="3,3,3,3">
+                                    <Label>Style的用法:</Label>
+                                    <Button Style="{StaticResource BlueButton}" Margin="0,5">蓝色按钮</Button>
+                                    <Button Style="{StaticResource ButtonTrigger}">蓝色按钮和触发事件</Button>
+                                </StackPanel>
+                            </Border>
 
-                            <Canvas x:Name="canvas1" Grid.Row="1"></Canvas>
+                            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Margin="0,5">
+                                <StackPanel  Margin="3,3,3,3">
+                                    <Label>用WPF画图</Label>
+                                    <Canvas x:Name="canvas1"></Canvas>
+                                </StackPanel>
+                            </Border>
 
-                            <ToggleButton Grid.Row="2">111</ToggleButton>
+                            <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" Margin="0,5">
+                                <StackPanel>
+                                    <Label>在前端直接用ControlTemplate组合用户控件</Label>
+                                    <UserControl x:Name="uc" Template="{StaticResource cTmp}" Grid.Row="2"/>
+                                </StackPanel>
+                            </Border>
 
-                            <UserControl x:Name="uc" Template="{StaticResource cTmp}" Grid.Row="3"/>
 
-                            <TextBox x:Name="tb"  Style="{StaticResource tbstyle}" Grid.Row="4"/>
+                            <TextBox x:Name="tb" Text="{Binding Path=., Source={StaticResource ResourceKey=BindingStatic}}"  Style="{StaticResource tbstyle}" Grid.Row="3"/>
 
-                            <StackPanel Grid.Row="5">
-                                
-                                <Label>控件绑定前端元素：</Label>
-                                <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=OneWay}"></TextBox>
-                                <Slider x:Name="slider1" Maximum="20"></Slider>
-                                
-                            </StackPanel>
+                            <Border  Grid.Row="4" BorderBrush="Black" BorderThickness="1" Margin="0,5">
+                                <StackPanel>
+                                    <Label>控件绑定前端元素：</Label>
+                                    <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=OneWay}"></TextBox>
+                                    <Slider x:Name="slider1" Maximum="20"></Slider>
+                                </StackPanel>
+                            </Border>
+
 
                         </Grid>
 
@@ -73,34 +89,60 @@
                     <DockPanel Grid.Column="1">
 
 
-                        
+
                     </DockPanel>
-                    
 
                 </Grid>
             </TabItem>
 
             <TabItem Header="前后台数据通信">
 
-                <DockPanel>
-                    
-                    <Grid>
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="120"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel>
-                            <TextBox x:Name="PersonID"></TextBox>
-                            <ListBox x:Name="PersonList"></ListBox>
-                        </StackPanel>
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
 
+                            <StackPanel Margin="3,3,3,3">
+                                <Label>绑定ItemControl类型的控件</Label>
+                                <TextBox x:Name="PersonID"></TextBox>
+                                <ListBox x:Name="PersonList" Margin="0,5"></ListBox>
+                            </StackPanel>
+
+                        </Border>
+
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5" >
+
+                            <StackPanel>
+                                <StackPanel.DataContext>
+                                    <local:Student x:Name="stus"></local:Student>
+                                </StackPanel.DataContext>
+
+                                <ListBox x:Name="StuList" ItemsSource="{Binding m_StuList}" DisplayMemberPath="m_Name"></ListBox>
+                            </StackPanel>
+                            
+                        </Border>
                     </Grid>
-                </DockPanel>
-                
+
+
+                </Grid>
+
+
+
             </TabItem>
 
-            
+
         </TabControl>
 
 

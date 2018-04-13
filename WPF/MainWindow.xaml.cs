@@ -29,6 +29,7 @@ namespace WPF
             //DrawPoin();
             DrawPolyLine();
             InitPersons();
+            InitStus();
             
             // 这个是ItemControl类的控件使用binding关联数据源的方法;
             this.PersonList.ItemsSource = persons;
@@ -36,6 +37,12 @@ namespace WPF
 
             this.PersonID.SetBinding(TextBox.TextProperty, new Binding("SelectedIndex") { Source = this.PersonList });
 
+        }
+
+        private void InitStus()
+        {
+            //this.stus = new Student();
+            this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
         }
 
         private void InitPersons()
