@@ -42,7 +42,7 @@
                                     Margin="0,0,4,-1"
                                     IsItemsHost="True"
                                     KeyboardNavigation.TabIndex="1"
-                                    Background="DarkGoldenrod"/>
+                                    Background="White"/>
                         
                         <Border x:Name="Border"
                                     Grid.Row="1"

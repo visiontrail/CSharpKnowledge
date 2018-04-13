@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,11 +21,27 @@ namespace WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<Person> persons = new List<Person>();
+
         public MainWindow()
         {
             InitializeComponent();
             //DrawPoin();
             DrawPolyLine();
+            InitPersons();
+            
+            // 这个是ItemControl类的控件使用binding关联数据源的方法;
+            this.PersonList.ItemsSource = persons;
+            this.PersonList.DisplayMemberPath = "m_Name";
+
+            this.PersonID.SetBinding(TextBox.TextProperty, new Binding("SelectedIndex") { Source = this.PersonList });
+
+        }
+
+        private void InitPersons()
+        {
+            persons.Add(new Person(1, "Guoliang"));
+            persons.Add(new Person(2, "Roupao"));
         }
 
         public void DrawPoin()
