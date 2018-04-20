@@ -99,40 +99,52 @@
 
                 <Grid>
 
+                    <!-- 总宽度1000，可设置5行 -->
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="200"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
+                    <!-- 总高度800 -->
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="150"/>
                             <RowDefinition Height="120"/>
-                            <RowDefinition/>
+                            <RowDefinition Height="150"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
-
                             <StackPanel Margin="3,3,3,3">
                                 <Label>绑定ItemControl类型的控件</Label>
                                 <TextBox x:Name="PersonID"></TextBox>
                                 <ListBox x:Name="PersonList" Margin="0,5"></ListBox>
                             </StackPanel>
-
                         </Border>
 
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5" >
-
                             <StackPanel>
+                                <!-- DataContext可以指定为某一个区域 -->
                                 <StackPanel.DataContext>
                                     <local:Student x:Name="stus"></local:Student>
                                 </StackPanel.DataContext>
 
                                 <ListBox x:Name="StuList" ItemsSource="{Binding m_StuList}" DisplayMemberPath="m_Name"></ListBox>
                             </StackPanel>
-                            
                         </Border>
+
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5" >
+                            <StackPanel>
+                                <TextBox x:Name="CalcX"></TextBox>
+                                <TextBox x:Name="CalcY"></TextBox>
+                                <TextBox x:Name="CalcRes"></TextBox>
+                            </StackPanel>
+                        </Border>
+                        
+                        
                     </Grid>
 
 

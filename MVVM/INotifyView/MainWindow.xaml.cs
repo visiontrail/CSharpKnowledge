@@ -29,6 +29,8 @@ namespace INotifyView
             // 通过这行语句绑定前端与后台的关系;
             DataContext = PageMain;
             // 还可以通过以下单独绑定的方式进行前后台的关联;
+            // 参数一：指定binding的显示端属性;
+            // 参数二：指定bindingVM端的属性;
             this.Birthday.SetBinding(TextBox.TextProperty, new Binding("m_Birthday") { Source = PageMain });
 
             Task a = new Task(() =>
@@ -50,7 +52,9 @@ namespace INotifyView
 
             // 尝试更换另一个绑定对象;
             ShowString dt2 = new ShowString();
-            this.Birthday.SetBinding(TextBox.TextProperty, new Binding("m_Birthday") { Source = dt2 });
+            Binding bd = new Binding("m_Birthday");
+            bd.Source = dt2;
+            this.Birthday.SetBinding(TextBox.TextProperty, bd);
             dt2.m_Birthday = DateTime.UtcNow.ToString();
         }
     }

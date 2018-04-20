@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Control\Calc.cs" />
     <Compile Include="Control\Person.cs" />
     <Compile Include="UserControlTemplate\ImageButton.xaml.cs">
       <DependentUpon>ImageButton.xaml</DependentUpon>

@@ -9,9 +9,18 @@ namespace WPF
 {
     public class Person : INotifyPropertyChanged
     {
+        private int id;
         public int m_ID
         {
-            get;set;
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+                RaisePropertyChanged("m_ID");
+            }
         }
 
         public string m_Name
@@ -31,6 +40,14 @@ namespace WPF
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void RaisePropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 
     public class Student : Person, INotifyPropertyChanged
