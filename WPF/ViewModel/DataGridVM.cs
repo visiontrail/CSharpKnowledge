@@ -12,8 +12,6 @@ namespace WPF.ViewModel
     /// </summary>
     public class DataGridVM : MvvmBase
     {
-        // 注册修改列的事件函数;
-        public event EventHandler ColumnListChanged;
         // 自定义的列名;
         private ColumnListName ColumnNameList;
         public ColumnListName m_ColumnNameList
@@ -23,8 +21,6 @@ namespace WPF.ViewModel
             {
                 ColumnNameList = value;
                 RaisePropertyChanged("ColumnNameList");
-                ColumnListChanged(this, null);
-                Console.WriteLine("111111");
             }
         }
 
@@ -54,20 +50,46 @@ namespace WPF.ViewModel
         public DataGridVM(List<string> column_list)
         {
             this.ColumnNameList = new ColumnListName();
-            this.ColumnNameList.list = column_list;
+            this.ColumnNameList.m_list = column_list;
         }
     }
 
+    /// <summary>
+    /// 专门用来保存DataGrid列的类型;
+    /// </summary>
     public class ColumnListName
     {
         public event EventHandler ListChanged;
-        public List<string> list
+
+        private List<string> list;
+        public List<string> m_list
         {
-            get;set;
+            get;
+            set;
         }
+
+        // 添加;
         public void Add(string item)
         {
-            list.Add(item);
+            m_list.Add(item);
+            ListChanged(this, null);
+        }
+        
+        // 删除;
+        public void Clear()
+        {
+            m_list.Clear();
+            ListChanged(this, null);
+        }
+
+        // 重新添加;
+        public void CopyFrom(List<string> items)
+        {
+            m_list.Clear();
+            foreach(string iter in items)
+            {
+                m_list.Add(iter);
+            }
             ListChanged(this, null);
         }
     }

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF.ViewModel;
+using System.Threading;
 
 namespace WPF
 {
@@ -24,20 +25,21 @@ namespace WPF
     {
         public List<Person> persons = new List<Person>();
 
-        // DataGrid的显示层;
-        public DataGridVM m_DgVm
-        {
-            get;set;
-        }
+        public DataGridVM m_DgVm;            // DataGrid的VM层，所有针对DataGrid的操作，全部使用这个类型;
 
         public MainWindow()
         {
             InitializeComponent();
             //DrawPoin();
-            DrawPolyLine();
-            InitPersons();
-            InitStus();
-            TryAddDataGridColumn();
+            DrawPolyLine();                 // WPF划线;
+            InitPersons();                  // 初始化Person列表;
+            InitStus();                     // 使用LINQ筛选;
+
+            //_________________________以下是初始化一个DataGrid的几列数据__________
+            List<string> colums = new List<string>();
+            colums.Add("column1");
+            colums.Add("column2");
+            TryAddDataGridColumn(colums);
 
             //_________________________以下是使用Binding关联XAML和C#代码的实验_____
             
@@ -51,9 +53,7 @@ namespace WPF
                 Source = this.PersonList.ItemsSource,
                 BindsDirectlyToSource = true
             });
-
-            ClassA.m_sA = "静态属性";
-
+            
             // 以下是通过ObjectDataProvider进行命令的binding
             ObjectDataProvider odp = new ObjectDataProvider();
             odp.ObjectInstance = new Calc();
@@ -83,23 +83,17 @@ namespace WPF
 
         }
 
-        // 添加列;
-        private void TryAddDataGridColumn()
+        /// <summary>
+        /// 初始化列;
+        /// </summary>
+        /// <param name="list">初始化列的string列表</param>
+        private void TryAddDataGridColumn(List<string> list)
         {
-            List<string> collist = new List<string>();
-            
-            
-            collist.Add("c1");
-            collist.Add("c2");
-
-            m_DgVm = new DataGridVM(collist);
-            m_DgVm.ColumnListChanged += M_DgVm_ColumnListChanged;
+            m_DgVm = new DataGridVM(list);
             m_DgVm.m_ColumnNameList.ListChanged += M_ColumnNameList_ListChanged;
-            MessageDataGrid.DataContext = m_DgVm;
-            foreach (string iter in m_DgVm.m_ColumnNameList.list)
+            
+            foreach (string iter in m_DgVm.m_ColumnNameList.m_list)
             {
-                DataGridTextColumn temp = new DataGridTextColumn();
-                temp.Header = iter;
                 MessageDataGrid.Columns.Add(new DataGridTextColumn()
                 {
                     Header = iter
@@ -107,30 +101,21 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// DataGridVM层列表发生变化时,将变化添加到View中;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void M_ColumnNameList_ListChanged(object sender, EventArgs e)
         {
             MessageDataGrid.Columns.Clear();
-            foreach (string iter in m_DgVm.m_ColumnNameList.list)
-            {
-                DataGridTextColumn temp = new DataGridTextColumn();
-                temp.Header = iter;
-                MessageDataGrid.Columns.Add(new DataGridTextColumn()
-                {
-                    Header = iter
-                });
-            }
-        }
 
-        private void M_DgVm_ColumnListChanged(object sender, EventArgs e)
-        {
-            foreach (string iter in m_DgVm.m_ColumnNameList.list)
+            foreach (string iter in m_DgVm.m_ColumnNameList.m_list)
             {
-                MessageDataGrid.Columns.Clear();
-                DataGridTextColumn temp = new DataGridTextColumn();
-                temp.Header = iter;
                 MessageDataGrid.Columns.Add(new DataGridTextColumn()
                 {
-                    Header = iter
+                    Header = iter,
+                    Width = iter.Length * 10
                 });
             }
         }
@@ -209,10 +194,15 @@ namespace WPF
             this.canvas1.Children.Add(LineSeries);
         }
 
+        // 实验一下添加列;
         private void ChangeCol_Click(object sender, RoutedEventArgs e)
         {
-            this.m_DgVm.m_ColumnNameList.Add("C3");
-            Console.WriteLine("123");
+            this.m_DgVm.m_ColumnNameList.Add("CCCCCCCCCCC3");
+            List<string> temp = new List<string>();
+            temp.Add("A111");
+            temp.Add("A222");
+            temp.Add("A333");
+            this.m_DgVm.m_ColumnNameList.CopyFrom(temp);
         }
     }
 }

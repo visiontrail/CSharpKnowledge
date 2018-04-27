@@ -146,6 +146,7 @@
                             <StackPanel>
                                 <!-- 每个控件都有自己的DataContext
                                      DataContext可以指定为某一个区域 
+                                     这样使用DataContext，也相当于实例化了一个Student对象
                                 -->
                                 <StackPanel.DataContext>
                                     <local:Student x:Name="stus"></local:Student>
