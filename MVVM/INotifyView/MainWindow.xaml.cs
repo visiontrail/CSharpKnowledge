@@ -27,11 +27,11 @@ namespace INotifyView
         {
             InitializeComponent();
             // 通过这行语句绑定前端与后台的关系;
-            DataContext = PageMain;
+            //DataContext = PageMain;
             // 还可以通过以下单独绑定的方式进行前后台的关联;
             // 参数一：指定binding的显示端属性;
             // 参数二：指定bindingVM端的属性;
-            this.Birthday.SetBinding(TextBox.TextProperty, new Binding("m_Birthday") { Source = PageMain });
+            //this.Birthday.SetBinding(TextBox.TextProperty, new Binding("m_Birthday") { Source = PageMain });
 
             Task a = new Task(() =>
             {
@@ -43,6 +43,8 @@ namespace INotifyView
             });
 
             a.Start();
+
+            stackcontext.m_Name = "2222111";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

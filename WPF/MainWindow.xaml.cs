@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF.ViewModel;
 
 namespace WPF
 {
@@ -23,6 +24,12 @@ namespace WPF
     {
         public List<Person> persons = new List<Person>();
 
+        // DataGrid的显示层;
+        public DataGridVM m_DgVm
+        {
+            get;set;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,6 +37,7 @@ namespace WPF
             DrawPolyLine();
             InitPersons();
             InitStus();
+            TryAddDataGridColumn();
 
             //_________________________以下是使用Binding关联XAML和C#代码的实验_____
             
@@ -44,19 +52,23 @@ namespace WPF
                 BindsDirectlyToSource = true
             });
 
-            // 以下是通过
+            ClassA.m_sA = "静态属性";
+
+            // 以下是通过ObjectDataProvider进行命令的binding
             ObjectDataProvider odp = new ObjectDataProvider();
             odp.ObjectInstance = new Calc();
             odp.MethodName = "Add";
             odp.MethodParameters.Add("0");
             odp.MethodParameters.Add("0");
 
+            // 方法的第一个参数;
             this.CalcX.SetBinding(TextBox.TextProperty, new Binding("MethodParameters[0]") {
                 Source = odp,
                 BindsDirectlyToSource = true,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
             });
 
+            // 方法的第二个参数;
             this.CalcY.SetBinding(TextBox.TextProperty, new Binding("MethodParameters[1]")
             {
                 Source = odp,
@@ -71,6 +83,58 @@ namespace WPF
 
         }
 
+        // 添加列;
+        private void TryAddDataGridColumn()
+        {
+            List<string> collist = new List<string>();
+            
+            
+            collist.Add("c1");
+            collist.Add("c2");
+
+            m_DgVm = new DataGridVM(collist);
+            m_DgVm.ColumnListChanged += M_DgVm_ColumnListChanged;
+            m_DgVm.m_ColumnNameList.ListChanged += M_ColumnNameList_ListChanged;
+            MessageDataGrid.DataContext = m_DgVm;
+            foreach (string iter in m_DgVm.m_ColumnNameList.list)
+            {
+                DataGridTextColumn temp = new DataGridTextColumn();
+                temp.Header = iter;
+                MessageDataGrid.Columns.Add(new DataGridTextColumn()
+                {
+                    Header = iter
+                });
+            }
+        }
+
+        private void M_ColumnNameList_ListChanged(object sender, EventArgs e)
+        {
+            MessageDataGrid.Columns.Clear();
+            foreach (string iter in m_DgVm.m_ColumnNameList.list)
+            {
+                DataGridTextColumn temp = new DataGridTextColumn();
+                temp.Header = iter;
+                MessageDataGrid.Columns.Add(new DataGridTextColumn()
+                {
+                    Header = iter
+                });
+            }
+        }
+
+        private void M_DgVm_ColumnListChanged(object sender, EventArgs e)
+        {
+            foreach (string iter in m_DgVm.m_ColumnNameList.list)
+            {
+                MessageDataGrid.Columns.Clear();
+                DataGridTextColumn temp = new DataGridTextColumn();
+                temp.Header = iter;
+                MessageDataGrid.Columns.Add(new DataGridTextColumn()
+                {
+                    Header = iter
+                });
+            }
+        }
+
         private void PersonList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.PersonID.Text = (this.PersonList.SelectedItem as Person).m_ID.ToString();
@@ -78,7 +142,6 @@ namespace WPF
 
         private void InitStus()
         {
-            //this.stus = new Student();
             // 使用LINQ查询;
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
         }
@@ -144,6 +207,12 @@ namespace WPF
             LineSeries.StrokeThickness = 13;       // 粗细;
 
             this.canvas1.Children.Add(LineSeries);
+        }
+
+        private void ChangeCol_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_DgVm.m_ColumnNameList.Add("C3");
+            Console.WriteLine("123");
         }
     }
 }

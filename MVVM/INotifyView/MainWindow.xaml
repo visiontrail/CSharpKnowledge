@@ -16,18 +16,16 @@
     <Grid>
         <!-- 一个最简单的MVVM架构（没有M，只有V和VM） -->
         <StackPanel>
-            
-            <!-- 也可以将某一个控件的DataContext进行类型关联
             <StackPanel.DataContext>
-                <local:ShowString></local:ShowString>
+                <local:ShowString x:Name="stackcontext"></local:ShowString>
             </StackPanel.DataContext>
-            -->
             
             <!-- 在UI端直接Binding，需要在初始化的时候，将DataContext赋值给对应的类型 -->
             <TextBox x:Name="text" Text="{Binding m_Name}" Height="50"></TextBox>
             <!-- 这种没有使用Binding的，可以在后台通过setBinding的函数进行绑定 -->
             <TextBox x:Name="Birthday" Height="50"></TextBox>
             <Button Click="Button_Click" Height="50">Button</Button>
+            
         </StackPanel>
     </Grid>
 </Window>

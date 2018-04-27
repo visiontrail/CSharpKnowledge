@@ -98,4 +98,28 @@ namespace WPF
             }
         }
     }
+
+    public class ClassA
+    {
+        public string m_A
+        {
+            get;set;
+        }
+
+        public string m_B
+        {
+            get;set;
+        }
+
+        public static string m_sA
+        {
+            get;set;
+        }
+
+        public ClassA()
+        {
+            m_A = "在此可binding这个类实例的一个属性";
+            m_B = "这是ClassA一个实例的另一个属性";
+        }
+    }
 }

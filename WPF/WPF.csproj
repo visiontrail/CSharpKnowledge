@@ -60,6 +60,7 @@
     <Compile Include="UserControlTemplate\ImageButton.xaml.cs">
       <DependentUpon>ImageButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\DataGridVM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,7 +114,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SampleData\" />
+    <ProjectReference Include="..\LightMVVM\LightMVVM.csproj">
+      <Project>{c6b69e37-9589-45ce-8b5c-d147660ae293}</Project>
+      <Name>LightMVVM</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

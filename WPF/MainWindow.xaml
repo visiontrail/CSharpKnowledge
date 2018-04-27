@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
+        xmlns:vm="clr-namespace:WPF.ViewModel"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1000" WindowStartupLocation="CenterScreen">
@@ -99,25 +100,40 @@
 
                 <Grid>
 
-                    <!-- 总宽度1000，可设置5行 -->
+                    <!-- 总宽度1000 -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition Width="300"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- 总高度800 -->
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
                             <RowDefinition Height="150"/>
                             <RowDefinition Height="120"/>
                             <RowDefinition Height="150"/>
-                            <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
+                        <!-- 在此使用DataContext指定一个ClassA的一个实例，
+                        并且在该区域内的所有控件都能访问这个类实例的属性 -->
+                        <Border  BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
+                            <Border.DataContext>
+                                <local:ClassA x:Name="class_a"></local:ClassA>
+                            </Border.DataContext>
+                            
+                            <TreeView Name="tree">
+                                <TreeViewItem Header="{Binding m_sA}">
+                                    <TreeViewItem Header="{Binding m_A}"></TreeViewItem>
+                                    <TreeViewItem Header="{Binding m_B}"></TreeViewItem>
+                                </TreeViewItem>
+                            </TreeView>
+                            
+                        </Border>
+
+                        <!-- 显示下边ListBox选择的PersonID -->
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5">
                             <StackPanel Margin="3,3,3,3">
                                 <Label>绑定ItemControl类型的控件</Label>
                                 <TextBox x:Name="PersonID"></TextBox>
@@ -125,18 +141,21 @@
                             </StackPanel>
                         </Border>
 
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5" >
+                        <!-- 一个List<Person>绑定一个Listbox -->
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5" >
                             <StackPanel>
-                                <!-- DataContext可以指定为某一个区域 -->
+                                <!-- 每个控件都有自己的DataContext
+                                     DataContext可以指定为某一个区域 
+                                -->
                                 <StackPanel.DataContext>
                                     <local:Student x:Name="stus"></local:Student>
                                 </StackPanel.DataContext>
-
                                 <ListBox x:Name="StuList" ItemsSource="{Binding m_StuList}" DisplayMemberPath="m_Name"></ListBox>
                             </StackPanel>
                         </Border>
 
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5" >
+                        <!-- 一个实时更新的输入框，命令绑定的例子 -->
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Margin="5,5,5,5" >
                             <StackPanel>
                                 <TextBox x:Name="CalcX"></TextBox>
                                 <TextBox x:Name="CalcY"></TextBox>
@@ -144,7 +163,23 @@
                             </StackPanel>
                         </Border>
                         
-                        
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="120"/>
+                            <RowDefinition Height="150"/>
+                        </Grid.RowDefinitions>
+
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
+                            <StackPanel>
+                                <DataGrid x:Name="MessageDataGrid"></DataGrid>
+                                <Button Content="ChangeColum" Click="ChangeCol_Click" ></Button>
+                            </StackPanel>
+                            
+                        </Border>
                     </Grid>
 
 
