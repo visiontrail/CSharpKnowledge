@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         xmlns:vm="clr-namespace:WPF.ViewModel"
+        xmlns:localui="clr-namespace:WPF.UserControlTemplate"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1000" WindowStartupLocation="CenterScreen">
@@ -124,8 +125,8 @@
                             </Border.DataContext>
                             
                             <TreeView Name="tree">
-                                <TreeViewItem Header="{Binding m_sA}">
-                                    <TreeViewItem Header="{Binding m_A}"></TreeViewItem>
+                                <TreeViewItem Header="Root">
+                                    <TreeViewItem Header="{Binding Path = m_A}"></TreeViewItem>
                                     <TreeViewItem Header="{Binding m_B}"></TreeViewItem>
                                 </TreeViewItem>
                             </TreeView>
@@ -176,10 +177,17 @@
 
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
                             <StackPanel>
+                                <Label>这是一个在本地可以自由编辑列的小实验</Label>
                                 <DataGrid x:Name="MessageDataGrid"></DataGrid>
                                 <Button Content="ChangeColum" Click="ChangeCol_Click" ></Button>
                             </StackPanel>
-                            
+                        </Border>
+
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5">
+                            <StackPanel>
+                                <Label>这是一个使用UserControl控制的DataGrid</Label>
+                                <localui:DyDataGrid x:Name="UcDataGrid"></localui:DyDataGrid>
+                            </StackPanel>
                         </Border>
                     </Grid>
 

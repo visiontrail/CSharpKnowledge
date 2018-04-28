@@ -31,7 +31,7 @@ namespace WPF
         {
             InitializeComponent();
             //DrawPoin();
-            DrawPolyLine();                 // WPF划线;
+            DrawPolyLine();                 // WPF画线;
             InitPersons();                  // 初始化Person列表;
             InitStus();                     // 使用LINQ筛选;
 
@@ -39,10 +39,12 @@ namespace WPF
             List<string> colums = new List<string>();
             colums.Add("column1");
             colums.Add("column2");
+            colums.Add("c3");
             TryAddDataGridColumn(colums);
 
+
             //_________________________以下是使用Binding关联XAML和C#代码的实验_____
-            
+
             // 这个是ItemControl类的控件使用binding关联数据源的方法;
             this.PersonList.ItemsSource = persons;
             this.PersonList.DisplayMemberPath = "m_Name";

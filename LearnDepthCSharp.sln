@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INotifyView", "MVVM\INotify
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMVVM", "LightMVVM\LightMVVM.csproj", "{C6B69E37-9589-45CE-8B5C-D147660AE293}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPFControl", "WPFControl", "{0BF2C0A8-8E42-4841-8019-FD299FF5EAB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGridBinding", "WPFControl\DataGridBinding\DataGridBinding.csproj", "{CADB4E53-E8CF-4FF5-A1F7-2C599F63C631}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +145,14 @@ Global
 		{C6B69E37-9589-45CE-8B5C-D147660AE293}.Release|x64.Build.0 = Release|Any CPU
 		{C6B69E37-9589-45CE-8B5C-D147660AE293}.Release|x86.ActiveCfg = Release|Any CPU
 		{C6B69E37-9589-45CE-8B5C-D147660AE293}.Release|x86.Build.0 = Release|Any CPU
+		{CADB4E53-E8CF-4FF5-A1F7-2C599F63C631}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{CADB4E53-E8CF-4FF5-A1F7-2C599F63C631}.Debug|x64.ActiveCfg = Debug|x86
+		{CADB4E53-E8CF-4FF5-A1F7-2C599F63C631}.Debug|x86.ActiveCfg = Debug|x86
+		{CADB4E53-E8CF-4FF5-A1F7-2C599F63C631}.Debug|x86.Build.0 = Debug|x86
+		{CADB4E53-E8CF-4FF5-A1F7-2C599F63C631}.Release|Any CPU.ActiveCfg = Release|x86
+		{CADB4E53-E8CF-4FF5-A1F7-2C599F63C631}.Release|x64.ActiveCfg = Release|x86
+		{CADB4E53-E8CF-4FF5-A1F7-2C599F63C631}.Release|x86.ActiveCfg = Release|x86
+		{CADB4E53-E8CF-4FF5-A1F7-2C599F63C631}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,6 +160,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B22D9DB3-3BCC-44BB-8CD4-5117C6D996DC} = {A51738CC-6B09-4E1F-B424-2D9A8048EFDD}
 		{C6B69E37-9589-45CE-8B5C-D147660AE293} = {A51738CC-6B09-4E1F-B424-2D9A8048EFDD}
+		{CADB4E53-E8CF-4FF5-A1F7-2C599F63C631} = {0BF2C0A8-8E42-4841-8019-FD299FF5EAB1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F8462AB2-2876-4860-80C2-F655939F872E}

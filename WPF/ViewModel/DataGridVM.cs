@@ -12,7 +12,7 @@ namespace WPF.ViewModel
     /// </summary>
     public class DataGridVM : MvvmBase
     {
-        // 自定义的列名;
+        // 自定义的列名的VM层;
         private ColumnListName ColumnNameList;
         public ColumnListName m_ColumnNameList
         {   
@@ -25,33 +25,28 @@ namespace WPF.ViewModel
         }
 
         //DataGrid的内容容器;
-        private List<object> ColumnContent;
-        public List<object> m_ColumnContent
+        private DataGridContent ColumnContent;
+        public DataGridContent m_ColumnContent
         {
             get { return ColumnContent; }
             private set
             {
                 ColumnContent = value;
                 RaisePropertyChanged("ColumnContent");
-                if(ColumnContent.Count > 1000)
+                if(ColumnContent.m_content.Count > 1000)
                 {
                     // 删除最开始的500条记录
                 }
             }
         }
-
-        private List<DataGridColumn> ColumnList;
-        public List<DataGridColumn> m_ColumList
-        {
-            get;
-            set;
-        }
-
+        
         public DataGridVM(List<string> column_list)
         {
             this.ColumnNameList = new ColumnListName();
+            this.ColumnContent = new DataGridContent();
             this.ColumnNameList.m_list = column_list;
         }
+
     }
 
     /// <summary>
@@ -90,6 +85,26 @@ namespace WPF.ViewModel
             {
                 m_list.Add(iter);
             }
+            ListChanged(this, null);
+        }
+    }
+
+    /// <summary>
+    /// 专门用来保存DataGrid内容的类型;
+    /// </summary>
+    public class DataGridContent
+    {
+        public event EventHandler ListChanged;
+        public List<List<string>> m_content;
+
+        public DataGridContent()
+        {
+            m_content = new List<List<string>>();
+        }
+
+        public void Add(List<string> item)
+        {
+            m_content.Add(item);
             ListChanged(this, null);
         }
     }
