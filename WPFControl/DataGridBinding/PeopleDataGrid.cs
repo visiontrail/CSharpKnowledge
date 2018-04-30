@@ -17,8 +17,8 @@ namespace DataGridBinding
             CanUserAddRows = false;
         }
 
+        // 这个控件的一个自定义属性;
         private PeoplesViewModel mDataSource;
-
         public PeoplesViewModel DataSource
         {
             get { return mDataSource; }
@@ -28,6 +28,10 @@ namespace DataGridBinding
             }
         }
 
+        /// <summary>
+        /// 定义了一个名为DataSourc的控件依赖属性;
+        /// 这个依赖属性用于显示peopoleDataGrid的内容;
+        /// </summary>
         public static readonly DependencyProperty DataSourceProperty =
             DependencyProperty.Register ( "DataSource", typeof ( PeoplesViewModel ), typeof ( PeopleDataGrid ),
             new FrameworkPropertyMetadata ( new PropertyChangedCallback ( OnDataSourcePeopertyChanged ) ) );
@@ -35,13 +39,13 @@ namespace DataGridBinding
         private static void OnDataSourcePeopertyChanged ( DependencyObject obj, DependencyPropertyChangedEventArgs args )
         {
             PeopleDataGrid peopleDataGrid = ( PeopleDataGrid ) obj;
+
             if ( args.NewValue is PeoplesViewModel )
             {
                 if ( peopleDataGrid != null )
                 {
                     PeoplesViewModel peoplesViewModel = args.NewValue as PeoplesViewModel;
                     peopleDataGrid.ItemsSource = peoplesViewModel.Peoples;
-
 
                     peopleDataGrid.Columns.Clear ( );
                     DataGridTextColumn nameColumn = new DataGridTextColumn ( );

@@ -15,6 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF.ViewModel;
 using System.Threading;
+using WPF.UserControlTemplate;
+using WPF.Model;
+using System.Collections.ObjectModel;
 
 namespace WPF
 {
@@ -24,6 +27,8 @@ namespace WPF
     public partial class MainWindow : Window
     {
         public List<Person> persons = new List<Person>();
+        MessageVM msgVM = new MessageVM();
+        
 
         public DataGridVM m_DgVm;            // DataGrid的VM层，所有针对DataGrid的操作，全部使用这个类型;
 
@@ -32,30 +37,22 @@ namespace WPF
             InitializeComponent();
             //DrawPoin();
             DrawPolyLine();                 // WPF画线;
-            InitPersons();                  // 初始化Person列表;
+            InitPersonsandMessagelist();    // 初始化Person列表;
             InitStus();                     // 使用LINQ筛选;
-
-            //_________________________以下是初始化一个DataGrid的几列数据__________
-            List<string> colums = new List<string>();
-            colums.Add("column1");
-            colums.Add("column2");
-            colums.Add("c3");
-            TryAddDataGridColumn(colums);
-
-
-            //_________________________以下是使用Binding关联XAML和C#代码的实验_____
-
-            // 这个是ItemControl类的控件使用binding关联数据源的方法;
-            this.PersonList.ItemsSource = persons;
-            this.PersonList.DisplayMemberPath = "m_Name";
-            this.PersonList.SelectionChanged += PersonList_SelectionChanged;
+            
+            //_____________________________________________________________以下是使用Binding关联XAML和C#属性的实验
+            // 这个是ItemsControl类的控件使用binding关联数据源的方法;
+            this.PersonList.ItemsSource = persons;                                    // 指定ItemsSource;
+            this.PersonList.DisplayMemberPath = "m_Name";                             // 指定显示的属性;
+            this.PersonList.SelectionChanged += PersonList_SelectionChanged;          // 当控件选择发生变化时;
             
             // 通过SetBinding方法也可以Binding现有类(ListBox)的属性;
             this.PersonID.SetBinding(TextBox.TextProperty, new Binding("m_ID") {
                 Source = this.PersonList.ItemsSource,
                 BindsDirectlyToSource = true
             });
-            
+
+            //_____________________________________________________________以下是使用Binding关联XAML和C#命令的实验
             // 以下是通过ObjectDataProvider进行命令的binding
             ObjectDataProvider odp = new ObjectDataProvider();
             odp.ObjectInstance = new Calc();
@@ -65,17 +62,17 @@ namespace WPF
 
             // 方法的第一个参数;
             this.CalcX.SetBinding(TextBox.TextProperty, new Binding("MethodParameters[0]") {
-                Source = odp,
-                BindsDirectlyToSource = true,
-                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                Source = odp,                                                         // Source源是ObjectDataProvider
+                BindsDirectlyToSource = true,                                         // 这个值是相对于ObjectDataProvider的; 
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged             // 当TextProperty发生改变时;
             });
 
             // 方法的第二个参数;
             this.CalcY.SetBinding(TextBox.TextProperty, new Binding("MethodParameters[1]")
             {
-                Source = odp,
-                BindsDirectlyToSource = true,
-                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                Source = odp,                                                         // Source源是ObjectDataProvider
+                BindsDirectlyToSource = true,                                         // 这个值是相对于ObjectDataProvider的; 
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged             // 当TextProperty发生改变时;
             });
 
             this.CalcRes.SetBinding(TextBox.TextProperty, new Binding(".")
@@ -83,8 +80,15 @@ namespace WPF
                 Source = odp
             });
 
-        }
+            //_________________________________________________________________以下是初始化一个DataGrid的几列数据
+            List<string> colums = new List<string>();
+            colums.Add("column1");
+            colums.Add("column2");
+            colums.Add("c3");
+            TryAddDataGridColumn(colums);
 
+        }
+        
         /// <summary>
         /// 初始化列;
         /// </summary>
@@ -133,11 +137,22 @@ namespace WPF
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
         }
 
-        private void InitPersons()
+        private void InitPersonsandMessagelist()
         {
             persons.Add(new Person(11, "Guoliang"));
             persons.Add(new Person(2, "Roupao"));
             persons.Add(new Person(5, "WangCY"));
+
+            MsgDataGrid.DataContext = msgVM.messagelist;
+
+            msgVM.messagelist.Add(new MessageModel()
+            {
+                m_No = "1",
+                m_time = DateTime.Now,
+                m_content = "111111",
+                m_dest = "127.0.0.1",
+                m_source = "127.0.0.1"
+            });
         }
 
         public void DrawPoin()
@@ -205,6 +220,18 @@ namespace WPF
             temp.Add("A222");
             temp.Add("A333");
             this.m_DgVm.m_ColumnNameList.CopyFrom(temp);
+        }
+
+        private void GetDepProperty(object sender, RoutedEventArgs e)
+        {
+            SpecialTextBox st = new SpecialTextBox();
+            st.SetValue(SpecialTextBox.DTextProperty, this.text1.Text);              // 为这个依赖属性设置对象;
+            MessageBox.Show(st.GetValue(SpecialTextBox.DTextProperty) as string);
+        }
+
+        private void MsgDataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+
         }
     }
 }

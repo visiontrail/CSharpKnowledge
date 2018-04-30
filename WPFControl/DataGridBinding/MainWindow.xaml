@@ -4,9 +4,10 @@
         xmlns:local="clr-namespace:DataGridBinding"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+
+        <!-- 表2当中使用的数据模板 -->
         <Grid.Resources>
-            
+            <!-- 数据模板，用于表2中Person的显示模式 -->
             <DataTemplate x:Key="cellTemplate" DataType="{x:Type local:Person}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Age: "/>
@@ -16,6 +17,7 @@
                 </StackPanel>
             </DataTemplate>
             
+            <!-- 数据模板，用于表2中Person的编辑模式 -->
             <DataTemplate x:Key="cellEditingTemplate" DataType="{x:Type local:Person}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -39,14 +41,25 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         
+        <!-- 自定义的DataGrid，使用到了一个依赖属性DataSource，这个DataSource就是在App中定义的一个属性 -->
         <local:PeopleDataGrid DataSource="{Binding Source={x:Static Application.Current}, Path=PeoplesViewModel}"/>
         
-        <DataGrid Grid.Row="1" CanUserAddRows="False" AutoGenerateColumns="false" DataContext="{Binding Source={x:Static Application.Current}, Path=PeoplesViewModel}" ItemsSource="{Binding Peoples}" SelectedItem="{Binding SelectedPeople, Mode=TwoWay}">
+        <!-- 
+             指定DataContext：指定了数据范围，即App.xaml.cs当中的PeoplesViewModel属性
+             指定ItemsSource：
+        -->
+        <DataGrid Grid.Row="1" CanUserAddRows="False" AutoGenerateColumns="false" 
+                  DataContext="{Binding Source={x:Static Application.Current}, Path=PeoplesViewModel}" 
+                  ItemsSource="{Binding Peoples}" 
+                  SelectedItem="{Binding SelectedPeople, Mode=TwoWay}">
+            
             <DataGrid.Columns>
+                <!-- 指定了要显示的属性 -->
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                <DataGridTemplateColumn Header="Person" CellTemplate="{StaticResource ResourceKey=cellTemplate}" CellEditingTemplate="{StaticResource ResourceKey=cellEditingTemplate}">
-                </DataGridTemplateColumn>
+                <!-- 可以指定数据模板的单元格 -->
+                <DataGridTemplateColumn Header="Person" CellTemplate="{StaticResource ResourceKey=cellTemplate}" CellEditingTemplate="{StaticResource ResourceKey=cellEditingTemplate}"/>
             </DataGrid.Columns>
+            
         </DataGrid>
     </Grid>
 </Window>

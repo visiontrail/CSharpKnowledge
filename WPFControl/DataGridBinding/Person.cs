@@ -7,25 +7,13 @@ using System.ComponentModel;
 namespace DataGridBinding
 {
     /// <summary>
-    /// Person
+    /// 一个数据模型;
     /// </summary>
     public class Person : INotifyPropertyChanged
     {
-        #region ... Variables ...
-        /// <summary>
-        /// Age.
-        /// </summary>
         private int mAge = 0;
-        /// <summary>
-        /// Sex.
-        /// </summary>
         private Sex mSex = Sex.Male;
-        #endregion ... Variables ...
-
-        #region ... Properties ...
-        /// <summary>
-        /// Gets or sets Age.
-        /// </summary>
+        
         public int Age
         {
             get { return mAge; }
@@ -38,9 +26,6 @@ namespace DataGridBinding
                 }
             }
         }
-        /// <summary>
-        /// Gets or sets Sex.
-        /// </summary>
         public Sex Sex
         {
             get { return mSex; }
@@ -53,31 +38,17 @@ namespace DataGridBinding
                 }
             }
         }
-        #endregion ... Properties ...
-
-        #region ... Constructor ...
-        /// <summary>
-        /// Constructor.
-        /// </summary>
+        
         public Person ( )
-        { }
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="age"></param>
-        /// <param name="sex"></param>
+        {
+        }
+
         public Person ( int age, Sex sex )
         {
             mAge = age;
             mSex = sex;
         }
-        #endregion ... Constructor ...
-
-        #region ... Methods ...
-        /// <summary>
-        /// OnPropertyChanged.
-        /// </summary>
-        /// <param name="propertyName"></param>
+        
         protected virtual void OnPropertyChanged ( string propertyName )
         {
             if ( PropertyChanged != null )
@@ -85,14 +56,8 @@ namespace DataGridBinding
                 PropertyChanged ( this, new PropertyChangedEventArgs ( propertyName ) );
             }
         }
-        #endregion ... Methods ...
-
-        #region ... INotifyPropertyChanged Members ...
-        /// <summary>
-        /// PropertyChanged.
-        /// </summary>
+        
         public event PropertyChangedEventHandler PropertyChanged;
-        #endregion ... INotifyPropertyChanged Members ...
     }
     /// <summary>
     /// Sex.

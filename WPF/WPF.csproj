@@ -57,10 +57,13 @@
     </ApplicationDefinition>
     <Compile Include="Control\Calc.cs" />
     <Compile Include="Control\Person.cs" />
+    <Compile Include="Model\MessageModel.cs" />
     <Compile Include="UserControlTemplate\DyDataGrid.xaml.cs">
       <DependentUpon>DyDataGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControlTemplate\SpecialTextBox.cs" />
     <Compile Include="ViewModel\DataGridVM.cs" />
+    <Compile Include="ViewModel\MessageVM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

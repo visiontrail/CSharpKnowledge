@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         xmlns:vm="clr-namespace:WPF.ViewModel"
+        xmlns:model="clr-namespace:WPF.Model"
         xmlns:localui="clr-namespace:WPF.UserControlTemplate"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
@@ -49,7 +50,7 @@
                                 <RowDefinition Height="100"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <!-- 使用所谓的CSS和Javascript -->
+                            <!-- 使用Style对控件进行定制化，即所谓的CSS和Javascript -->
                             <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1">
                                 <StackPanel  Margin="3,3,3,3">
                                     <Label>Style的用法:</Label>
@@ -58,6 +59,7 @@
                                 </StackPanel>
                             </Border>
 
+                            <!-- WPF还支持画线，画图 -->
                             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Margin="0,5">
                                 <StackPanel  Margin="3,3,3,3">
                                     <Label>用WPF画图</Label>
@@ -65,6 +67,7 @@
                                 </StackPanel>
                             </Border>
 
+                            <!-- 使用controlTemplate组合一个控件出来 -->
                             <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" Margin="0,5">
                                 <StackPanel>
                                     <Label>在前端直接用ControlTemplate组合用户控件</Label>
@@ -72,9 +75,10 @@
                                 </StackPanel>
                             </Border>
 
-
+                            <!-- 可以使用Binding关联一个静态Source，既然是静态Source，Path就使用.来代替（因为不用指定属性） -->
                             <TextBox x:Name="tb" Text="{Binding Path=., Source={StaticResource ResourceKey=BindingStatic}}"  Style="{StaticResource tbstyle}" Grid.Row="3"/>
 
+                            <!-- 也可以使用Binding关联其他控件的属性 -->
                             <Border  Grid.Row="4" BorderBrush="Black" BorderThickness="1" Margin="0,5">
                                 <StackPanel>
                                     <Label>控件绑定前端元素：</Label>
@@ -115,29 +119,34 @@
                             <RowDefinition Height="150"/>
                             <RowDefinition Height="120"/>
                             <RowDefinition Height="150"/>
+                            <RowDefinition Height="100"/>
                         </Grid.RowDefinitions>
 
-                        <!-- 在此使用DataContext指定一个ClassA的一个实例，
-                        并且在该区域内的所有控件都能访问这个类实例的属性 -->
                         <Border  BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
+                            <!-- 
+                                在此使用DataContext指定一个ClassA的一个实例，
+                                并且在该区域内的所有控件都能访问这个类实例的属性 
+                            -->
                             <Border.DataContext>
                                 <local:ClassA x:Name="class_a"></local:ClassA>
                             </Border.DataContext>
-                            
+
+                            <!-- 指定了DataContext后，可以通过Binding的path关联实例对应的属性 -->
                             <TreeView Name="tree">
                                 <TreeViewItem Header="Root">
                                     <TreeViewItem Header="{Binding Path = m_A}"></TreeViewItem>
                                     <TreeViewItem Header="{Binding m_B}"></TreeViewItem>
                                 </TreeViewItem>
                             </TreeView>
-                            
+
                         </Border>
 
-                        <!-- 显示下边ListBox选择的PersonID -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5">
                             <StackPanel Margin="3,3,3,3">
                                 <Label>绑定ItemControl类型的控件</Label>
+                                <!-- 显示下边ListBox选择的PersonID -->
                                 <TextBox x:Name="PersonID"></TextBox>
+                                <!-- 关联ItemSource为一个List<person>容器的列表 -->
                                 <ListBox x:Name="PersonList" Margin="0,5"></ListBox>
                             </StackPanel>
                         </Border>
@@ -164,7 +173,14 @@
                                 <TextBox x:Name="CalcRes"></TextBox>
                             </StackPanel>
                         </Border>
-                        
+
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Margin="5,5,5,5">
+                            <StackPanel>
+                                <TextBox x:Name="text1"></TextBox>
+                                <Button Content="Ok" Click="GetDepProperty" ></Button>
+                            </StackPanel>
+                        </Border>
+
                     </Grid>
 
                     <Grid Grid.Column="1">
@@ -175,6 +191,7 @@
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
 
+                        <!-- 一个可以自定义Colum的DataGrid -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
                             <StackPanel>
                                 <Label>这是一个在本地可以自由编辑列的小实验</Label>
@@ -189,12 +206,34 @@
                                 <localui:DyDataGrid x:Name="UcDataGrid"></localui:DyDataGrid>
                             </StackPanel>
                         </Border>
+
+
+                        <Border>
+                            <Border.Resources>
+                                <DataTemplate x:Key="cellEditingTemplate" DataType="{x:Type model:MessageModel}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="15"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding m_content}"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding m_content}"/>
+                                        <Button Grid.Column="2" Content="..." Command="{Binding ShowCommand}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </Border.Resources>
+                            
+                            <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid" ItemsSource="{Binding Path=.}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding m_No}"></DataGridTextColumn>
+                                    <DataGridTemplateColumn Header="112" CellEditingTemplate="{StaticResource ResourceKey = cellEditingTemplate}"></DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
                     </Grid>
 
-
                 </Grid>
-
-
 
             </TabItem>
 

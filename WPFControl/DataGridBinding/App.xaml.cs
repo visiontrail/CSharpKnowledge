@@ -22,6 +22,7 @@ namespace DataGridBinding
         protected override void OnStartup ( StartupEventArgs e )
         {
             base.OnStartup ( e );
+
             Person yafeyaPerson = new Person
             {
                 Age = 27,
@@ -32,6 +33,7 @@ namespace DataGridBinding
                 Age = 103,
                 Sex = Sex.Male
             };
+
             People yafeya = new People
             {
                 Name = "yafeya",
@@ -42,7 +44,9 @@ namespace DataGridBinding
                 Name = "Teal'c",
                 Person = tealcPerson
             };
-            mPeoplesViewModel.Peoples.Add ( yafeya );
+            
+            // 将实例添加到全局域的mPeoplesViewModel属性当中;
+            mPeoplesViewModel.Peoples.Add(yafeya);
             mPeoplesViewModel.Peoples.Add ( tealc );
         }
     }
