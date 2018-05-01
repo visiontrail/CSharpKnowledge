@@ -8,6 +8,9 @@ using WPF.Model;
 
 namespace WPF.ViewModel
 {
+    /// <summary>
+    /// MessageModel对应的VM显示层
+    /// </summary>
     public class MessageVM
     {
         public List<MessageModel> messagelist = new List<MessageModel>();

@@ -7,8 +7,14 @@ using System.Windows.Input;
 
 namespace WPF.Model
 {
+    /// <summary>
+    /// 一个模拟网络消息的数据模型;
+    /// </summary>
     public class MessageModel
     {
+        /// <summary>
+        /// 可触发的命令:显示消息内容;
+        /// </summary>
         private ICommand mShowCommand;
         public ICommand ShowCommand
         {
@@ -25,18 +31,18 @@ namespace WPF.Model
                 return mShowCommand;
             }
         }
-
         private bool CanExecuteFunc()
         {
             return true;
         }
-
         private void ExecuteAction()
         {
-            Console.WriteLine("123");
             Console.WriteLine("Content is" + this.m_content);
         }
 
+        /// <summary>
+        /// 消息编号;
+        /// </summary>
         private string No;
         public string m_No
         {
@@ -44,6 +50,9 @@ namespace WPF.Model
             set { No = value; }
         }
 
+        /// <summary>
+        /// 时间戳;
+        /// </summary>
         private DateTime time;
         public DateTime m_time
         {
@@ -51,6 +60,9 @@ namespace WPF.Model
             set { time = value; }
         }
 
+        /// <summary>
+        /// 消息内容;
+        /// </summary>
         private string content;
         public string m_content
         {
@@ -58,6 +70,9 @@ namespace WPF.Model
             set { content = value; }
         }
 
+        /// <summary>
+        /// 消息的源IP地址;
+        /// </summary>
         private string source;
         public string m_source
         {
@@ -65,6 +80,9 @@ namespace WPF.Model
             set { source = value; }
         }
 
+        /// <summary>
+        /// 消息的目的IP地址;
+        /// </summary>
         private string dest;
         public string m_dest
         {
@@ -75,9 +93,8 @@ namespace WPF.Model
 
     public class RelayCommand : ICommand
     {
-        private Action mExecuteAction;
-
-        private Func<bool> mCanExecuteFunc;
+        private Action mExecuteAction;              // 执行命令;
+        private Func<bool> mCanExecuteFunc;         // 命令是否可以执行;
 
         public RelayCommand(Action executeAction, Func<bool> canExecuteFunc)
         {
@@ -90,11 +107,12 @@ namespace WPF.Model
             return mCanExecuteFunc.Invoke();
         }
 
-        public event EventHandler CanExecuteChanged;
-
         public void Execute(object parameter)
         {
             mExecuteAction.Invoke();
         }
+
+        public event EventHandler CanExecuteChanged;
+        
     }
 }

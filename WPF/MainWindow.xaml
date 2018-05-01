@@ -87,7 +87,6 @@
                                 </StackPanel>
                             </Border>
 
-
                         </Grid>
 
                     </DockPanel>
@@ -127,6 +126,7 @@
                                 在此使用DataContext指定一个ClassA的一个实例，
                                 并且在该区域内的所有控件都能访问这个类实例的属性 
                             -->
+                            <!-- 在Border范围内实例化了一个ClassA，名为class_a -->
                             <Border.DataContext>
                                 <local:ClassA x:Name="class_a"></local:ClassA>
                             </Border.DataContext>
@@ -141,6 +141,7 @@
 
                         </Border>
 
+                        <!-- 有关于ItemsControl（ListBox）类型的控件，使用ItemSource进行Binding -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5">
                             <StackPanel Margin="3,3,3,3">
                                 <Label>绑定ItemControl类型的控件</Label>
@@ -151,7 +152,7 @@
                             </StackPanel>
                         </Border>
 
-                        <!-- 一个List<Person>绑定一个Listbox -->
+                        <!-- 有关于ItemsControl(ListBox)控件，使用一个List<Person>绑定 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5" >
                             <StackPanel>
                                 <!-- 每个控件都有自己的DataContext
@@ -165,7 +166,7 @@
                             </StackPanel>
                         </Border>
 
-                        <!-- 一个实时更新的输入框，命令绑定的例子 -->
+                        <!-- 一个实时更新的输入框，绑定函数返回值的例子 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Margin="5,5,5,5" >
                             <StackPanel>
                                 <TextBox x:Name="CalcX"></TextBox>
@@ -174,6 +175,7 @@
                             </StackPanel>
                         </Border>
 
+                        <!-- 这个是学习依赖属性用的，DP暂时没学透彻呢 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Margin="5,5,5,5">
                             <StackPanel>
                                 <TextBox x:Name="text1"></TextBox>
@@ -183,6 +185,7 @@
 
                     </Grid>
 
+                    <!-- 这一列涉及控件DataGrid的使用方法 -->
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"/>
@@ -191,7 +194,7 @@
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
 
-                        <!-- 一个可以自定义Colum的DataGrid -->
+                        <!-- 一个可以自定义Colum的DataGrid（好像没什么用……） -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
                             <StackPanel>
                                 <Label>这是一个在本地可以自由编辑列的小实验</Label>
@@ -200,6 +203,7 @@
                             </StackPanel>
                         </Border>
 
+                        <!-- 对DataGrid进行了二次开发 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5">
                             <StackPanel>
                                 <Label>这是一个使用UserControl控制的DataGrid</Label>
@@ -207,27 +211,29 @@
                             </StackPanel>
                         </Border>
 
-
-                        <Border>
+                        <!-- 使用DataTemplate对.NET自带的DataGrid进行定制化 -->
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5">
+                            <!-- 一个数据模板，使用在后边DataGrid的最后一个单元格 -->
                             <Border.Resources>
+                                <!-- DataType属性是~~？明天要解释！！ -->
                                 <DataTemplate x:Key="cellEditingTemplate" DataType="{x:Type model:MessageModel}">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
-                                            <ColumnDefinition/>
                                             <ColumnDefinition Width="15"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="{Binding m_content}"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding m_content}"/>
-                                        <Button Grid.Column="2" Content="..." Command="{Binding ShowCommand}"/>
+                                        <Button Grid.Column="1" Content="..." Command="{Binding ShowCommand}"/>
                                     </Grid>
                                 </DataTemplate>
                             </Border.Resources>
                             
+                            <!-- 表格，用来显示MessageVM中所有的消息,使用ItemsSource指定数据源 -->
                             <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid" ItemsSource="{Binding Path=.}">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Binding="{Binding m_No}"></DataGridTextColumn>
-                                    <DataGridTemplateColumn Header="112" CellEditingTemplate="{StaticResource ResourceKey = cellEditingTemplate}"></DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="编号" Binding="{Binding m_No}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="时间戳" Binding="{Binding m_time}"></DataGridTextColumn>
+                                    <DataGridTemplateColumn Header="消息内容" CellTemplate="{StaticResource ResourceKey = cellEditingTemplate}" CellEditingTemplate="{StaticResource ResourceKey = cellEditingTemplate}"></DataGridTemplateColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Border>

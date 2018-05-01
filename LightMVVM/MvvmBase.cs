@@ -4,6 +4,10 @@ using System.ComponentModel;
 
 namespace LightMVVM
 {
+    /// <summary>
+    /// 一个轻量级MVVM框架
+    /// INotifyPropertyChanged接口实现了当属性发生变化的时候，可以及时发出通知
+    /// </summary>
     public class MvvmBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
