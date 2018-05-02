@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPF.Model;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+
 
 namespace WPF.ViewModel
 {
@@ -13,11 +16,24 @@ namespace WPF.ViewModel
     /// </summary>
     public class MessageVM
     {
-        public List<MessageModel> messagelist = new List<MessageModel>();
+        // 存放所有消息内容的地方;
+        private volatile ObservableCollection<MessageModel> m_messagelist;
+        public ObservableCollection<MessageModel> messagelist
+        {
+            get
+            {
+                return m_messagelist;
+            }
+            set
+            {
+                m_messagelist = value;
+            }
+        }
 
         public MessageVM()
         {
-
+            messagelist = new ObservableCollection<MessageModel>();
         }
     }
+    
 }

@@ -18,6 +18,7 @@ using System.Threading;
 using WPF.UserControlTemplate;
 using WPF.Model;
 using System.Collections.ObjectModel;
+using System.Windows.Threading;
 
 namespace WPF
 {
@@ -36,8 +37,13 @@ namespace WPF
             DrawPolyLine();                 // WPF画线;
             InitPersons();                  // 初始化Person列表;
             InitaListToDataGridColumn();    // 小实验，将用户自定义的List添加到DataGrid的List当中;
-            InitMessageToDataGrid();
 
+            m_MessageVM = new MessageVM();
+            InitMessageToDataGrid();        // 小实验，将数据通过另一个线程填入到DataGrid当中;
+            InitMessageToDataGrid2();
+            
+            InitTreeViewComposite();
+            
             // WPF中的ItemsSource是可以使用LINQ进行查询的;
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
 
@@ -82,28 +88,34 @@ namespace WPF
             });
         }
 
+        private void InitTreeViewComposite()
+        {
+            List<TreeViewComposite> root = new List<TreeViewComposite>();
+            
+            TreeViewComposite t1 = new TreeViewComposite() { m_ItemName = "Root" };
+            TreeViewComposite t2 = new TreeViewComposite() { m_ItemName = "T1" };
+            TreeViewComposite t3 = new TreeViewComposite() { m_ItemName = "T2" };
+            TreeViewComposite t4 = new TreeViewComposite() { m_ItemName = "T3" };
+
+            root.Add(t1);
+            t1.m_SubList.Add(t2);
+            t1.m_SubList.Add(t3);
+            t2.m_SubList.Add(t4);
+            t2.m_SubList.Add(t4);
+            t2.m_SubList.Add(t4);
+            t2.m_SubList.Add(t4);
+
+            this.tv_composite.ItemsSource = root;
+        }
+
+        private void InitMessageToDataGrid2()
+        {
+            this.MsgDataGrid2.m_context = m_MessageVM.messagelist;
+        }
+
         private void InitMessageToDataGrid()
         {
-            m_MessageVM = new MessageVM();
             this.MsgDataGrid.DataContext = m_MessageVM.messagelist;
-
-            Task tem_Task = new Task(() =>
-            {
-                while(true)
-                {
-                    m_MessageVM.messagelist.Add(new MessageModel()
-                    {
-                        m_No = "1",
-                        m_time = DateTime.Now,
-                        m_content = "content",
-                        m_source = "172.27.0.1",
-                        m_dest = "172.27.0.2"
-                    });
-                    Thread.Sleep(3000);
-                }
-            });
-            
-            
         }
 
         private void InitaListToDataGridColumn()
@@ -198,5 +210,31 @@ namespace WPF
             MessageBox.Show(st.GetValue(SpecialTextBox.DTextProperty) as string);
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Task a = new Task(()=>
+            {
+                int temp = 0;
+                while(true)
+                {
+                    temp = temp + 1;
+                    Dispatcher.Invoke(DispatcherPriority.Normal, (Action)delegate
+                    {
+                        m_MessageVM.messagelist.Add(new MessageModel()
+                        {
+                            
+                            m_No = temp.ToString(),
+                            m_time = DateTime.Now,
+                            m_content = "content",
+                            m_source = "172.27.0.1",
+                            m_dest = "172.27.0.2"
+                        });
+                    });
+                    Thread.Sleep(1233);
+                }
+            });
+
+            a.Start();
+        }
     }
 }

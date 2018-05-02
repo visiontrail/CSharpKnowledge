@@ -108,7 +108,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="500"/>
-                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- 总高度800 -->
@@ -190,9 +190,11 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="150"/>
+                            <RowDefinition Height="20"/>
                             <RowDefinition Height="120"/>
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
+
 
                         <!-- 一个可以自定义Colum的DataGrid（好像没什么用……） -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
@@ -206,13 +208,18 @@
                         <!-- 对DataGrid进行了二次开发 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5">
                             <StackPanel>
-                                <Label>这是一个使用UserControl控制的DataGrid</Label>
-                                <localui:DyDataGrid x:Name="UcDataGrid"></localui:DyDataGrid>
+                                <DataGrid>
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn></DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </StackPanel>
                         </Border>
 
+                        <Button Click="Button_Click" Grid.Row="2">Start Fresh</Button>
+
                         <!-- 使用DataTemplate对.NET自带的DataGrid进行定制化 -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5">
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Margin="5,5,5,5">
                             <!-- 一个数据模板，使用在后边DataGrid的最后一个单元格 -->
                             <Border.Resources>
                                 <!-- DataType属性是~~？明天要解释！！ -->
@@ -227,23 +234,86 @@
                                     </Grid>
                                 </DataTemplate>
                             </Border.Resources>
-                            
+
                             <!-- 表格，用来显示MessageVM中所有的消息,使用ItemsSource指定数据源 -->
                             <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid" ItemsSource="{Binding Path=.}">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="编号" Binding="{Binding m_No}"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="时间戳" Binding="{Binding m_time}"></DataGridTextColumn>
-                                    <DataGridTemplateColumn Header="消息内容" CellTemplate="{StaticResource ResourceKey = cellEditingTemplate}" CellEditingTemplate="{StaticResource ResourceKey = cellEditingTemplate}"></DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="编号" Binding="{Binding m_No}"/>
+                                    <DataGridTextColumn Header="时间戳" Binding="{Binding m_time}"/>
+                                    <DataGridTemplateColumn Header="消息内容" CellTemplate="{StaticResource ResourceKey = cellEditingTemplate}" 
+                                                            CellEditingTemplate="{StaticResource ResourceKey = cellEditingTemplate}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Border>
+
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Margin="5,5,5,5">
+                            <localui:MessageDataGrid x:Name="MsgDataGrid2"></localui:MessageDataGrid>
+
+                        </Border>
+
                     </Grid>
 
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="120"/>
+                            <RowDefinition Height="150"/>
+                        </Grid.RowDefinitions>
+
+                        <!--  -->
+                        <ScrollViewer Grid.Row="0">
+                            <TreeView x:Name="tv_composite">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type model:TreeViewComposite}" ItemsSource="{Binding m_SubList}" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding m_ItemName}"></TextBlock>
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+                        </ScrollViewer>
+
+                        <ScrollViewer Grid.Row="1">
+                            <ScrollViewer.Resources>
+                                
+                                <XmlDataProvider x:Key="xdp" XPath="FileSystem/Folder">
+                                    <x:XData>
+                                        <FileSystem xmlns="">
+                                            <Folder Name="Books">
+                                                <Folder Name="Programming">
+                                                    <Folder Name="Windows">
+                                                        <Folder Name="WPF"/>
+                                                        <Folder Name="MFC"/>
+                                                        <Folder Name="Delphi"/>
+                                                    </Folder>
+                                                </Folder>
+                                                <Folder Name="Tools">
+                                                    <Folder Name="Development"/>
+                                                    <Folder Name="Designment"/>
+                                                    <Folder Name="Players"/>
+                                                </Folder>
+                                            </Folder>
+                                        </FileSystem>
+                                    </x:XData>
+                                </XmlDataProvider>
+                                
+                            </ScrollViewer.Resources>
+
+                            <TreeView ItemsSource="{Binding Source={StaticResource xdp}}">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding XPath=Folder}">
+                                        <TextBlock Text="{Binding XPath=@Name}"/>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+
+                        </ScrollViewer>
+                        
+                    </Grid>
                 </Grid>
-
             </TabItem>
-
-
         </TabControl>
 
 

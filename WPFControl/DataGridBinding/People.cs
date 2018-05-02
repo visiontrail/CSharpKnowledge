@@ -18,7 +18,6 @@ namespace DataGridBinding
         private string mName = string.Empty;
         private Person mPerson;
         private ICommand mShowCommand;                // 一个事件，这个事件用于显示细节;如何关联的呢？
-        private event EventHandler ShowInfo;
         
         public string Name
         {

@@ -70,6 +70,8 @@ namespace WPF.Model
             set { content = value; }
         }
 
+        private string content_gridshow;
+
         /// <summary>
         /// 消息的源IP地址;
         /// </summary>
