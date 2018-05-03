@@ -72,7 +72,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Control\Calc.cs" />
-    <Compile Include="Control\Person.cs" />
+    <Compile Include="Model\Person.cs" />
+    <Compile Include="Control\XMLTreeViewControl.cs" />
     <Compile Include="Model\MessageModel.cs" />
     <Compile Include="Model\TreeViewItem.cs" />
     <Compile Include="UserControlTemplate\DyDataGrid.xaml.cs">

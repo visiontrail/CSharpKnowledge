@@ -19,6 +19,7 @@ using WPF.UserControlTemplate;
 using WPF.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
+using WPF.Control;
 
 namespace WPF
 {
@@ -88,6 +89,7 @@ namespace WPF
             });
         }
 
+        // 构建一个组合模式的树形结构，并显示在Treeview当中;
         private void InitTreeViewComposite()
         {
             List<TreeViewComposite> root = new List<TreeViewComposite>();
@@ -235,6 +237,11 @@ namespace WPF
             });
 
             a.Start();
+        }
+
+        private void StartParseXML(object sender, RoutedEventArgs e)
+        {
+            XMLTreeViewControl a = new XMLTreeViewControl();
         }
     }
 }

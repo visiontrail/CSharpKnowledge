@@ -26,8 +26,6 @@
 
     </Window.Resources>
 
-
-
     <Grid>
         <TabControl>
             <!-- 主要用来展示纯前端的处理 -->
@@ -120,12 +118,13 @@
                             <RowDefinition Height="150"/>
                             <RowDefinition Height="100"/>
                         </Grid.RowDefinitions>
-
+                        
+                        <!-- 
+                            在此使用DataContext指定一个ClassA的一个实例，
+                            并且在该区域内的所有控件都能访问这个类实例的属性 
+                        -->
                         <Border  BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
-                            <!-- 
-                                在此使用DataContext指定一个ClassA的一个实例，
-                                并且在该区域内的所有控件都能访问这个类实例的属性 
-                            -->
+
                             <!-- 在Border范围内实例化了一个ClassA，名为class_a -->
                             <Border.DataContext>
                                 <local:ClassA x:Name="class_a"></local:ClassA>
@@ -248,7 +247,6 @@
 
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Margin="5,5,5,5">
                             <localui:MessageDataGrid x:Name="MsgDataGrid2"></localui:MessageDataGrid>
-
                         </Border>
 
                     </Grid>
@@ -262,7 +260,7 @@
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
 
-                        <!--  -->
+                        <!-- 通过组合模式实现的树形结构 -->
                         <ScrollViewer Grid.Row="0">
                             <TreeView x:Name="tv_composite">
                                 <TreeView.ItemTemplate>
@@ -275,9 +273,10 @@
                             </TreeView>
                         </ScrollViewer>
 
+                        <!-- 简单的通过读取XML的树形结构 -->
                         <ScrollViewer Grid.Row="1">
+
                             <ScrollViewer.Resources>
-                                
                                 <XmlDataProvider x:Key="xdp" XPath="FileSystem/Folder">
                                     <x:XData>
                                         <FileSystem xmlns="">
@@ -298,7 +297,6 @@
                                         </FileSystem>
                                     </x:XData>
                                 </XmlDataProvider>
-                                
                             </ScrollViewer.Resources>
 
                             <TreeView ItemsSource="{Binding Source={StaticResource xdp}}">
@@ -309,6 +307,17 @@
                                 </TreeView.ItemTemplate>
                             </TreeView>
 
+                        </ScrollViewer>
+
+                        <Button Content="Start Parse" Click="StartParseXML" ></Button>
+
+                        <!-- 通过读取XML文件来动态加载树形结构 -->
+                        <ScrollViewer Grid.Row="2">
+                            <TreeView>
+                                <HierarchicalDataTemplate>
+                                    <TextBlock Text=""></TextBlock>
+                                </HierarchicalDataTemplate>
+                            </TreeView>
                         </ScrollViewer>
                         
                     </Grid>

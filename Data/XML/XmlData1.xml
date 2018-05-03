@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Message Flag="消息内容">
+    <Message Flag="详细内容1"></Message>
+    <Message Flag="详细内容2"></Message>
+    <Message Flag="详细内容3"></Message>
+    <Message Flag="详细内容4"></Message>
+</Message>

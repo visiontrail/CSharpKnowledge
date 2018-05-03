@@ -61,7 +61,7 @@ namespace WPF.Model
         }
 
         /// <summary>
-        /// 消息内容;
+        /// 消息内容A;
         /// </summary>
         private string content;
         public string m_content
@@ -70,8 +70,13 @@ namespace WPF.Model
             set { content = value; }
         }
 
-        private string content_gridshow;
-
+        private List<string> content_detail;
+        public List<string> m_content_detail
+        {
+            get { return content_detail; }
+            set { m_content_detail = value; }
+        }
+        
         /// <summary>
         /// 消息的源IP地址;
         /// </summary>
