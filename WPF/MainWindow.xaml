@@ -13,7 +13,7 @@
 
     <Window.Resources>
 
-        <!-- 控件模板 -->
+        <!-- 控件模板，可以自由进行组合 -->
         <ControlTemplate x:Key="cTmp">
             <StackPanel>
                 <TextBox x:Name="textBox1" Margin="6"/>
@@ -22,7 +22,30 @@
             </StackPanel>
         </ControlTemplate>
 
+        <!-- 一个在XAML当中用到的string实例 -->
         <sys:String x:Key="BindingStatic">关联静态资源以及圆角Style</sys:String>
+
+        <!-- 后边树形结构用到的数据 -->
+        <XmlDataProvider x:Key="xdp" XPath="FileSystem/Folder">
+            <x:XData>
+                <FileSystem xmlns="">
+                    <Folder Name="Books">
+                        <Folder Name="Programming">
+                            <Folder Name="Windows">
+                                <Folder Name="WPF"/>
+                                <Folder Name="MFC"/>
+                                <Folder Name="Delphi"/>
+                            </Folder>
+                        </Folder>
+                        <Folder Name="Tools">
+                            <Folder Name="Development"/>
+                            <Folder Name="Designment"/>
+                            <Folder Name="Players"/>
+                        </Folder>
+                    </Folder>
+                </FileSystem>
+            </x:XData>
+        </XmlDataProvider>
 
     </Window.Resources>
 
@@ -255,7 +278,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="150"/>
-                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="150"/>
                             <RowDefinition Height="120"/>
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
@@ -275,51 +298,34 @@
 
                         <!-- 简单的通过读取XML的树形结构 -->
                         <ScrollViewer Grid.Row="1">
-
-                            <ScrollViewer.Resources>
-                                <XmlDataProvider x:Key="xdp" XPath="FileSystem/Folder">
-                                    <x:XData>
-                                        <FileSystem xmlns="">
-                                            <Folder Name="Books">
-                                                <Folder Name="Programming">
-                                                    <Folder Name="Windows">
-                                                        <Folder Name="WPF"/>
-                                                        <Folder Name="MFC"/>
-                                                        <Folder Name="Delphi"/>
-                                                    </Folder>
-                                                </Folder>
-                                                <Folder Name="Tools">
-                                                    <Folder Name="Development"/>
-                                                    <Folder Name="Designment"/>
-                                                    <Folder Name="Players"/>
-                                                </Folder>
-                                            </Folder>
-                                        </FileSystem>
-                                    </x:XData>
-                                </XmlDataProvider>
-                            </ScrollViewer.Resources>
-
-                            <TreeView ItemsSource="{Binding Source={StaticResource xdp}}">
-                                <TreeView.ItemTemplate>
-                                    <HierarchicalDataTemplate ItemsSource="{Binding XPath=Folder}">
-                                        <TextBlock Text="{Binding XPath=@Name}"/>
-                                    </HierarchicalDataTemplate>
-                                </TreeView.ItemTemplate>
-                            </TreeView>
+                            <StackPanel>
+                                <Label>从Resource中的XML格式的静态数据读取后，放入Treeview当中</Label>
+                                <TreeView ItemsSource="{Binding Source={StaticResource xdp}}">
+                                    <TreeView.ItemTemplate>
+                                        <HierarchicalDataTemplate ItemsSource="{Binding XPath=Folder}">
+                                            <TextBlock Text="{Binding XPath=@Name}"/>
+                                        </HierarchicalDataTemplate>
+                                    </TreeView.ItemTemplate>
+                                </TreeView>
+                            </StackPanel>
 
                         </ScrollViewer>
 
                         <Button Content="Start Parse" Click="StartParseXML" ></Button>
 
-                        <!-- 通过读取XML文件来动态加载树形结构 -->
+                        <!-- 通过读取XML来填写属性结构的模板 -->
                         <ScrollViewer Grid.Row="2">
-                            <TreeView>
-                                <HierarchicalDataTemplate>
-                                    <TextBlock Text=""></TextBlock>
-                                </HierarchicalDataTemplate>
+                            <TreeView x:Name="TreeViewReadFromXMLFile">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type model:TreeViewComposite}" ItemsSource="{Binding m_SubList}">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding m_ItemName}"></TextBlock>
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
                             </TreeView>
                         </ScrollViewer>
-                        
+
                     </Grid>
                 </Grid>
             </TabItem>

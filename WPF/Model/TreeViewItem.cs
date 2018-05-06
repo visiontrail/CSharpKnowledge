@@ -24,6 +24,19 @@ namespace WPF.Model
             }
         }
 
+        private string ItemContent;
+        public string m_ItemContent
+        {
+            get
+            {
+                return ItemContent;
+            }
+            set
+            {
+                ItemContent = value;
+            }
+        }
+
         private string ItemName;
         public string m_ItemName
         {
