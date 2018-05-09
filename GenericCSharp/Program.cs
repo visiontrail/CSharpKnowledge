@@ -135,7 +135,15 @@ namespace TryAnyCSharp
                 Console.WriteLine("Enumerable Range Lambda" +iter);
             }
 
-            bool a = Comparer.Equals(ret, ret2);
+            bool? a = Comparer.Equals(ret, ret2);
+
+            Person person1 = new Person("Guoliang", new DateTime(1988, 9, 25));
+            Person personDie = new Person("Paul", new DateTime(1973, 10, 2));
+
+            personDie.DeathDay = new DateTime(2016, 10, 11);
+
+            Console.WriteLine("Guoliang Age:" + person1.Age.Days);
+            Console.WriteLine("Paul Age:" + personDie.Age.Days / 365);
 
             Console.ReadKey();
             

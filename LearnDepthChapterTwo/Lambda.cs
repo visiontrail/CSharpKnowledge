@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LearnDepthChapterTwo
+namespace Delegate
 {
     public class Lambda
     {
@@ -12,6 +12,16 @@ namespace LearnDepthChapterTwo
         public Lambda(string name)
         {
             Name = name;
+        }
+        public override string ToString()
+        {
+            return this.Name;
+        }
+        public static Lambda operator +(Lambda a, Lambda b)
+        {
+            Lambda ret = new Lambda("");
+            ret.Name = a.Name + b.Name;
+            return ret;
         }
     }
 
