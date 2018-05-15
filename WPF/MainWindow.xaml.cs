@@ -20,6 +20,7 @@ using WPF.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using WPF.Control;
+using TrySomeInterface;
 
 namespace WPF
 {
@@ -31,6 +32,8 @@ namespace WPF
         public List<Person> persons = new List<Person>();      // 最简单的控件Binding实验数据;
         public DataGridVM m_DgVm;                              // DataGrid的VM层，所有针对DataGrid的操作，全部使用这个类型;
         public MessageVM m_MessageVM =  new MessageVM();       // MessageVM层，用来显示MessageModel的;
+        List<DyDataDridModel> list = new List<DyDataDridModel>();
+        ObservableCollection<MessageModel> list2 = new ObservableCollection<MessageModel>();
 
         public MainWindow()
         {
@@ -141,6 +144,27 @@ namespace WPF
         private void InitMessageToDataGrid()
         {
             this.MsgDataGrid.DataContext = m_MessageVM.messagelist;
+
+
+            // 填内容,i表示有多少行;
+            for (int i = 0; i<= 5; i++)
+            {
+                dynamic model = new DyDataDridModel();
+                
+                model.col2 = i.ToString();
+
+                list.Add(model);
+            }
+            for (int i = 0; i <= 2; i++)
+            {
+                DataGridTextColumn column = new DataGridTextColumn();
+                column.Header = "你好" + i;
+                column.Binding = new Binding("col" + i);
+                this.MsgDataGrid_AutoGenCol.Columns.Add(column);
+            }
+            
+            this.MsgDataGrid_AutoGenCol.ItemsSource = list;
+            
         }
 
         private void InitaListToDataGridColumn()
@@ -271,6 +295,20 @@ namespace WPF
             {
                 Console.WriteLine(item.m_ItemName.ToString());
             }
+
+            // 借用这个按钮做DataGrid的小实验;
+            foreach (DataGridColumn iter in this.MsgDataGrid_AutoGenCol.Columns)
+            {
+                Console.WriteLine(iter.Header as string);
+            }
+        }
+
+        private void TryEnumerable(object sender, RoutedEventArgs e)
+        {
+            List<Iterator_Try> list = new List<Iterator_Try>();
+            list.Add(new Iterator_Try() { value1 = 1, value2 = 3 });
+            list.Add(new Iterator_Try() { value1 = 2, value2 = 2 });
+            list.Add(new Iterator_Try() { value1 = 3, value2 = 1 });
         }
     }
 }

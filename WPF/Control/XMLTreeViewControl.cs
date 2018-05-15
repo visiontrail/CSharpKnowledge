@@ -14,7 +14,7 @@ namespace WPF.Control
     {
         private XmlDataProvider xmldata;
         private XmlDocument xmlsource;                             // 方式一：使用Document进行XML文件的读取;
-        public List<TreeViewComposite> items;
+        public List<TreeViewComposite> items;                      // 保存一个完整的树形结构;
         TreeViewComposite root = new TreeViewComposite();
 
         // 实验程序，现在构造器中直接读取一个XML;
@@ -26,7 +26,9 @@ namespace WPF.Control
             items = new List<TreeViewComposite>();
             try
             {
-                xmlsource.Load(path + @"/XML/XmlData1.xml");
+                xmlsource.Load(path + @"/XML/XmlData1.xml");                // 读取XML数据;
+                XmlNodeList eles = xmlsource.DocumentElement.ChildNodes;
+                readfile(eles, null);
             }
             catch(Exception e)
             {
@@ -34,8 +36,7 @@ namespace WPF.Control
                 xmlsource = null;
             }
 
-            XmlNodeList eles = xmlsource.DocumentElement.ChildNodes;
-            readfile(eles, null);
+            
         }
 
         private void readfile(XmlNodeList eles, TreeViewComposite father_ele)

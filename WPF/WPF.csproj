@@ -72,6 +72,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Control\Calc.cs" />
+    <Compile Include="Model\DyDataDridModel.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Control\XMLTreeViewControl.cs" />
     <Compile Include="Model\MessageModel.cs" />
@@ -148,6 +149,10 @@
     <ProjectReference Include="..\LightMVVM\LightMVVM.csproj">
       <Project>{c6b69e37-9589-45ce-8b5c-d147660ae293}</Project>
       <Name>LightMVVM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TrySomeInterface\TrySomeInterface.csproj">
+      <Project>{fb2612c9-cce1-4d79-ab90-809a96666d1f}</Project>
+      <Name>TrySomeInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -215,6 +215,7 @@
                             <RowDefinition Height="20"/>
                             <RowDefinition Height="120"/>
                             <RowDefinition Height="150"/>
+                            <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
 
 
@@ -244,7 +245,6 @@
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Margin="5,5,5,5">
                             <!-- 一个数据模板，使用在后边DataGrid的最后一个单元格 -->
                             <Border.Resources>
-                                <!-- DataType属性是~~？明天要解释！！ -->
                                 <DataTemplate x:Key="cellEditingTemplate" DataType="{x:Type model:MessageModel}">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -272,8 +272,15 @@
                             <localui:MessageDataGrid x:Name="MsgDataGrid2"></localui:MessageDataGrid>
                         </Border>
 
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Margin="5,5,5,5">
+                            <DataGrid AutoGenerateColumns="True" x:Name="MsgDataGrid_AutoGenCol">
+                                
+                            </DataGrid>
+                        </Border>
+
                     </Grid>
 
+                    <!-- 这一列涉及TreeView控件的使用 -->
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"/>
@@ -326,6 +333,25 @@
                             </TreeView>
                         </ScrollViewer>
 
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="小实验">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <StackPanel>
+                            <Button Content="触发接口IEnumerable的实验程序" Click="TryEnumerable"></Button>
+
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </TabItem>

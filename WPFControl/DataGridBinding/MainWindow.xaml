@@ -27,11 +27,13 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="15"/>
                     </Grid.ColumnDefinitions>
+                    
                     <TextBlock Text="Age: "/>
                     <TextBlock Grid.Column="1" Text="{Binding Age}"/>
                     <TextBlock Grid.Column="2" Text=" Sex: "/>
                     <TextBlock Grid.Column="3" Text="{Binding Sex}"/>
                     <Button Grid.Column="4" Content="..." Command="{Binding ShowCommand}"/>
+                    
                 </Grid>
             </DataTemplate>
         </Grid.Resources>
