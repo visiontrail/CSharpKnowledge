@@ -212,7 +212,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="150"/>
-                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="50"/>
                             <RowDefinition Height="120"/>
                             <RowDefinition Height="150"/>
                             <RowDefinition Height="150"/>
@@ -222,9 +222,15 @@
                         <!-- 一个可以自定义Colum的DataGrid（好像没什么用……） -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
                             <StackPanel>
-                                <Label>这是一个在本地可以自由编辑列的小实验</Label>
-                                <DataGrid x:Name="MessageDataGrid"></DataGrid>
-                                <Button Content="ChangeColum" Click="ChangeCol_Click" ></Button>
+                                <Label>这是一个DataGrid最基础的实例</Label>
+                                <DataGrid x:Name="CustomerDataGrid" ItemsSource="{Binding Path = .}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Column1"  Binding="{Binding FirstName}"/>
+                                        <DataGridTextColumn Header="Column2" Binding="{Binding LastName}" />
+                                        <DataGridHyperlinkColumn Header="Column3" Binding="{Binding Email}"  />
+                                        <DataGridCheckBoxColumn Header="Column4" Binding="{Binding IsMember}" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
                             </StackPanel>
                         </Border>
 
@@ -239,8 +245,11 @@
                             </StackPanel>
                         </Border>
 
-                        <Button Click="Button_Click" Grid.Row="2">Start Fresh</Button>
-
+                        <StackPanel Grid.Row="2">
+                            <Label>以下使用了数据模板为DataGrid丰富内容</Label>
+                            <Button Click="Button_Click">开始刷新DataGrid</Button>
+                        </StackPanel>
+                        
                         <!-- 使用DataTemplate对.NET自带的DataGrid进行定制化 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Margin="5,5,5,5">
                             <!-- 一个数据模板，使用在后边DataGrid的最后一个单元格 -->
@@ -268,14 +277,17 @@
                             </DataGrid>
                         </Border>
 
+                        <!-- 表格，和上边的表格一样，但是只是应用了usercontrol封装了一下 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Margin="5,5,5,5">
                             <localui:MessageDataGrid x:Name="MsgDataGrid2"></localui:MessageDataGrid>
                         </Border>
 
+                        <!-- 
+                             这是一个使用Dynamic动态类型关联的DataGrid，
+                             这样一来，如果有非常多的同类型的表格，就不用为每个表格再去手工建立数据模型了
+                        -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Margin="5,5,5,5">
-                            <DataGrid AutoGenerateColumns="True" x:Name="MsgDataGrid_AutoGenCol">
-                                
-                            </DataGrid>
+                            <DataGrid AutoGenerateColumns="True" x:Name="MsgDataGrid_AutoGenCol"/>
                         </Border>
 
                     </Grid>

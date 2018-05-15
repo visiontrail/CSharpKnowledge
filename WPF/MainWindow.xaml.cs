@@ -33,7 +33,6 @@ namespace WPF
         public DataGridVM m_DgVm;                              // DataGrid的VM层，所有针对DataGrid的操作，全部使用这个类型;
         public MessageVM m_MessageVM =  new MessageVM();       // MessageVM层，用来显示MessageModel的;
         List<DyDataDridModel> list = new List<DyDataDridModel>();
-        ObservableCollection<MessageModel> list2 = new ObservableCollection<MessageModel>();
 
         public MainWindow()
         {
@@ -45,14 +44,14 @@ namespace WPF
             BindingToProperty();
             BindingToFunction();
             
-            // 以下是控件DataGrid的使用方法;
+            // 以下是以初始化一个消息抄送列表，学习控件DataGrid的使用方法;
             // 备注：两个DataGrid的区别是：DataGrid是直接在主XAML中使用的，而DataGrid2则是使用用户控件定义的;
-            InitaListToDataGridColumn();    // 小实验，将用户自定义的List添加到DataGrid的List当中;
-            InitMessageToDataGrid();        // 小实验，将数据通过另一个线程填入到DataGrid当中;
-            InitMessageToDataGrid2();       // 将同样的数据同时写入另一个DataGrid当中;
-            
+            InitaListToDataGridColumn();      // 小实验，将用户自定义的List添加到DataGrid的List当中;
+            InitMessageToDataGrid();          // 将同样的数据同时写入两个DataGrid当中;
+            InitMessageToDataGrid_Dynamic();  // 小实验，向一个动态类型添加属性后，关联一个DataGrid;
+
             // 以下是控件TreeView的使用方法;
-            InitTreeViewComposite();        // 直接使用一个组合模式的实例填入到TreeView当中;
+            InitTreeViewComposite();          // 直接使用一个组合模式的实例填入到TreeView当中;
             InitTreeViewFromXML();
             
             // WPF中的ItemsSource是可以使用LINQ进行查询的;
@@ -75,6 +74,8 @@ namespace WPF
                 Source = this.PersonList.ItemsSource,
                 BindsDirectlyToSource = true
             });
+
+            
         }
 
         private void BindingToFunction()
@@ -136,22 +137,22 @@ namespace WPF
 
         }
 
-        private void InitMessageToDataGrid2()
-        {
-            this.MsgDataGrid2.m_context = m_MessageVM.messagelist;
-        }
-
         private void InitMessageToDataGrid()
         {
             this.MsgDataGrid.DataContext = m_MessageVM.messagelist;
+            this.MsgDataGrid2.m_context = m_MessageVM.messagelist;
+        }
 
-
+        private void InitMessageToDataGrid_Dynamic()
+        {
             // 填内容,i表示有多少行;
             for (int i = 0; i<= 5; i++)
             {
                 dynamic model = new DyDataDridModel();
-                
-                model.col2 = i.ToString();
+
+                model.AddProperty("property0", i.ToString());
+                model.AddProperty("property1", i.ToString());
+                model.AddProperty("property2", i.ToString());
 
                 list.Add(model);
             }
@@ -159,7 +160,7 @@ namespace WPF
             {
                 DataGridTextColumn column = new DataGridTextColumn();
                 column.Header = "你好" + i;
-                column.Binding = new Binding("col" + i);
+                column.Binding = new Binding("property" + i);
                 this.MsgDataGrid_AutoGenCol.Columns.Add(column);
             }
             
@@ -169,52 +170,10 @@ namespace WPF
 
         private void InitaListToDataGridColumn()
         {
-            List<string> colums = new List<string>();
-            colums.Add("column1");
-            colums.Add("column2");
-            colums.Add("column3");
-
-            m_DgVm = new DataGridVM(colums);
-            m_DgVm.m_ColumnNameList.ListChanged += M_ColumnNameList_ListChanged;
-
-            foreach (string iter in m_DgVm.m_ColumnNameList.m_list)
-            {
-                MessageDataGrid.Columns.Add(new DataGridTextColumn()
-                {
-                    Header = iter
-                });
-            }
+            ObservableCollection<Customer> list = InitCustomerData.InitData();
+            this.CustomerDataGrid.DataContext = list;
         }
         
-        /// <summary>
-        /// DataGridVM层列表发生变化时,将变化添加到View中;
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void M_ColumnNameList_ListChanged(object sender, EventArgs e)
-        {
-            MessageDataGrid.Columns.Clear();
-
-            foreach (string iter in m_DgVm.m_ColumnNameList.m_list)
-            {
-                MessageDataGrid.Columns.Add(new DataGridTextColumn()
-                {
-                    Header = iter,
-                    Width = iter.Length * 10
-                });
-            }
-        }
-
-        /// <summary>
-        /// 实验一下添加一列;
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ChangeCol_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_DgVm.m_ColumnNameList.Add("CCCCCCCCCCC3");
-        }
-
         /// <summary>
         /// 当ListBox控件选择发生变化时;
         /// </summary>
@@ -310,5 +269,6 @@ namespace WPF
             list.Add(new Iterator_Try() { value1 = 2, value2 = 2 });
             list.Add(new Iterator_Try() { value1 = 3, value2 = 1 });
         }
+
     }
 }

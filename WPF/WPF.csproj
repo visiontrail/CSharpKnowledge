@@ -72,6 +72,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Control\Calc.cs" />
+    <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\DyDataDridModel.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Control\XMLTreeViewControl.cs" />
