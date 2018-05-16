@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGridBinding", "WPFContr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageQueue", "MessageQueue", "{A6268A5A-0690-4CAE-85D2-87A28CC69258}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLR", "DLR\DLR.csproj", "{2D31A236-0F4D-40B5-8E94-D92A9CCFBFDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dynamic_DLR", "DLR\Dynamic_DLR.csproj", "{2D31A236-0F4D-40B5-8E94-D92A9CCFBFDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

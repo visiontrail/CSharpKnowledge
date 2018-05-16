@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPF.Model
+namespace Dynamic_DLR
 {
     /// <summary>
-    /// 该类型主要用来动态生成表格;
+    /// 该类型主要用来动态生成类型;
     /// 使用DynamicObject作为基类，使用这个类实例所添加的属性都将保存再Properties当中;
     /// </summary>
     public class DyDataDridModel : DynamicObject
@@ -21,7 +21,7 @@ namespace WPF.Model
         // 为动态类型动态添加成员;
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            if(!Properties.Keys.Contains(binder.Name))
+            if (!Properties.Keys.Contains(binder.Name))
             {
                 Properties.Add(binder.Name, value);
             }
@@ -55,6 +55,6 @@ namespace WPF.Model
         {
             return Properties.TryGetValue(binder.Name, out result);
         }
-        
+
     }
 }

@@ -8,6 +8,9 @@ using System.Windows.Controls;
 
 namespace WPF.UserControlTemplate
 {
+    /// <summary>
+    /// 一个自定义的TextBox,通过这个控件学习依赖属性;
+    /// </summary>
     public class SpecialTextBox : TextBox
     {
         public SpecialTextBox() : base()

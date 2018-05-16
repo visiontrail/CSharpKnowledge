@@ -129,7 +129,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="500"/>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="300"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- 总高度800 -->
@@ -201,7 +201,7 @@
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Margin="5,5,5,5">
                             <StackPanel>
                                 <TextBox x:Name="text1"></TextBox>
-                                <Button Content="Ok" Click="GetDepProperty" ></Button>
+                                <Button Content="获取输入框内容" Click="GetDepProperty" ></Button>
                             </StackPanel>
                         </Border>
 
@@ -210,48 +210,48 @@
                     <!-- 这一列涉及控件DataGrid的使用方法 -->
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
                             <RowDefinition Height="100"/>
-                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="100"/>
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="120"/>
-                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="120"/>
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
 
-
+                        <Label Grid.Row="0">这是一个DataGrid最基础的实例</Label>
                         <!-- 一个可以自定义Colum的DataGrid（好像没什么用……） -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
-                            <StackPanel>
-                                <Label>这是一个DataGrid最基础的实例</Label>
-                                <DataGrid x:Name="CustomerDataGrid" ItemsSource="{Binding Path = .}">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Column1"  Binding="{Binding FirstName}"/>
-                                        <DataGridTextColumn Header="Column2" Binding="{Binding LastName}" />
-                                        <DataGridHyperlinkColumn Header="Column3" Binding="{Binding Email}"  />
-                                        <DataGridCheckBoxColumn Header="Column4" Binding="{Binding IsMember}" />
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- 对DataGrid进行了二次开发 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5">
-                            <StackPanel>
-                                <DataGrid>
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn></DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </StackPanel>
+                            <DataGrid x:Name="CustomerDataGrid" ItemsSource="{Binding Path = .}" AutoGenerateColumns="False"  >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Column1"  Binding="{Binding FirstName}"/>
+                                    <DataGridTextColumn Header="Column2" Binding="{Binding LastName}" />
+                                    <DataGridHyperlinkColumn Header="Column3" Binding="{Binding Email}"  />
+                                    <DataGridCheckBoxColumn Header="Column4" Binding="{Binding IsMember}" />
+                                    <DataGridTextColumn Header="Column5" Binding="{Binding cell.name}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </Border>
 
-                        <StackPanel Grid.Row="2">
-                            <Label>以下使用了数据模板为DataGrid丰富内容</Label>
+                        <!-- 对DataGrid进行更加丰富的操作，比如单元格编辑事件等等 -->
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5">
+                            <DataGrid x:Name="CustomerDataGrid_AddEvent" ItemsSource="{Binding Path = .}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Column1"  Binding="{Binding column1.name}"/>
+                                    <DataGridHyperlinkColumn Header="Column2" Binding="{Binding column2.name}"  />
+                                    <DataGridCheckBoxColumn Header="Column3" Binding="{Binding column3.name}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+
+                        <!-- 触发单元格自动刷新 -->
+                        <StackPanel Grid.Row="3">
+                            <Label>以下使用了数据模板为DataGrid丰富内容，并实现自动刷新功能</Label>
                             <Button Click="Button_Click">开始刷新DataGrid</Button>
                         </StackPanel>
                         
                         <!-- 使用DataTemplate对.NET自带的DataGrid进行定制化 -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Margin="5,5,5,5">
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Margin="5,5,5,5">
                             <!-- 一个数据模板，使用在后边DataGrid的最后一个单元格 -->
                             <Border.Resources>
                                 <DataTemplate x:Key="cellEditingTemplate" DataType="{x:Type model:MessageModel}">
@@ -267,7 +267,7 @@
                             </Border.Resources>
 
                             <!-- 表格，用来显示MessageVM中所有的消息,使用ItemsSource指定数据源 -->
-                            <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid" ItemsSource="{Binding Path=.}">
+                            <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid" ItemsSource="{Binding Path=.}" BeginningEdit="MsgDataGrid_BeginningEdit" >
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="编号" Binding="{Binding m_No}"/>
                                     <DataGridTextColumn Header="时间戳" Binding="{Binding m_time}"/>
@@ -278,7 +278,7 @@
                         </Border>
 
                         <!-- 表格，和上边的表格一样，但是只是应用了usercontrol封装了一下 -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Margin="5,5,5,5">
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Margin="5,5,5,5">
                             <localui:MessageDataGrid x:Name="MsgDataGrid2"></localui:MessageDataGrid>
                         </Border>
 
@@ -286,7 +286,7 @@
                              这是一个使用Dynamic动态类型关联的DataGrid，
                              这样一来，如果有非常多的同类型的表格，就不用为每个表格再去手工建立数据模型了
                         -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Margin="5,5,5,5">
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="6" Margin="5,5,5,5">
                             <DataGrid AutoGenerateColumns="True" x:Name="MsgDataGrid_AutoGenCol"/>
                         </Border>
 
@@ -297,28 +297,31 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="150"/>
-                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="50"/>
                             <RowDefinition Height="120"/>
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
 
                         <!-- 通过组合模式实现的树形结构 -->
                         <ScrollViewer Grid.Row="0">
-                            <TreeView x:Name="tv_composite">
-                                <TreeView.ItemTemplate>
-                                    <HierarchicalDataTemplate DataType="{x:Type model:TreeViewComposite}" ItemsSource="{Binding m_SubList}" >
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock VerticalAlignment="Center" Text="{Binding m_ItemName}"></TextBlock>
-                                        </StackPanel>
-                                    </HierarchicalDataTemplate>
-                                </TreeView.ItemTemplate>
-                            </TreeView>
+                            <StackPanel>
+                                <Label>一个树形结构的类型容器，关联放入Treeview当中</Label>
+                                <TreeView x:Name="tv_composite">
+                                    <TreeView.ItemTemplate>
+                                        <HierarchicalDataTemplate DataType="{x:Type model:TreeViewComposite}" ItemsSource="{Binding m_SubList}" >
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock VerticalAlignment="Center" Text="{Binding m_ItemName}"></TextBlock>
+                                            </StackPanel>
+                                        </HierarchicalDataTemplate>
+                                    </TreeView.ItemTemplate>
+                                </TreeView>
+                            </StackPanel>
                         </ScrollViewer>
 
-                        <!-- 简单的通过读取XML的树形结构 -->
+                        <!-- 简单的通过读取Resourcees中的静态XML格式的树形结构 -->
                         <ScrollViewer Grid.Row="1">
                             <StackPanel>
-                                <Label>从Resource中的XML格式的静态数据读取后，放入Treeview当中</Label>
+                                <Label>静态XML数据，放入Treeview当中</Label>
                                 <TreeView ItemsSource="{Binding Source={StaticResource xdp}}">
                                     <TreeView.ItemTemplate>
                                         <HierarchicalDataTemplate ItemsSource="{Binding XPath=Folder}">
@@ -327,13 +330,12 @@
                                     </TreeView.ItemTemplate>
                                 </TreeView>
                             </StackPanel>
-
                         </ScrollViewer>
 
-                        <Button Content="Start Parse" Click="StartParseXML" ></Button>
+                        <Button Content="Start Parse" Click="StartParseXML" Grid.Row="2" Margin="0,10"></Button>
 
-                        <!-- 通过读取XML来填写属性结构的模板 -->
-                        <ScrollViewer Grid.Row="2">
+                        <!-- 通过读取XML文件来填写属性结构的模板 -->
+                        <ScrollViewer Grid.Row="3">
                             <TreeView x:Name="TreeViewReadFromXMLFile">
                                 <TreeView.ItemTemplate>
                                     <HierarchicalDataTemplate DataType="{x:Type model:TreeViewComposite}" ItemsSource="{Binding m_SubList}">

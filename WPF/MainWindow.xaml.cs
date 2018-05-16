@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF.ViewModel;
 using System.Threading;
@@ -21,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using WPF.Control;
 using TrySomeInterface;
+using Dynamic_DLR;
 
 namespace WPF
 {
@@ -29,37 +25,54 @@ namespace WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<Person> persons = new List<Person>();      // 最简单的控件Binding实验数据;
-        public DataGridVM m_DgVm;                              // DataGrid的VM层，所有针对DataGrid的操作，全部使用这个类型;
-        public MessageVM m_MessageVM =  new MessageVM();       // MessageVM层，用来显示MessageModel的;
-        List<DyDataDridModel> list = new List<DyDataDridModel>();
+        public List<Person> persons = new List<Person>();            // 最简单的控件Binding实验数据;
+        public DataGridVM m_DgVm;                                    // DataGrid的VM层，所有针对DataGrid的操作，全部使用这个类型;
+        public MessageVM m_MessageVM =  new MessageVM();             // MessageVM层，用来显示MessageModel的;
+        List<DyDataDridModel> list = new List<DyDataDridModel>();    // 用来在DataGrid中显示的实验数据;
 
         public MainWindow()
         {
             InitializeComponent();
-            DrawPolyLine();                 // WPF画线;
-            InitPersons();                  // 初始化Person列表;
-
+            DrawPolyLine();                     // 用WPF画线;
+            
             // 以下是使用Binding关联命令的使用方法;
-            BindingToProperty();
-            BindingToFunction();
+            InitPersons();                      // 首先初始化一个容器——Person列表;
+            BindingToProperty();                // 将类型的属性Binding到WPF控件当中;
+            BindingToFunction();                // 将类型的方法Binding到WPF控件当中;
             
-            // 以下是以初始化一个消息抄送列表，学习控件DataGrid的使用方法;
-            // 备注：两个DataGrid的区别是：DataGrid是直接在主XAML中使用的，而DataGrid2则是使用用户控件定义的;
-            InitaListToDataGridColumn();      // 小实验，将用户自定义的List添加到DataGrid的List当中;
-            InitMessageToDataGrid();          // 将同样的数据同时写入两个DataGrid当中;
-            InitMessageToDataGrid_Dynamic();  // 小实验，向一个动态类型添加属性后，关联一个DataGrid;
+            // 以下是使用控件DataGrid的方法;
+            InitaListToDataGridColumn();        // 将用户自定义的List添加到DataGrid的List当中;
+            InitaListToDataGridWithEvnet();     // 将用户自定义的List添加到DataGrid当中，并包含对DataGrid单元格的事件操作;
+            InitMessageToDataGrid();            // 将同样的数据同时写入两个DataGrid当中;
+            InitMessageToDataGrid_Dynamic();    // 小实验，向一个动态类型添加属性后，关联一个DataGrid;
 
-            // 以下是控件TreeView的使用方法;
-            InitTreeViewComposite();          // 直接使用一个组合模式的实例填入到TreeView当中;
-            InitTreeViewFromXML();
+            // 以下是使用控件TreeView的方法;
+            InitTreeViewComposite();            // 直接使用一个组合模式的实例填入到TreeView当中;
             
-            // WPF中的ItemsSource是可以使用LINQ进行查询的;
+            // WPF中的ItemsSource是可以使用LINQ进行查询筛选的;
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
-
-            
         }
-        
+
+        private void InitaListToDataGridWithEvnet()
+        {
+            ObservableCollection<DataGridWithEvent> list = InitDataGridWithEventData.InitData();
+            this.CustomerDataGrid_AddEvent.DataContext = list;
+
+            this.CustomerDataGrid_AddEvent.BeginningEdit += CustomerDataGrid_AddEvent_BeginningEdit;   // 单元格开始编辑事件;
+        }
+
+        private void CustomerDataGrid_AddEvent_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            Console.WriteLine("开始编辑单元格;函数参数e反馈的实体可以是单元格内数据类型" + (e.Column.GetCellContent(e.Row)).DataContext.GetType());
+            
+            DataGridWithEvent callbacktemp = e.Column.GetCellContent(e.Row).DataContext as DataGridWithEvent;   // 获取了填写单元格的类型实例;
+            callbacktemp.JudegePropertyCall(e.Column.Header as string);
+
+        }
+
+        /// <summary>
+        /// WPF控件关联类型中的属性
+        /// </summary>
         private void BindingToProperty()
         {
             //_____________________________________________________________以下是使用Binding关联XAML和C#属性的实验
@@ -74,10 +87,11 @@ namespace WPF
                 Source = this.PersonList.ItemsSource,
                 BindsDirectlyToSource = true
             });
-
-            
         }
 
+        /// <summary>
+        /// WPF控件关联类型中的方法
+        /// </summary>
         private void BindingToFunction()
         {
             //_____________________________________________________________以下是使用Binding关联XAML和C#命令的实验
@@ -110,7 +124,9 @@ namespace WPF
             });
         }
 
-        // 构建一个组合模式的树形结构，并显示在Treeview当中;
+        /// <summary>
+        /// 构建一个组合模式的树形结构，并显示在Treeview当中;
+        /// </summary>
         private void InitTreeViewComposite()
         {
             List<TreeViewComposite> root = new List<TreeViewComposite>();
@@ -130,13 +146,7 @@ namespace WPF
 
             this.tv_composite.ItemsSource = root;
         }
-
-        private void InitTreeViewFromXML()
-        {
-            List<TreeViewComposite> root = new List<TreeViewComposite>();
-
-        }
-
+        
         private void InitMessageToDataGrid()
         {
             this.MsgDataGrid.DataContext = m_MessageVM.messagelist;
@@ -150,7 +160,8 @@ namespace WPF
             {
                 dynamic model = new DyDataDridModel();
 
-                model.AddProperty("property0", i.ToString());
+                // 向单元格内添加内容;
+                model.AddProperty("property0", new GridCell() { name = "123" });
                 model.AddProperty("property1", i.ToString());
                 model.AddProperty("property2", i.ToString());
 
@@ -159,8 +170,8 @@ namespace WPF
             for (int i = 0; i <= 2; i++)
             {
                 DataGridTextColumn column = new DataGridTextColumn();
-                column.Header = "你好" + i;
-                column.Binding = new Binding("property" + i);
+                column.Header = "列" + i;
+                column.Binding = new Binding("property0");
                 this.MsgDataGrid_AutoGenCol.Columns.Add(column);
             }
             
@@ -170,7 +181,7 @@ namespace WPF
 
         private void InitaListToDataGridColumn()
         {
-            ObservableCollection<Customer> list = InitCustomerData.InitData();
+            ObservableCollection<DataGridCustomer> list = InitCustomerData.InitData();
             this.CustomerDataGrid.DataContext = list;
         }
         
@@ -270,5 +281,11 @@ namespace WPF
             list.Add(new Iterator_Try() { value1 = 3, value2 = 1 });
         }
 
+        // ____________________________________________________________________________________________以下是有关DataGrid有用事件的实验
+        private void MsgDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            Console.WriteLine("开始编辑单元格;函数参数e反馈的实体可以是单元格内数据类型" + (e.Column.GetCellContent(e.Row)).DataContext.GetType());
+            Console.WriteLine("开始编辑单元格;函数参数e反馈的实体可以是单元格内数据类型的数据" + ((e.Column.GetCellContent(e.Row)).DataContext as MessageModel).m_content);
+        }
     }
 }
