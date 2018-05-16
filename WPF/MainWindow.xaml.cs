@@ -27,7 +27,9 @@ namespace WPF
         public List<Person> persons = new List<Person>();            // 最简单的控件Binding实验数据;
         public DataGridVM m_DgVm;                                    // DataGrid的VM层，所有针对DataGrid的操作，全部使用这个类型;
         public MessageVM m_MessageVM =  new MessageVM();             // MessageVM层，用来显示MessageModel的;
-        List<DyDataDridModel> list = new List<DyDataDridModel>();    // 用来在DataGrid中显示的实验数据;
+        ObservableCollection<DataGridCustomer> listbase = 
+            new ObservableCollection<DataGridCustomer>();            // DataGrid的基础，数据;
+        List<DyDataDridModel> list = new List<DyDataDridModel>();    // 用来在DataGrid中显示的实验数据; 
 
         public MainWindow()
         {
@@ -52,7 +54,24 @@ namespace WPF
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
         }
 
-       
+        /// <summary>
+        /// WPF可以实现简单的绘图功能;
+        /// </summary>
+        public void DrawPolyLine()
+        {
+            Polyline LineSeries = new Polyline();
+            LineSeries.Points.Add(new Point(0, 11));
+            LineSeries.Points.Add(new Point(10, 21));
+            LineSeries.Points.Add(new Point(10, 31));
+            LineSeries.Points.Add(new Point(120, 31));
+
+            LineSeries.Stroke = Brushes.Blue;      // 颜色;
+            LineSeries.StrokeThickness = 13;       // 粗细;
+
+            this.canvas1.Children.Add(LineSeries);
+        }
+
+
         /// <summary>
         /// WPF控件关联类型中的属性
         /// </summary>
@@ -136,8 +155,8 @@ namespace WPF
         /// </summary>
         private void InitaListToDataGridColumn()
         {
-            ObservableCollection<DataGridCustomer> list = InitCustomerData.InitData();
-            this.CustomerDataGrid.DataContext = list;
+            listbase = InitCustomerData.InitData();
+            this.CustomerDataGrid.DataContext = listbase;
         }
 
         /// <summary>
@@ -232,23 +251,6 @@ namespace WPF
             persons.Add(new Person(5, "WangCY"));
         }
         
-        /// <summary>
-        /// WPF可以实现简单的绘图功能;
-        /// </summary>
-        public void DrawPolyLine()
-        {
-            Polyline LineSeries = new Polyline();
-            LineSeries.Points.Add(new Point(0, 11));
-            LineSeries.Points.Add(new Point(10, 21));
-            LineSeries.Points.Add(new Point(10, 31));
-            LineSeries.Points.Add(new Point(120, 31));
-
-            LineSeries.Stroke = Brushes.Blue;      // 颜色;
-            LineSeries.StrokeThickness = 13;       // 粗细;
-
-            this.canvas1.Children.Add(LineSeries);
-        }
-    
         private void GetDepProperty(object sender, RoutedEventArgs e)
         {
             SpecialTextBox st = new SpecialTextBox();
@@ -281,6 +283,14 @@ namespace WPF
             });
 
             a.Start();
+
+            listbase.Add(new DataGridCustomer() {
+                FirstName ="Add",
+                LastName ="Person",
+                Email =new Uri("Http://baidu.com"),
+                IsMember =false,
+                cell = new GridCell() { name = "cell" }
+            });
         }
 
         private void StartParseXML(object sender, RoutedEventArgs e)
