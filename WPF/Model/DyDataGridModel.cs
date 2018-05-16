@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dynamic_DLR
+namespace WPF.Model
 {
     /// <summary>
     /// 该类型主要用来动态生成类型;
@@ -71,11 +71,16 @@ namespace Dynamic_DLR
                     if(Properties.ContainsKey(key))
                     {
                         object property = Properties[key];
+                        (property as GridCell).EditingCalback();
+                        result = property;
+                        return true;
                     }
                 }
                 else
                 {
-
+                    Console.WriteLine("Can not find the right property");
+                    result = null;
+                    return false;
                 }
                 
             }

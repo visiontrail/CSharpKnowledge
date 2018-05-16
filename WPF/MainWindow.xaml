@@ -121,7 +121,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="前后台数据通信">
+            <TabItem Header="各类控件的使用">
 
                 <Grid>
 
@@ -147,7 +147,6 @@
                             并且在该区域内的所有控件都能访问这个类实例的属性 
                         -->
                         <Border  BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="5,5,5,5">
-
                             <!-- 在Border范围内实例化了一个ClassA，名为class_a -->
                             <Border.DataContext>
                                 <local:ClassA x:Name="class_a"></local:ClassA>
@@ -160,7 +159,6 @@
                                     <TreeViewItem Header="{Binding m_B}"></TreeViewItem>
                                 </TreeViewItem>
                             </TreeView>
-
                         </Border>
 
                         <!-- 有关于ItemsControl（ListBox）类型的控件，使用ItemSource进行Binding -->
@@ -287,7 +285,7 @@
                              这样一来，如果有非常多的同类型的表格，就不用为每个表格再去手工建立数据模型了
                         -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="6" Margin="5,5,5,5">
-                            <DataGrid AutoGenerateColumns="True" x:Name="MsgDataGrid_AutoGenCol"/>
+                            <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid_AutoGenCol"/>
                         </Border>
 
                     </Grid>

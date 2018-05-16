@@ -75,6 +75,7 @@
     <Compile Include="Control\Calc.cs" />
     <Compile Include="Model\DataGridCustomer.cs" />
     <Compile Include="Model\DataGridWithEvent.cs" />
+    <Compile Include="Model\DyDataGridModel.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Control\XMLTreeViewControl.cs" />
     <Compile Include="Model\MessageModel.cs" />
@@ -148,10 +149,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DLR\Dynamic_DLR.csproj">
-      <Project>{2d31a236-0f4d-40b5-8e94-d92a9ccfbfdb}</Project>
-      <Name>Dynamic_DLR</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LightMVVM\LightMVVM.csproj">
       <Project>{c6b69e37-9589-45ce-8b5c-d147660ae293}</Project>
       <Name>LightMVVM</Name>

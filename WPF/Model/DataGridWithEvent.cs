@@ -7,13 +7,21 @@ using System.Threading.Tasks;
 
 namespace WPF.Model
 {
+    /// <summary>
+    /// 这是一个数据模型，这个数据模型在主程序中会关联到一个DataGrid控件当中;
+    /// 与DataGridCustomer功能相同，但解决了没有事件交互的缺点;
+    /// 这个表的缺点;
+    /// 1、固定的表结构
+    /// 2、不能实时更新
+    /// </summary>
     public class DataGridWithEvent
     {
-        public GridCell column1 { get; set; }
-        public GridCell column2 { get; set; }
-        public GridCell column3 { get; set; }
-        
-        public void JudegePropertyCall(string colHeader)
+        public GridCell column1 { get; set; }       // 向单元格填写自定义个类型;
+        public GridCell column2 { get; set; }       // 向单元格填写自定义个类型;
+        public GridCell column3 { get; set; }       // 向单元格填写自定义个类型;
+
+        // 当表格控件被编辑时，会调用单元格自身实例对应的函数;
+        public void JudegePropertyCall_CellEditing(string colHeader)
         {
             switch(colHeader)
             {

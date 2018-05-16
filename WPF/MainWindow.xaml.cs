@@ -16,7 +16,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using WPF.Control;
 using TrySomeInterface;
-using Dynamic_DLR;
 
 namespace WPF
 {
@@ -53,23 +52,7 @@ namespace WPF
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
         }
 
-        private void InitaListToDataGridWithEvnet()
-        {
-            ObservableCollection<DataGridWithEvent> list = InitDataGridWithEventData.InitData();
-            this.CustomerDataGrid_AddEvent.DataContext = list;
-
-            this.CustomerDataGrid_AddEvent.BeginningEdit += CustomerDataGrid_AddEvent_BeginningEdit;   // 单元格开始编辑事件;
-        }
-
-        private void CustomerDataGrid_AddEvent_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
-        {
-            Console.WriteLine("开始编辑单元格;函数参数e反馈的实体可以是单元格内数据类型" + (e.Column.GetCellContent(e.Row)).DataContext.GetType());
-            
-            DataGridWithEvent callbacktemp = e.Column.GetCellContent(e.Row).DataContext as DataGridWithEvent;   // 获取了填写单元格的类型实例;
-            callbacktemp.JudegePropertyCall(e.Column.Header as string);
-
-        }
-
+       
         /// <summary>
         /// WPF控件关联类型中的属性
         /// </summary>
@@ -147,23 +130,64 @@ namespace WPF
             this.tv_composite.ItemsSource = root;
         }
         
+        //_________________________________________________________________________________________以下是DataGrid控件的使用方法;
+        /// <summary>
+        /// DagaGrid最简单的用法，将一个容器中的内容添加到一个DataGrid控件当中;
+        /// </summary>
+        private void InitaListToDataGridColumn()
+        {
+            ObservableCollection<DataGridCustomer> list = InitCustomerData.InitData();
+            this.CustomerDataGrid.DataContext = list;
+        }
+
+        /// <summary>
+        /// 向DataGrid当中添加对应的事件;
+        /// </summary>
+        private void InitaListToDataGridWithEvnet()
+        {
+            ObservableCollection<DataGridWithEvent> list = InitDataGridWithEventData.InitData();
+            this.CustomerDataGrid_AddEvent.DataContext = list;
+
+            this.CustomerDataGrid_AddEvent.BeginningEdit += CustomerDataGrid_AddEvent_BeginningEdit;   // 单元格开始编辑事件;
+        }
+
+        /// <summary>
+        /// 事件一：当单元给被编辑时;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CustomerDataGrid_AddEvent_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            Console.WriteLine("开始编辑单元格;函数参数e反馈的实体是单元格内数据类型:" + (e.Column.GetCellContent(e.Row)).DataContext.GetType());
+
+            DataGridWithEvent callbacktemp = e.Column.GetCellContent(e.Row).DataContext as DataGridWithEvent;   // 获取了填写单元格的类型实例;
+            callbacktemp.JudegePropertyCall_CellEditing(e.Column.Header as string);
+        }
+
+        /// <summary>
+        /// 同一个数据源可以显示到两个不同的DataGrid控件当中;
+        /// </summary>
         private void InitMessageToDataGrid()
         {
             this.MsgDataGrid.DataContext = m_MessageVM.messagelist;
             this.MsgDataGrid2.m_context = m_MessageVM.messagelist;
         }
 
+        /// <summary>
+        /// 为一个表格动态添加列以及内容;
+        /// 表内所有的内容都是在运行时添加的，而不是预先定义好的;
+        /// </summary>
         private void InitMessageToDataGrid_Dynamic()
         {
-            // 填内容,i表示有多少行;
-            for (int i = 0; i<= 5; i++)
+            // 动态添加内容,i表示有多少行;
+            for (int i = 0; i <= 5; i++)
             {
                 dynamic model = new DyDataDridModel();
 
                 // 向单元格内添加内容;
-                model.AddProperty("property0", new GridCell() { name = "123" });
-                model.AddProperty("property1", i.ToString());
-                model.AddProperty("property2", i.ToString());
+                model.AddProperty("property0", new GridCell() { name = "123" }, "列0");
+                model.AddProperty("property1", new GridCell() { name = "321" }, "列1");
+                model.AddProperty("property2", new GridCell() { name = "343" }, "列2");
 
                 list.Add(model);
             }
@@ -171,20 +195,23 @@ namespace WPF
             {
                 DataGridTextColumn column = new DataGridTextColumn();
                 column.Header = "列" + i;
-                column.Binding = new Binding("property0");
+                column.Binding = new Binding("property" + i + ".name");
                 this.MsgDataGrid_AutoGenCol.Columns.Add(column);
             }
-            
+
             this.MsgDataGrid_AutoGenCol.ItemsSource = list;
-            
+            this.MsgDataGrid_AutoGenCol.BeginningEdit += MsgDataGrid_AutoGenCol_BeginningEdit;
         }
 
-        private void InitaListToDataGridColumn()
+
+        private void MsgDataGrid_AutoGenCol_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
-            ObservableCollection<DataGridCustomer> list = InitCustomerData.InitData();
-            this.CustomerDataGrid.DataContext = list;
+            Console.WriteLine("开始编辑单元格;函数参数e反馈的实体可以是单元格内数据类型" + (e.Column.GetCellContent(e.Row)).DataContext.GetType());
+            Console.WriteLine("当前选中单元格列名:" + e.Column.Header + ",选中行数：" + e.Row.GetIndex());
+            dynamic temp = e.Column.GetCellContent(e.Row).DataContext as DyDataDridModel;
+            temp.JudgePropertyName_StartEditing(e.Column.Header);
         }
-        
+
         /// <summary>
         /// 当ListBox控件选择发生变化时;
         /// </summary>
