@@ -260,6 +260,8 @@ namespace WPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            List<string> list_detail = new List<string>();
+            list_detail.Add("This is Message Detail Content");
             Task a = new Task(()=>
             {
                 int temp = 0;
@@ -270,12 +272,14 @@ namespace WPF
                     {
                         m_MessageVM.messagelist.Add(new MessageModel()
                         {
-                            
+
                             m_No = temp.ToString(),
                             m_time = DateTime.Now,
                             m_content = "content",
                             m_source = "172.27.0.1",
-                            m_dest = "172.27.0.2"
+                            m_dest = "172.27.0.2",
+                            m_content_detail = list_detail
+                            
                         });
                     });
                     Thread.Sleep(1233);

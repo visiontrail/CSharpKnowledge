@@ -38,6 +38,10 @@ namespace WPF.Model
         private void ExecuteAction()
         {
             Console.WriteLine("Content is" + this.m_content);
+            foreach(var iter in this.m_content_detail)
+            {
+                Console.WriteLine("Content Detail is " + iter);
+            }
         }
 
         /// <summary>
