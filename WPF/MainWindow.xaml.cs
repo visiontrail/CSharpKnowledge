@@ -168,6 +168,12 @@ namespace WPF
             this.CustomerDataGrid_AddEvent.DataContext = list;
 
             this.CustomerDataGrid_AddEvent.BeginningEdit += CustomerDataGrid_AddEvent_BeginningEdit;   // 单元格开始编辑事件;
+            this.CustomerDataGrid_AddEvent.DragEnter += CustomerDataGrid_AddEvent_DragEnter;
+        }
+
+        private void CustomerDataGrid_AddEvent_DragEnter(object sender, DragEventArgs e)
+        {
+            Console.WriteLine("鼠标拖拽事件;函数参数e反馈的实体是单元格内数据类型:" + e.Data.GetType());
         }
 
         /// <summary>

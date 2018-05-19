@@ -11,8 +11,10 @@ namespace WPF
         public string name { get; set; }
         public void EditingCalback()
         {
-            Console.WriteLine("GridCell Editing Callback" + name);
+            Console.WriteLine("GridCell Editing Callback:" + name);
         }
+
+        
 
     }
 }
