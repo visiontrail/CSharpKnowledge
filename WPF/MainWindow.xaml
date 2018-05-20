@@ -233,7 +233,7 @@
 
                         <!-- 对DataGrid进行更加丰富的操作，比如单元格编辑事件等等 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5">
-                            <DataGrid x:Name="CustomerDataGrid_AddEvent" ItemsSource="{Binding Path = .}" AutoGenerateColumns="False">
+                            <DataGrid x:Name="CustomerDataGrid_AddEvent" ItemsSource="{Binding Path = .}" AutoGenerateColumns="False" SelectionUnit="Cell" SelectionMode="Single">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Column1"  Binding="{Binding column1.name}"/>
                                     <DataGridHyperlinkColumn Header="Column2" Binding="{Binding column2.name}"  />
