@@ -78,7 +78,7 @@ namespace WPF.Model
         public List<string> m_content_detail
         {
             get { return content_detail; }
-            set { m_content_detail = value; }
+            set { content_detail = value; }
         }
         
         /// <summary>
@@ -100,6 +100,17 @@ namespace WPF.Model
             get { return dest; }
             set { dest = value; }
         }
+
+        /// <summary>
+        /// 一个下拉框;
+        /// </summary>
+        private string comboxlist;
+        public string m_comboxlist
+        {
+            get { return comboxlist; }
+            set { comboxlist = value; }
+        }
+
     }
 
     public class RelayCommand : ICommand

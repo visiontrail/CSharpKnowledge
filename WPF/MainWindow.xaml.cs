@@ -321,6 +321,7 @@ namespace WPF
         {
             List<string> list_detail = new List<string>();
             list_detail.Add("This is Message Detail Content");
+            list_detail.Add("This is anoher Detail Conntent");
             Task a = new Task(()=>
             {
                 int temp = 0;
