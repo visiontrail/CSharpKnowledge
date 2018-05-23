@@ -168,6 +168,65 @@ namespace WPF
             this.CustomerDataGrid_AddEvent.DataContext = list;
 
             this.CustomerDataGrid_AddEvent.BeginningEdit += CustomerDataGrid_AddEvent_BeginningEdit;   // 单元格开始编辑事件;
+            this.CustomerDataGrid_AddEvent.DragEnter += CustomerDataGrid_AddEvent_DragEnter;
+            this.CustomerDataGrid_AddEvent.GotFocus += CustomerDataGrid_AddEvent_GotFocus;
+
+            this.CustomerDataGrid_AddEvent.LostMouseCapture += CustomerDataGrid_AddEvent_LostMouseCapture;
+            this.CustomerDataGrid_AddEvent.MouseEnter += CustomerDataGrid_AddEvent_MouseEnter;
+            this.CustomerDataGrid_AddEvent.QueryCursor += CustomerDataGrid_AddEvent_QueryCursor;
+            this.CustomerDataGrid_AddEvent.PreviewMouseLeftButtonDown += CustomerDataGrid_AddEvent_PreviewMouseLeftButtonDown;
+            this.CustomerDataGrid_AddEvent.MouseMove += CustomerDataGrid_AddEvent_MouseMove;
+
+
+
+            this.CustomerDataGrid_AddEvent.SelectionChanged += CustomerDataGrid_AddEvent_SelectionChanged;
+        }
+
+        private void CustomerDataGrid_AddEvent_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if(e.OriginalSource is DataGridCell)
+            {
+                Console.WriteLine("MouseMove;函数参数e反馈的实体是单元格内数据类型:" + ((e.OriginalSource as DataGridCell).DataContext as DataGridWithEvent).column1.name);
+                Point p = e.GetPosition(this.CustomerDataGrid_AddEvent);
+            }
+        }
+
+        private void CustomerDataGrid_AddEvent_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Console.WriteLine("PreviewMouseLeftButtonDown;函数参数e反馈的实体是单元格内数据类型:" + e.OriginalSource.GetType());
+        }
+
+        private void CustomerDataGrid_AddEvent_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Console.WriteLine("SelectionChanged;函数参数e反馈的实体是单元格内数据类型:" + e.AddedItems.Count);
+        }
+
+        private void CustomerDataGrid_AddEvent_QueryCursor(object sender, System.Windows.Input.QueryCursorEventArgs e)
+        {
+            //Console.WriteLine("QueryCursor;函数参数e反馈的实体是单元格内数据类型:" + e.Source.GetType());
+        }
+
+
+        private void CustomerDataGrid_AddEvent_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            // 当鼠标进入到整个DataGrid表格的时候，触发该事件;
+        }
+
+        private void CustomerDataGrid_AddEvent_LostMouseCapture(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Console.WriteLine("LostMouseCapture;函数参数e反馈的实体是单元格内数据类型:" + e.Source.GetType());
+        }
+
+        private void CustomerDataGrid_AddEvent_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("GotFocus;函数参数e反馈的实体是单元格内数据类型:" + e.OriginalSource.GetType());
+
+
+        }
+
+        private void CustomerDataGrid_AddEvent_DragEnter(object sender, DragEventArgs e)
+        {
+            Console.WriteLine("鼠标拖拽事件;函数参数e反馈的实体是单元格内数据类型:" + e.Data.GetType());
         }
 
         /// <summary>
@@ -262,6 +321,7 @@ namespace WPF
         {
             List<string> list_detail = new List<string>();
             list_detail.Add("This is Message Detail Content");
+            list_detail.Add("This is anoher Detail Conntent");
             Task a = new Task(()=>
             {
                 int temp = 0;

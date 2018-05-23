@@ -21,7 +21,12 @@ namespace WPF.Model
         // 用来保存中文列名与属性的对应关系;
         Dictionary<string, string> ColName_Property = new Dictionary<string, string>();
 
-        // 为动态类型动态添加成员;
+        /// <summary>
+        /// 系统调用，在为dynamic类型添加属性的时候会自动调用;
+        /// </summary>
+        /// <param name="binder"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
             if (!Properties.Keys.Contains(binder.Name))
@@ -88,7 +93,12 @@ namespace WPF.Model
             return base.TryInvokeMember(binder, args, out result);
         }
 
-        // 获取属性;
+        /// <summary>
+        /// 系统调用，会在dynamic类型访问属性是，调用该函数去寻找这个类型中是否存在对应的属性;
+        /// </summary>
+        /// <param name="binder"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             return Properties.TryGetValue(binder.Name, out result);

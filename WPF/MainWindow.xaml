@@ -218,7 +218,7 @@
                         </Grid.RowDefinitions>
 
                         <Label Grid.Row="0">这是一个DataGrid最基础的实例</Label>
-                        <!-- 一个可以自定义Colum的DataGrid（好像没什么用……） -->
+                        <!-- 在MSDN中，一个最为基础的DataGrid的使用方法 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="5,5,5,5">
                             <DataGrid x:Name="CustomerDataGrid" ItemsSource="{Binding Path = .}" AutoGenerateColumns="False"  >
                                 <DataGrid.Columns>
@@ -233,7 +233,7 @@
 
                         <!-- 对DataGrid进行更加丰富的操作，比如单元格编辑事件等等 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5">
-                            <DataGrid x:Name="CustomerDataGrid_AddEvent" ItemsSource="{Binding Path = .}" AutoGenerateColumns="False">
+                            <DataGrid x:Name="CustomerDataGrid_AddEvent" ItemsSource="{Binding Path = .}" AutoGenerateColumns="False" SelectionUnit="Cell" SelectionMode="Single">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Column1"  Binding="{Binding column1.name}"/>
                                     <DataGridHyperlinkColumn Header="Column2" Binding="{Binding column2.name}"  />
@@ -262,6 +262,10 @@
                                         <Button Grid.Column="1" Content="..." Command="{Binding ShowCommand}"/>
                                     </Grid>
                                 </DataTemplate>
+
+                                <DataTemplate x:Key="cellDropBox" DataType="{x:Type model:MessageModel}">
+                                    <ComboBox ItemsSource="{Binding m_content_detail}" SelectedIndex="0" />
+                                </DataTemplate>
                             </Border.Resources>
 
                             <!-- 表格，用来显示MessageVM中所有的消息,使用ItemsSource指定数据源 -->
@@ -271,6 +275,7 @@
                                     <DataGridTextColumn Header="时间戳" Binding="{Binding m_time}"/>
                                     <DataGridTemplateColumn Header="消息内容" CellTemplate="{StaticResource ResourceKey = cellEditingTemplate}" 
                                                             CellEditingTemplate="{StaticResource ResourceKey = cellEditingTemplate}"/>
+                                    <DataGridTemplateColumn Header="消息详情" CellTemplate="{StaticResource ResourceKey=cellDropBox}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Border>

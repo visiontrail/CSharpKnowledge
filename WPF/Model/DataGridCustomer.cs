@@ -25,6 +25,9 @@ namespace WPF.Model
         public GridCell cell { get; set; }
     }
 
+    /// <summary>
+    /// 初始化测试数据;
+    /// </summary>
     public class InitCustomerData
     {
         public static ObservableCollection<DataGridCustomer> InitData()
