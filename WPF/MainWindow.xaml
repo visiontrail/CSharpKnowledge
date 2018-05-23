@@ -233,7 +233,7 @@
                             </DataGrid>
                         </Border>
 
-                        <Label Grid.Row="0">这是一个带有多个事件的DataGrid</Label>
+                        <Label Grid.Row="2">这是一个带有多个事件的DataGrid</Label>
                         <!-- 对DataGrid进行更加丰富的操作，比如单元格编辑事件等等 -->
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Margin="5,5,5,5">
                             <DataGrid x:Name="CustomerDataGrid_AddEvent" ItemsSource="{Binding Path = .}" AutoGenerateColumns="False" SelectionUnit="Cell" SelectionMode="Single">
@@ -272,7 +272,7 @@
                             </Border.Resources>
 
                             <!-- 表格，用来显示MessageVM中所有的消息,使用ItemsSource指定数据源 -->
-                            <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid" ItemsSource="{Binding Path=.}" BeginningEdit="MsgDataGrid_BeginningEdit" >
+                            <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid" ItemsSource="{Binding Path=.}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="编号" Binding="{Binding m_No}"/>
                                     <DataGridTextColumn Header="时间戳" Binding="{Binding m_time}"/>

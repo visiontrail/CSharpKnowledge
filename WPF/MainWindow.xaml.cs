@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using WPF.Control;
 using TrySomeInterface;
+using System.Windows.Input;
 
 namespace WPF
 {
@@ -36,16 +37,16 @@ namespace WPF
             InitializeComponent();
             DrawPolyLine();                     // 用WPF画线;
             
-            // 以下是使用Binding关联命令的使用方法;
+            // 以下是使用Binding关联命令的基础使用方法;
             InitPersons();                      // 首先初始化一个容器——Person列表;
             BindingToProperty();                // 将类型的属性Binding到WPF控件当中;
             BindingToFunction();                // 将类型的方法Binding到WPF控件当中;
             
             // 以下是使用控件DataGrid的方法;
-            InitaListToDataGridColumn();        // 将用户自定义的List添加到DataGrid的List当中;
+            InitaListToDataGridColumn();        // 将用户自定义的List添加到DataGrid当中;
             InitaListToDataGridWithEvnet();     // 将用户自定义的List添加到DataGrid当中，并包含对DataGrid单元格的事件操作;
-            InitMessageToDataGrid();            // 将同样的数据同时写入两个DataGrid当中;
-            InitMessageToDataGrid_Dynamic();    // 小实验，向一个动态类型添加属性后，关联一个DataGrid;
+            InitMessageToDataGrid();            // 利用MVVM模式，将同样的数据同时写入两个DataGrid当中;
+            InitDynamicClassToDataGrid();    // 向一个动态类型添加属性后，关联一个DataGrid,为这个DataGrid动态加载类型;
 
             // 以下是使用控件TreeView的方法;
             InitTreeViewComposite();            // 直接使用一个组合模式的实例填入到TreeView当中;
@@ -54,6 +55,7 @@ namespace WPF
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
         }
 
+        #region 纯前端操作
         /// <summary>
         /// WPF可以实现简单的绘图功能;
         /// </summary>
@@ -70,7 +72,34 @@ namespace WPF
 
             this.canvas1.Children.Add(LineSeries);
         }
+        /// <summary>
+        /// 当ListBox控件选择发生变化时;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PersonList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.PersonID.Text = (this.PersonList.SelectedItem as Person).m_ID.ToString();
+        }
 
+        private void GetDepProperty(object sender, RoutedEventArgs e)
+        {
+            SpecialTextBox st = new SpecialTextBox();
+            st.SetValue(SpecialTextBox.DTextProperty, this.text1.Text);              // 为这个依赖属性设置对象;
+            MessageBox.Show(st.GetValue(SpecialTextBox.DTextProperty) as string);
+        }
+        #endregion
+
+        #region Binding的基本使用方法
+        /// <summary>
+        /// 初始化实验数据Persons;
+        /// </summary>
+        private void InitPersons()
+        {
+            persons.Add(new Person(11, "GuoLiang"));
+            persons.Add(new Person(2, "RouPao"));
+            persons.Add(new Person(5, "WangCY"));
+        }
 
         /// <summary>
         /// WPF控件关联类型中的属性
@@ -125,31 +154,9 @@ namespace WPF
                 Source = odp
             });
         }
-
-        /// <summary>
-        /// 构建一个组合模式的树形结构，并显示在Treeview当中;
-        /// </summary>
-        private void InitTreeViewComposite()
-        {
-            List<TreeViewComposite> root = new List<TreeViewComposite>();
-            
-            TreeViewComposite t1 = new TreeViewComposite() { m_ItemName = "Root" };
-            TreeViewComposite t2 = new TreeViewComposite() { m_ItemName = "T1" };
-            TreeViewComposite t3 = new TreeViewComposite() { m_ItemName = "T2" };
-            TreeViewComposite t4 = new TreeViewComposite() { m_ItemName = "T3" };
-
-            root.Add(t1);
-            t1.m_SubList.Add(t2);
-            t1.m_SubList.Add(t3);
-            t2.m_SubList.Add(t4);
-            t2.m_SubList.Add(t4);
-            t2.m_SubList.Add(t4);
-            t2.m_SubList.Add(t4);
-
-            this.tv_composite.ItemsSource = root;
-        }
+        #endregion
         
-        //_________________________________________________________________________________________以下是DataGrid控件的使用方法;
+        #region 有关DagaGrid控件的使用方法
         /// <summary>
         /// DagaGrid最简单的用法，将一个容器中的内容添加到一个DataGrid控件当中;
         /// </summary>
@@ -167,14 +174,16 @@ namespace WPF
             ObservableCollection<DataGridWithEvent> list = InitDataGridWithEventData.InitData();
             this.CustomerDataGrid_AddEvent.DataContext = list;
 
+            // 以下是表格事件;
             this.CustomerDataGrid_AddEvent.BeginningEdit += CustomerDataGrid_AddEvent_BeginningEdit;        // 事件一：单元格开始编辑事件;
             this.CustomerDataGrid_AddEvent.SelectionChanged += CustomerDataGrid_AddEvent_SelectionChanged;  // 事件二：单元格选择出现变化时;
+            this.CustomerDataGrid_AddEvent.GotFocus += CustomerDataGrid_AddEvent_GotFocus;                  // 事件三：DataGrid表格点击单元格获取焦点时;
 
             // 以下是鼠标事件;
-            this.CustomerDataGrid_AddEvent.MouseMove += CustomerDataGrid_AddEvent_MouseMove;                // 事件三：鼠标移动到某个元素上时;
-            this.CustomerDataGrid_AddEvent.GotFocus += CustomerDataGrid_AddEvent_GotFocus;
-            this.CustomerDataGrid_AddEvent.LostMouseCapture += CustomerDataGrid_AddEvent_LostMouseCapture;
-            this.CustomerDataGrid_AddEvent.MouseEnter += CustomerDataGrid_AddEvent_MouseEnter;
+            this.CustomerDataGrid_AddEvent.MouseMove += CustomerDataGrid_AddEvent_MouseMove;                // 事件四：鼠标移动到某个单元格上时触发（实验函数增加了鼠标拖动效果）;
+            this.CustomerDataGrid_AddEvent.MouseLeftButtonDown += CustomerDataGrid_AddEvent_MouseLeftButtonDown;
+                                                                                                            // 事件五：鼠标左键点击事件，这个事件只针对DataGrid整个表格;
+            this.CustomerDataGrid_AddEvent.MouseEnter += CustomerDataGrid_AddEvent_MouseEnter;              // 事件六：鼠标进入整个表格时触发，且只触发一次;
 
 
             // 另一个元素接收鼠标拖拽事件;
@@ -206,7 +215,25 @@ namespace WPF
             Console.WriteLine("SelectionChanged;函数参数e反馈的实体是单元格内数据类型:" + e.AddedItems.Count);
         }
 
-        private void CustomerDataGrid_AddEvent_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        /// <summary>
+        /// 事件三：DataGrid表格点击单元格获取焦点的事件;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CustomerDataGrid_AddEvent_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("GotFocus;函数参数e反馈的实体是单元格内数据类型:" + e.OriginalSource.GetType());
+            Console.WriteLine("GotFocus;函数参数e反馈的实体是单元格内数据类型:" +
+                        ((e.OriginalSource as DataGridCell).DataContext as DataGridWithEvent).column1.name);
+
+        }
+
+        /// <summary>
+        /// 事件四：鼠标经过这个单元格时;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CustomerDataGrid_AddEvent_MouseMove(object sender, MouseEventArgs e)
         {
             try
             {
@@ -218,8 +245,8 @@ namespace WPF
                     DataGridCell item = e.OriginalSource as DataGridCell;
                     DataGridWithEvent data = (e.OriginalSource as DataGridCell).DataContext as DataGridWithEvent;
 
-                    // 在MouseMove事件当中可以添加鼠标拖拽事件;
-                    if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
+                    // 鼠标移动到某个目标后，如果点击鼠标左键，则添加鼠标拖拽事件;
+                    if (e.LeftButton == MouseButtonState.Pressed)
                     {
                         DragDropEffects myDropEffect = DragDrop.DoDragDrop(item, item.DataContext, DragDropEffects.Copy);
                     }
@@ -227,28 +254,32 @@ namespace WPF
             }
             catch(Exception ex)
             {
-
+                Console.WriteLine("用户鼠标拖拽事件不规范;" + ex.ToString());
             }
             
         }
 
-
-        private void CustomerDataGrid_AddEvent_GotFocus(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 事件五：鼠标左键按下的事件;
+        /// 这个鼠标事件只针对整个DataGrid表格;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CustomerDataGrid_AddEvent_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Console.WriteLine("GotFocus;函数参数e反馈的实体是单元格内数据类型:" + e.OriginalSource.GetType());
+            Console.WriteLine("MouseLeftButtonDown;函数参数e反馈的实体是单元格内数据类型:" + e.Source.GetType());
         }
-        
-        
+
+        /// <summary>
+        /// 鼠标进入整个DataGrid表格后就会触发;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CustomerDataGrid_AddEvent_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            // 当鼠标进入到整个DataGrid表格的时候，触发该事件;
+            Console.WriteLine("MouseEnter;函数参数e反馈的实体是单元格内数据类型:" + e.Source.GetType());
         }
-
-        private void CustomerDataGrid_AddEvent_LostMouseCapture(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            Console.WriteLine("LostMouseCapture;函数参数e反馈的实体是单元格内数据类型:" + e.Source.GetType());
-        }
-
+        
         /// <summary>
         /// 接收鼠标事件;
         /// </summary>
@@ -276,7 +307,7 @@ namespace WPF
         /// 为一个表格动态添加列以及内容;
         /// 表内所有的内容都是在运行时添加的，而不是预先定义好的;
         /// </summary>
-        private void InitMessageToDataGrid_Dynamic()
+        private void InitDynamicClassToDataGrid()
         {
             // 动态添加内容,i表示有多少行;
             for (int i = 0; i <= 5; i++)
@@ -312,41 +343,19 @@ namespace WPF
         }
 
         /// <summary>
-        /// 当ListBox控件选择发生变化时;
+        /// DataGrid的模拟数据
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PersonList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this.PersonID.Text = (this.PersonList.SelectedItem as Person).m_ID.ToString();
-        }
-
-        /// <summary>
-        /// 初始化Person;
-        /// </summary>
-        private void InitPersons()
-        {
-            persons.Add(new Person(11, "GuoLiang"));
-            persons.Add(new Person(2, "RouPao"));
-            persons.Add(new Person(5, "WangCY"));
-        }
-        
-        private void GetDepProperty(object sender, RoutedEventArgs e)
-        {
-            SpecialTextBox st = new SpecialTextBox();
-            st.SetValue(SpecialTextBox.DTextProperty, this.text1.Text);              // 为这个依赖属性设置对象;
-            MessageBox.Show(st.GetValue(SpecialTextBox.DTextProperty) as string);
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             List<string> list_detail = new List<string>();
             list_detail.Add("This is Message Detail Content");
             list_detail.Add("This is anoher Detail Conntent");
-            Task a = new Task(()=>
+            Task a = new Task(() =>
             {
                 int temp = 0;
-                while(true)
+                while (true)
                 {
                     temp = temp + 1;
                     Dispatcher.Invoke(DispatcherPriority.Normal, (Action)delegate
@@ -360,7 +369,7 @@ namespace WPF
                             m_source = "172.27.0.1",
                             m_dest = "172.27.0.2",
                             m_content_detail = list_detail
-                            
+
                         });
                     });
                     Thread.Sleep(1233);
@@ -369,14 +378,17 @@ namespace WPF
 
             a.Start();
 
-            listbase.Add(new DataGridCustomer() {
-                FirstName ="Add",
-                LastName ="Person",
-                Email =new Uri("Http://baidu.com"),
-                IsMember =false,
+            listbase.Add(new DataGridCustomer()
+            {
+                FirstName = "Add",
+                LastName = "Person",
+                Email = new Uri("Http://baidu.com"),
+                IsMember = false,
                 cell = new GridCell() { name = "cell" }
             });
         }
+        #endregion
+
 
         private void StartParseXML(object sender, RoutedEventArgs e)
         {
@@ -402,12 +414,28 @@ namespace WPF
             list.Add(new Iterator_Try() { value1 = 2, value2 = 2 });
             list.Add(new Iterator_Try() { value1 = 3, value2 = 1 });
         }
-
-        // ____________________________________________________________________________________________以下是有关DataGrid有用事件的实验
-        private void MsgDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        
+        /// <summary>
+        /// 构建一个组合模式的树形结构，并显示在Treeview当中;
+        /// </summary>
+        private void InitTreeViewComposite()
         {
-            Console.WriteLine("开始编辑单元格;函数参数e反馈的实体可以是单元格内数据类型" + (e.Column.GetCellContent(e.Row)).DataContext.GetType());
-            Console.WriteLine("开始编辑单元格;函数参数e反馈的实体可以是单元格内数据类型的数据" + ((e.Column.GetCellContent(e.Row)).DataContext as MessageModel).m_content);
+            List<TreeViewComposite> root = new List<TreeViewComposite>();
+
+            TreeViewComposite t1 = new TreeViewComposite() { m_ItemName = "Root" };
+            TreeViewComposite t2 = new TreeViewComposite() { m_ItemName = "T1" };
+            TreeViewComposite t3 = new TreeViewComposite() { m_ItemName = "T2" };
+            TreeViewComposite t4 = new TreeViewComposite() { m_ItemName = "T3" };
+
+            root.Add(t1);
+            t1.m_SubList.Add(t2);
+            t1.m_SubList.Add(t3);
+            t2.m_SubList.Add(t4);
+            t2.m_SubList.Add(t4);
+            t2.m_SubList.Add(t4);
+            t2.m_SubList.Add(t4);
+
+            this.tv_composite.ItemsSource = root;
         }
     }
 }
