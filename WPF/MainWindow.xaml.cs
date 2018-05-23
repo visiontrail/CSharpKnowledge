@@ -167,68 +167,22 @@ namespace WPF
             ObservableCollection<DataGridWithEvent> list = InitDataGridWithEventData.InitData();
             this.CustomerDataGrid_AddEvent.DataContext = list;
 
-            this.CustomerDataGrid_AddEvent.BeginningEdit += CustomerDataGrid_AddEvent_BeginningEdit;   // 单元格开始编辑事件;
-            this.CustomerDataGrid_AddEvent.DragEnter += CustomerDataGrid_AddEvent_DragEnter;
-            this.CustomerDataGrid_AddEvent.GotFocus += CustomerDataGrid_AddEvent_GotFocus;
+            this.CustomerDataGrid_AddEvent.BeginningEdit += CustomerDataGrid_AddEvent_BeginningEdit;        // 事件一：单元格开始编辑事件;
+            this.CustomerDataGrid_AddEvent.SelectionChanged += CustomerDataGrid_AddEvent_SelectionChanged;  // 事件二：单元格选择出现变化时;
 
+            // 以下是鼠标事件;
+            this.CustomerDataGrid_AddEvent.MouseMove += CustomerDataGrid_AddEvent_MouseMove;                // 事件三：鼠标移动到某个元素上时;
+            this.CustomerDataGrid_AddEvent.GotFocus += CustomerDataGrid_AddEvent_GotFocus;
             this.CustomerDataGrid_AddEvent.LostMouseCapture += CustomerDataGrid_AddEvent_LostMouseCapture;
             this.CustomerDataGrid_AddEvent.MouseEnter += CustomerDataGrid_AddEvent_MouseEnter;
-            this.CustomerDataGrid_AddEvent.QueryCursor += CustomerDataGrid_AddEvent_QueryCursor;
-            this.CustomerDataGrid_AddEvent.PreviewMouseLeftButtonDown += CustomerDataGrid_AddEvent_PreviewMouseLeftButtonDown;
-            this.CustomerDataGrid_AddEvent.MouseMove += CustomerDataGrid_AddEvent_MouseMove;
 
 
-
-            this.CustomerDataGrid_AddEvent.SelectionChanged += CustomerDataGrid_AddEvent_SelectionChanged;
+            // 另一个元素接收鼠标拖拽事件;
+            this.ReceiveDataLabel.AllowDrop = true;
+            this.ReceiveDataLabel.Drop += ReceiveDataLabel_Drop;
+            
         }
-
-        private void CustomerDataGrid_AddEvent_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            if(e.OriginalSource is DataGridCell)
-            {
-                Console.WriteLine("MouseMove;函数参数e反馈的实体是单元格内数据类型:" + ((e.OriginalSource as DataGridCell).DataContext as DataGridWithEvent).column1.name);
-                Point p = e.GetPosition(this.CustomerDataGrid_AddEvent);
-            }
-        }
-
-        private void CustomerDataGrid_AddEvent_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Console.WriteLine("PreviewMouseLeftButtonDown;函数参数e反馈的实体是单元格内数据类型:" + e.OriginalSource.GetType());
-        }
-
-        private void CustomerDataGrid_AddEvent_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Console.WriteLine("SelectionChanged;函数参数e反馈的实体是单元格内数据类型:" + e.AddedItems.Count);
-        }
-
-        private void CustomerDataGrid_AddEvent_QueryCursor(object sender, System.Windows.Input.QueryCursorEventArgs e)
-        {
-            //Console.WriteLine("QueryCursor;函数参数e反馈的实体是单元格内数据类型:" + e.Source.GetType());
-        }
-
-
-        private void CustomerDataGrid_AddEvent_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            // 当鼠标进入到整个DataGrid表格的时候，触发该事件;
-        }
-
-        private void CustomerDataGrid_AddEvent_LostMouseCapture(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            Console.WriteLine("LostMouseCapture;函数参数e反馈的实体是单元格内数据类型:" + e.Source.GetType());
-        }
-
-        private void CustomerDataGrid_AddEvent_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Console.WriteLine("GotFocus;函数参数e反馈的实体是单元格内数据类型:" + e.OriginalSource.GetType());
-
-
-        }
-
-        private void CustomerDataGrid_AddEvent_DragEnter(object sender, DragEventArgs e)
-        {
-            Console.WriteLine("鼠标拖拽事件;函数参数e反馈的实体是单元格内数据类型:" + e.Data.GetType());
-        }
-
+        
         /// <summary>
         /// 事件一：当单元给被编辑时;
         /// </summary>
@@ -241,6 +195,73 @@ namespace WPF
             DataGridWithEvent callbacktemp = e.Column.GetCellContent(e.Row).DataContext as DataGridWithEvent;   // 获取了填写单元格的类型实例;
             callbacktemp.JudegePropertyCall_CellEditing(e.Column.Header as string);
         }
+
+        /// <summary>
+        /// 事件二：单元格选择出现变化时;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CustomerDataGrid_AddEvent_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Console.WriteLine("SelectionChanged;函数参数e反馈的实体是单元格内数据类型:" + e.AddedItems.Count);
+        }
+
+        private void CustomerDataGrid_AddEvent_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            try
+            {
+                if (e.OriginalSource is DataGridCell)
+                {
+                    Console.WriteLine("MouseMove;函数参数e反馈的实体是单元格内数据类型:" +
+                        ((e.OriginalSource as DataGridCell).DataContext as DataGridWithEvent).column1.name);
+
+                    DataGridCell item = e.OriginalSource as DataGridCell;
+                    DataGridWithEvent data = (e.OriginalSource as DataGridCell).DataContext as DataGridWithEvent;
+
+                    // 在MouseMove事件当中可以添加鼠标拖拽事件;
+                    if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
+                    {
+                        DragDropEffects myDropEffect = DragDrop.DoDragDrop(item, item.DataContext, DragDropEffects.Copy);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+            
+        }
+
+
+        private void CustomerDataGrid_AddEvent_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("GotFocus;函数参数e反馈的实体是单元格内数据类型:" + e.OriginalSource.GetType());
+        }
+        
+        
+        private void CustomerDataGrid_AddEvent_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            // 当鼠标进入到整个DataGrid表格的时候，触发该事件;
+        }
+
+        private void CustomerDataGrid_AddEvent_LostMouseCapture(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Console.WriteLine("LostMouseCapture;函数参数e反馈的实体是单元格内数据类型:" + e.Source.GetType());
+        }
+
+        /// <summary>
+        /// 接收鼠标事件;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReceiveDataLabel_Drop(object sender, DragEventArgs e)
+        {
+            DataGridWithEvent cell = e.Data.GetData(typeof(DataGridWithEvent)) as DataGridWithEvent;
+            (sender as Label).Content += ":" + cell.column1.name;
+
+            Console.WriteLine(cell.column1.name);
+        }
+
 
         /// <summary>
         /// 同一个数据源可以显示到两个不同的DataGrid控件当中;

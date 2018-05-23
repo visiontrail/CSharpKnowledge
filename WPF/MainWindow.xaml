@@ -210,10 +210,12 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="100"/>
+                            <RowDefinition Height="30"/>
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="50"/>
                             <RowDefinition Height="120"/>
                             <RowDefinition Height="120"/>
+                            <RowDefinition Height="150"/>
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
 
@@ -231,8 +233,9 @@
                             </DataGrid>
                         </Border>
 
+                        <Label Grid.Row="0">这是一个带有多个事件的DataGrid</Label>
                         <!-- 对DataGrid进行更加丰富的操作，比如单元格编辑事件等等 -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5">
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Margin="5,5,5,5">
                             <DataGrid x:Name="CustomerDataGrid_AddEvent" ItemsSource="{Binding Path = .}" AutoGenerateColumns="False" SelectionUnit="Cell" SelectionMode="Single">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Column1"  Binding="{Binding column1.name}"/>
@@ -243,13 +246,13 @@
                         </Border>
 
                         <!-- 触发单元格自动刷新 -->
-                        <StackPanel Grid.Row="3">
+                        <StackPanel Grid.Row="4">
                             <Label>以下使用了数据模板为DataGrid丰富内容，并实现自动刷新功能</Label>
                             <Button Click="Button_Click">开始刷新DataGrid</Button>
                         </StackPanel>
                         
                         <!-- 使用DataTemplate对.NET自带的DataGrid进行定制化 -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Margin="5,5,5,5">
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Margin="5,5,5,5">
                             <!-- 一个数据模板，使用在后边DataGrid的最后一个单元格 -->
                             <Border.Resources>
                                 <DataTemplate x:Key="cellEditingTemplate" DataType="{x:Type model:MessageModel}">
@@ -281,7 +284,7 @@
                         </Border>
 
                         <!-- 表格，和上边的表格一样，但是只是应用了usercontrol封装了一下 -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Margin="5,5,5,5">
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="6" Margin="5,5,5,5">
                             <localui:MessageDataGrid x:Name="MsgDataGrid2"></localui:MessageDataGrid>
                         </Border>
 
@@ -289,9 +292,13 @@
                              这是一个使用Dynamic动态类型关联的DataGrid，
                              这样一来，如果有非常多的同类型的表格，就不用为每个表格再去手工建立数据模型了
                         -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="6" Margin="5,5,5,5">
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="7" Margin="5,5,5,5">
                             <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid_AutoGenCol"/>
                         </Border>
+
+                        <ScrollViewer Grid.Row="8">
+                            <Label x:Name="ReceiveDataLabel" Content="在此接收DataGrid拖拽过来的数值"></Label>
+                        </ScrollViewer>
 
                     </Grid>
 
@@ -349,6 +356,8 @@
                                 </TreeView.ItemTemplate>
                             </TreeView>
                         </ScrollViewer>
+
+
 
                     </Grid>
                 </Grid>
