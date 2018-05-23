@@ -204,9 +204,9 @@ namespace WPF
                 dynamic model = new DyDataDridModel();
 
                 // 向单元格内添加内容;
+                model.AddProperty("property2", new GridCell() { name = "343" }, "列2");
                 model.AddProperty("property0", new GridCell() { name = "123" }, "列0");
                 model.AddProperty("property1", new GridCell() { name = "321" }, "列1");
-                model.AddProperty("property2", new GridCell() { name = "343" }, "列2");
 
                 list.Add(model);
             }
