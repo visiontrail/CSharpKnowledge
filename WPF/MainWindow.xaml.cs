@@ -184,6 +184,7 @@ namespace WPF
             this.CustomerDataGrid_AddEvent.MouseLeftButtonDown += CustomerDataGrid_AddEvent_MouseLeftButtonDown;
                                                                                                             // 事件五：鼠标左键点击事件，这个事件只针对DataGrid整个表格;
             this.CustomerDataGrid_AddEvent.MouseEnter += CustomerDataGrid_AddEvent_MouseEnter;              // 事件六：鼠标进入整个表格时触发，且只触发一次;
+            this.CustomerDataGrid_AddEvent.GotMouseCapture += CustomerDataGrid_AddEvent_GotMouseCapture;    // 事件七：使用这个事件事件鼠标拖拽更加稳定;
 
 
             // 另一个元素接收鼠标拖拽事件;
@@ -191,7 +192,7 @@ namespace WPF
             this.ReceiveDataLabel.Drop += ReceiveDataLabel_Drop;
             
         }
-        
+
         /// <summary>
         /// 事件一：当单元给被编辑时;
         /// </summary>
@@ -223,8 +224,6 @@ namespace WPF
         private void CustomerDataGrid_AddEvent_GotFocus(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("GotFocus;函数参数e反馈的实体是单元格内数据类型:" + e.OriginalSource.GetType());
-            Console.WriteLine("GotFocus;函数参数e反馈的实体是单元格内数据类型:" +
-                        ((e.OriginalSource as DataGridCell).DataContext as DataGridWithEvent).column1.name);
 
         }
 
@@ -248,7 +247,7 @@ namespace WPF
                     // 鼠标移动到某个目标后，如果点击鼠标左键，则添加鼠标拖拽事件;
                     if (e.LeftButton == MouseButtonState.Pressed)
                     {
-                        DragDropEffects myDropEffect = DragDrop.DoDragDrop(item, item.DataContext, DragDropEffects.Copy);
+                        //DragDropEffects myDropEffect = DragDrop.DoDragDrop(item, item.DataContext, DragDropEffects.Copy);
                     }
                 }
             }
@@ -261,7 +260,7 @@ namespace WPF
 
         /// <summary>
         /// 事件五：鼠标左键按下的事件;
-        /// 这个鼠标事件只针对整个DataGrid表格;
+        /// 这个鼠标事件只针对没有填充数据的单元格的表格区域;
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -272,6 +271,7 @@ namespace WPF
 
         /// <summary>
         /// 鼠标进入整个DataGrid表格后就会触发;
+        /// 只触发一次,直到下一次鼠标再次进入表格的时候才会再次触发;
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -279,7 +279,37 @@ namespace WPF
         {
             Console.WriteLine("MouseEnter;函数参数e反馈的实体是单元格内数据类型:" + e.Source.GetType());
         }
-        
+
+        /// <summary>
+        /// 鼠标选中事件;
+        /// 用这个事件作为鼠标拖拽事件的起点更为合适;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CustomerDataGrid_AddEvent_GotMouseCapture(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if ((e.OriginalSource as DataGrid).Items.CurrentItem is DataGridWithEvent)
+                {
+                    Console.WriteLine("GotMouseCapture;捕获鼠标除了移动之外的任何事件，传过来的参数数据类型为:" + e.Source.GetType());
+                    DataGrid sender_item = e.OriginalSource as DataGrid;
+                    foreach (var iter in (e.OriginalSource as DataGrid).SelectedCells)
+                    {
+                        if (e.LeftButton == MouseButtonState.Pressed)
+                        {
+                            DragDropEffects myDropEffect = DragDrop.DoDragDrop(sender_item, iter.Item as DataGridWithEvent, DragDropEffects.Copy);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+        }
+
         /// <summary>
         /// 接收鼠标事件;
         /// </summary>
