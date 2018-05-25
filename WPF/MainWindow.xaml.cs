@@ -175,17 +175,16 @@ namespace WPF
             this.CustomerDataGrid_AddEvent.DataContext = list;
 
             // 以下是表格事件;
-            this.CustomerDataGrid_AddEvent.BeginningEdit += CustomerDataGrid_AddEvent_BeginningEdit;        // 事件一：单元格开始编辑事件;
-            this.CustomerDataGrid_AddEvent.SelectionChanged += CustomerDataGrid_AddEvent_SelectionChanged;  // 事件二：单元格选择出现变化时;
-            this.CustomerDataGrid_AddEvent.GotFocus += CustomerDataGrid_AddEvent_GotFocus;                  // 事件三：DataGrid表格点击单元格获取焦点时;
+            this.CustomerDataGrid_AddEvent.BeginningEdit += CustomerDataGrid_AddEvent_BeginningEdit;              // 事件一：单元格开始编辑事件;
+            this.CustomerDataGrid_AddEvent.SelectionChanged += CustomerDataGrid_AddEvent_SelectionChanged;        // 事件二：单元格选择出现变化时;
+            this.CustomerDataGrid_AddEvent.GotFocus += CustomerDataGrid_AddEvent_GotFocus;                        // 事件三：DataGrid表格点击单元格获取焦点时;
 
             // 以下是鼠标事件;
-            this.CustomerDataGrid_AddEvent.MouseMove += CustomerDataGrid_AddEvent_MouseMove;                // 事件四：鼠标移动到某个单元格上时触发（实验函数增加了鼠标拖动效果）;
-            this.CustomerDataGrid_AddEvent.MouseLeftButtonDown += CustomerDataGrid_AddEvent_MouseLeftButtonDown;
-                                                                                                            // 事件五：鼠标左键点击事件，这个事件只针对DataGrid整个表格;
-            this.CustomerDataGrid_AddEvent.MouseEnter += CustomerDataGrid_AddEvent_MouseEnter;              // 事件六：鼠标进入整个表格时触发，且只触发一次;
-            this.CustomerDataGrid_AddEvent.GotMouseCapture += CustomerDataGrid_AddEvent_GotMouseCapture;    // 事件七：使用这个事件事件鼠标拖拽更加稳定;
+            this.CustomerDataGrid_AddEvent.MouseMove += CustomerDataGrid_AddEvent_MouseMove;                      // 事件四：鼠标移动到某个单元格上时触发（实验函数增加了鼠标拖动效果）;
+            this.CustomerDataGrid_AddEvent.GotMouseCapture += CustomerDataGrid_AddEvent_GotMouseCapture;          // 事件五：使用这个事件事件鼠标拖拽更加稳定;
 
+            this.CustomerDataGrid_AddEvent.MouseLeftButtonDown += CustomerDataGrid_AddEvent_MouseLeftButtonDown;  // 事件六：鼠标左键点击事件，这个事件只针对DataGrid整个表格;
+            this.CustomerDataGrid_AddEvent.MouseEnter += CustomerDataGrid_AddEvent_MouseEnter;                    // 事件七：鼠标进入整个表格时触发，且只触发一次;
 
             // 另一个元素接收鼠标拖拽事件;
             this.ReceiveDataLabel.AllowDrop = true;
@@ -259,29 +258,7 @@ namespace WPF
         }
 
         /// <summary>
-        /// 事件五：鼠标左键按下的事件;
-        /// 这个鼠标事件只针对没有填充数据的单元格的表格区域;
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CustomerDataGrid_AddEvent_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Console.WriteLine("MouseLeftButtonDown;函数参数e反馈的实体是单元格内数据类型:" + e.Source.GetType());
-        }
-
-        /// <summary>
-        /// 鼠标进入整个DataGrid表格后就会触发;
-        /// 只触发一次,直到下一次鼠标再次进入表格的时候才会再次触发;
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CustomerDataGrid_AddEvent_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            Console.WriteLine("MouseEnter;函数参数e反馈的实体是单元格内数据类型:" + e.Source.GetType());
-        }
-
-        /// <summary>
-        /// 鼠标选中事件;
+        /// 事件五：鼠标选中事件;
         /// 用这个事件作为鼠标拖拽事件的起点更为合适;
         /// </summary>
         /// <param name="sender"></param>
@@ -303,7 +280,7 @@ namespace WPF
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -311,7 +288,33 @@ namespace WPF
         }
 
         /// <summary>
-        /// 接收鼠标事件;
+        /// 事件六：鼠标左键按下的事件;
+        /// 这个鼠标事件只针对没有填充数据的单元格的表格区域;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CustomerDataGrid_AddEvent_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine("MouseLeftButtonDown;函数参数sender反馈的数据类型是:" + sender.GetType());
+            Console.WriteLine("MouseLeftButtonDown;函数参数e.Source反馈的数据类型是:" + e.Source.GetType());
+            Console.WriteLine("MouseLeftButtonDown;函数参数e.OriginalSource反馈的数据类型是:" + e.OriginalSource.GetType());
+        }
+
+        /// <summary>
+        /// 事件七：鼠标进入整个DataGrid表格后就会触发;
+        /// 只触发一次,直到下一次鼠标再次进入表格的时候才会再次触发;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CustomerDataGrid_AddEvent_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Console.WriteLine("MouseEnter;函数参数sender反馈的数据类型是:" + sender.GetType());
+            Console.WriteLine("MouseEnter;函数参数e.Source反馈的数据类型是:" + e.Source.GetType());
+            Console.WriteLine("MouseEnter;函数参数e.OriginalSource反馈的数据类型是:" + e.OriginalSource.GetType());
+        }
+
+        /// <summary>
+        /// 接收鼠标拖拽事件;
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

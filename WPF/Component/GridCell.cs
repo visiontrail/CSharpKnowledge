@@ -13,8 +13,5 @@ namespace WPF
         {
             Console.WriteLine("GridCell Editing Callback:" + name);
         }
-
-        
-
     }
 }
