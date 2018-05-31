@@ -46,7 +46,7 @@ namespace WPF
             InitaListToDataGridColumn();        // 将用户自定义的List添加到DataGrid当中;
             InitaListToDataGridWithEvnet();     // 将用户自定义的List添加到DataGrid当中，并包含对DataGrid单元格的事件操作;
             InitMessageToDataGrid();            // 利用MVVM模式，将同样的数据同时写入两个DataGrid当中;
-            InitDynamicClassToDataGrid();    // 向一个动态类型添加属性后，关联一个DataGrid,为这个DataGrid动态加载类型;
+            InitDynamicClassToDataGrid();       // 向一个动态类型添加属性后，关联一个DataGrid,为这个DataGrid动态加载类型;
 
             // 以下是使用控件TreeView的方法;
             InitTreeViewComposite();            // 直接使用一个组合模式的实例填入到TreeView当中;

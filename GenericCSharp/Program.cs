@@ -54,11 +54,18 @@ namespace TryAnyCSharp
         }
 
 
+        static public bool FindSomethong<T>(T obj)
+        {
+            return true;
+        }
+
         static void Main(string[] args)
         {
             // ++++泛型尝试;+++++++++++++++++++++++++++++
             List<ITemp> TempList = new List<ITemp>();
             Random ram = new Random();
+
+            string aaa = "1.2.3.4";
 
             for (int i = 0; i < 10; ++i)
             {
@@ -66,7 +73,6 @@ namespace TryAnyCSharp
                 ITemp tempAdd = new ITemp();
                 tempAdd.TempereatureC = tempt * 10;
                 TempList.Add(tempAdd);
-
             }
 
             TempList.Sort();
@@ -75,6 +81,9 @@ namespace TryAnyCSharp
             {
                 Console.WriteLine(i.TempereatureC);
             }
+
+            TempList.Find(obj => obj.TempereatureC == 10);
+
             // ++++泛型尝试;+++++++++++++++++++++++++++++
 
             // ++++CompareToDefault+++++++++++++++++++++
@@ -148,7 +157,7 @@ namespace TryAnyCSharp
             Console.ReadKey();
             
         }
-
+        
         static bool underTwenty(int x)
         {
             return x < 20;

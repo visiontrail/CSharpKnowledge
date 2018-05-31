@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,10 +22,13 @@ namespace TryAnyCSharp
                     return DeathDay.Value - Birthday;
             }
         }
+        
+
         public Person(string name, DateTime birthday)
         {
             this.Name = name;
             this.Birthday = birthday;
         }
     }
+    
 }

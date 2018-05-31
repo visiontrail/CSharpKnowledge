@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonUtilities.cs" />
     <Compile Include="Generic_Base.cs" />
     <Compile Include="Pair.cs" />
     <Compile Include="Program.cs" />
