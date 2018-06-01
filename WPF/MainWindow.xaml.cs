@@ -493,9 +493,10 @@ namespace WPF
             tp.bgworker.WorkerReportsProgress = true;
             tp.bgworker.WorkerSupportsCancellation = true;
             tp.bgworker.ProgressChanged += Bgworker_ProgressChanged;
+            tp.bgworker.RunWorkerCompleted += Bgworker_RunWorkerCompleted;
             tp.bgworker.RunWorkerAsync(100);
         }
-        
+
         /// <summary>
         /// BackgroundWorker后台处理的入口，通过调用RunWorkerAsync进入;
         /// </summary>
@@ -528,7 +529,6 @@ namespace WPF
         /// <param name="e"></param>
         private void Bgworker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
-            Console.Write(".");
             this.psb.Value = e.ProgressPercentage;
         }
 
@@ -540,6 +540,16 @@ namespace WPF
         private void StopBackgroundProgress(object sender, RoutedEventArgs e)
         {
             tp.bgworker.CancelAsync();
+        }
+
+        /// <summary>
+        /// 当BackgroundWorker后台处理完成后
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Bgworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Console.WriteLine("Progress Complete!");
         }
     }
 }
