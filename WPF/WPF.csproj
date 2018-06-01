@@ -153,6 +153,10 @@
       <Project>{c6b69e37-9589-45ce-8b5c-d147660ae293}</Project>
       <Name>LightMVVM</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Thread\CSLThread.csproj">
+      <Project>{c29f676a-7afc-408d-9727-b10b86be6bc4}</Project>
+      <Name>CSLThread</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TrySomeInterface\TrySomeInterface.csproj">
       <Project>{fb2612c9-cce1-4d79-ab90-809a96666d1f}</Project>
       <Name>TrySomeInterface</Name>

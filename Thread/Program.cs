@@ -58,7 +58,6 @@ namespace ThreadLearn
             Thread.Sleep(10);
             Mt2.Start();
 
-            Console.ReadLine();
 
             CLRThreadBasic_Delegate cb = new CLRThreadBasic_Delegate();
 

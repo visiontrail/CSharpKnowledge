@@ -17,6 +17,8 @@ using System.Windows.Threading;
 using WPF.Control;
 using TrySomeInterface;
 using System.Windows.Input;
+using CSLThread;
+using System.ComponentModel;
 
 namespace WPF
 {
@@ -31,6 +33,7 @@ namespace WPF
         ObservableCollection<DataGridCustomer> listbase = 
             new ObservableCollection<DataGridCustomer>();            // DataGrid的基础，数据;
         List<DyDataDridModel> list = new List<DyDataDridModel>();    // 用来在DataGrid中显示的实验数据; 
+        ThreadPoolLearn tp = new ThreadPoolLearn();
 
         public MainWindow()
         {
@@ -440,14 +443,6 @@ namespace WPF
             }
         }
 
-        private void TryEnumerable(object sender, RoutedEventArgs e)
-        {
-            List<Iterator_Try> list = new List<Iterator_Try>();
-            list.Add(new Iterator_Try() { value1 = 1, value2 = 3 });
-            list.Add(new Iterator_Try() { value1 = 2, value2 = 2 });
-            list.Add(new Iterator_Try() { value1 = 3, value2 = 1 });
-        }
-        
         /// <summary>
         /// 构建一个组合模式的树形结构，并显示在Treeview当中;
         /// </summary>
@@ -469,6 +464,82 @@ namespace WPF
             t2.m_SubList.Add(t4);
 
             this.tv_composite.ItemsSource = root;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TryEnumerable(object sender, RoutedEventArgs e)
+        {
+            List<Iterator_Try> list = new List<Iterator_Try>();
+            list.Add(new Iterator_Try() { value1 = 1, value2 = 3 });
+            list.Add(new Iterator_Try() { value1 = 2, value2 = 2 });
+            list.Add(new Iterator_Try() { value1 = 3, value2 = 1 });
+        }
+
+        /// <summary>
+        /// 使用线程池进行后台处理进行后台处理;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StartBackgroundProgress(object sender, RoutedEventArgs e)
+        {
+            this.psb.Maximum = 100;
+            this.psb.Minimum = 0;
+
+            tp.bgworker.DoWork += Bgworker_DoWork;                // 注册处理函数，但不会执行;
+            tp.bgworker.WorkerReportsProgress = true;
+            tp.bgworker.WorkerSupportsCancellation = true;
+            tp.bgworker.ProgressChanged += Bgworker_ProgressChanged;
+            tp.bgworker.RunWorkerAsync(100);
+        }
+        
+        /// <summary>
+        /// BackgroundWorker后台处理的入口，通过调用RunWorkerAsync进入;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">RunWorkerAsync函数可以带上参数;</param>
+        private void Bgworker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            int i = (int)e.Argument;
+            Console.WriteLine("接收到的数值;" + i);
+
+            for(int iter = 0; iter < i; iter++)
+            {
+                iter++;
+                Thread.Sleep(200);
+                (sender as BackgroundWorker).ReportProgress(iter);
+
+                if((sender as BackgroundWorker).CancellationPending == true)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// BackgroundWorker后台处理发生变化的时候，调用该函数;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Bgworker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            Console.Write(".");
+            this.psb.Value = e.ProgressPercentage;
+        }
+
+        /// <summary>
+        /// BackgroundWorker取消事件;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StopBackgroundProgress(object sender, RoutedEventArgs e)
+        {
+            tp.bgworker.CancelAsync();
         }
     }
 }
