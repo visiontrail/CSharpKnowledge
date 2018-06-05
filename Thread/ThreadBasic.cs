@@ -25,13 +25,13 @@ namespace ThreadLearn
 
     class ThreadBasic_StaticTLS
     {
-        public static int X = 0;                 // 处于共享状态的静态类型X
+        public static int X = 0;                 // 处于共享状态的静态类型X,多个线程访问后,存在同步问题;
         [ThreadStatic]
         public static int threadStaticX = 0;     // 每个线程都拥有自己副本的threadStaticX
 
         public void AddXY()
         {
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 X++;
                 threadStaticX++;

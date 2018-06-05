@@ -425,7 +425,7 @@ namespace WPF
         }
         #endregion
 
-
+        #region 有关Treeview以及解析XML
         private void StartParseXML(object sender, RoutedEventArgs e)
         {
             XMLTreeViewControl a = new XMLTreeViewControl();
@@ -465,6 +465,7 @@ namespace WPF
 
             this.tv_composite.ItemsSource = root;
         }
+        #endregion
 
         /// <summary>
         /// 
@@ -480,7 +481,7 @@ namespace WPF
         }
 
         /// <summary>
-        /// 使用线程池进行后台处理进行后台处理;
+        /// 一个进度条，使用线程池进行后台处理;
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -489,12 +490,12 @@ namespace WPF
             this.psb.Maximum = 100;
             this.psb.Minimum = 0;
 
-            tp.bgworker.DoWork += Bgworker_DoWork;                // 注册处理函数，但不会执行;
-            tp.bgworker.WorkerReportsProgress = true;
-            tp.bgworker.WorkerSupportsCancellation = true;
-            tp.bgworker.ProgressChanged += Bgworker_ProgressChanged;
-            tp.bgworker.RunWorkerCompleted += Bgworker_RunWorkerCompleted;
-            tp.bgworker.RunWorkerAsync(100);
+            tp.bgworker.DoWork += Bgworker_DoWork;                             // 注册处理函数，但不会执行;
+            tp.bgworker.WorkerReportsProgress = true;                          // 线程是否可以在中途汇报进度;
+            tp.bgworker.WorkerSupportsCancellation = true;                     // 线程是否可以被随时终止(调用CancelAsync终止线程);
+            tp.bgworker.ProgressChanged += Bgworker_ProgressChanged;           // 当线程中调用了ReportProgress函数时，会触发该事件;
+            tp.bgworker.RunWorkerCompleted += Bgworker_RunWorkerCompleted;     // 当线程函数返回时，会触发该事件;
+            tp.bgworker.RunWorkerAsync(100);                                   // 启动线程，并向线程传入参数;
         }
 
         /// <summary>
