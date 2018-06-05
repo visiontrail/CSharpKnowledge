@@ -25,15 +25,22 @@ namespace ThreadLearn
 
     class ThreadBasic_StaticTLS
     {
-        public static int X = 0;                 // 处于共享状态的静态类型X,多个线程访问后,存在同步问题;
+        public static int X = 0;                          // 处于共享状态的静态类型X,多个线程访问后,存在同步问题;
+
         [ThreadStatic]
-        public static int threadStaticX = 0;     // 每个线程都拥有自己副本的threadStaticX
+        public static int threadStaticX = 0;              // 每个线程都拥有自己副本的threadStaticX
+
+        private readonly object objlock = new object();   // 我是一把锁,我可以锁住一个对象，让其他线程无法访问这个对象;
 
         public void AddXY()
         {
             for (int i = 0; i < 1000; i++)
             {
-                X++;
+                lock(objlock)
+                {
+                    X++;
+                }
+                
                 threadStaticX++;
 
                 Thread current = Thread.CurrentThread;
