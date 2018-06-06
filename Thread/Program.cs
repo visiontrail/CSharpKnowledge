@@ -44,16 +44,16 @@ namespace ThreadLearn
             Thread t8 = new Thread(ts1);
             Thread t9 = new Thread(ts1);
             Thread t10 = new Thread(ts1);
-            Thread t11 = new Thread(ts1);
-            Thread t12 = new Thread(ts1);
-            Thread t13 = new Thread(ts1);
-            Thread t14 = new Thread(ts1);
-            Thread t15 = new Thread(ts1);
-            Thread t16 = new Thread(ts1);
-            Thread t17 = new Thread(ts1);
-            Thread t18 = new Thread(ts1);
-            Thread t19 = new Thread(ts1);
-            Thread t20 = new Thread(ts1);
+//             Thread t11 = new Thread(ts1);
+//             Thread t12 = new Thread(ts1);
+//             Thread t13 = new Thread(ts1);
+//             Thread t14 = new Thread(ts1);
+//             Thread t15 = new Thread(ts1);
+//             Thread t16 = new Thread(ts1);
+//             Thread t17 = new Thread(ts1);
+//             Thread t18 = new Thread(ts1);
+//             Thread t19 = new Thread(ts1);
+//             Thread t20 = new Thread(ts1);
 
             t1.Start();
             t2.Start();
@@ -65,16 +65,16 @@ namespace ThreadLearn
             t8.Start();
             t9.Start();
             t10.Start();
-            t11.Start();
-            t12.Start();
-            t13.Start();
-            t14.Start();
-            t15.Start();
-            t16.Start();
-            t17.Start();
-            t18.Start();
-            t19.Start();
-            t20.Start();
+//             t11.Start();
+//             t12.Start();
+//             t13.Start();
+//             t14.Start();
+//             t15.Start();
+//             t16.Start();
+//             t17.Start();
+//             t18.Start();
+//             t19.Start();
+//             t20.Start();
 
             Thread.Sleep(20);
             
