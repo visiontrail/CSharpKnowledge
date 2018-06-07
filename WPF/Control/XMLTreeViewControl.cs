@@ -35,8 +35,6 @@ namespace WPF.Control
                 MessageBox.Show(e.ToString());
                 xmlsource = null;
             }
-
-            
         }
 
         private void readfile(XmlNodeList eles, TreeViewComposite father_ele)
