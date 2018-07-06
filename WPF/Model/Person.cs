@@ -38,7 +38,7 @@ namespace WPF
             this.m_ID = id;
             this.m_Name = name;
         }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void RaisePropertyChanged(string propertyName)
