@@ -30,5 +30,15 @@ namespace TryAnyCSharp
             this.Birthday = birthday;
         }
     }
+
+    public class Student : Person
+    {
+        public Student(string name, DateTime birthday) : base(name,birthday)
+        {
+
+        }
+
+        string number;
+    }
     
 }

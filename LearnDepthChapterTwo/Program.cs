@@ -20,11 +20,13 @@ namespace Delegate
             // ================== 以下是委托的简单用法 =========================
             // 创建委托类型的实例;
             // 将委托实例就相当于创建了一个属性，这个属性可以为起“赋值”，即订阅对应的方法，且可以订阅多个方法;
-            StringProcessor printstring;
+            StringProcessor printstring = PrintString2;
             StringProcessor2 printstring2;
             // 创建委托实例，使用静态方法;
             printstring = new StringProcessor(Program.PrintString2);
             printstring2 = new StringProcessor2(Program.PrintString);
+            printstring += PrintString;
+
             printstring("Delegate~printstring");
             
             printstring2.BeginInvoke("print111111111111", new AsyncCallback((IAsyncResult ar) => {

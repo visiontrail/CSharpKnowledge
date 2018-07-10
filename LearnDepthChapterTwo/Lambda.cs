@@ -9,14 +9,17 @@ namespace Delegate
     public class Lambda
     {
         public string Name { get; set; }
+
         public Lambda(string name)
         {
             Name = name;
         }
+
         public override string ToString()
         {
             return this.Name;
         }
+
         public static Lambda operator +(Lambda a, Lambda b)
         {
             Lambda ret = new Lambda("");

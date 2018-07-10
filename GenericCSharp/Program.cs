@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -61,11 +62,20 @@ namespace TryAnyCSharp
 
         static void Main(string[] args)
         {
+            System.Text.ASCIIEncoding asciiEncoding = new System.Text.ASCIIEncoding();
+
             // ++++泛型尝试;+++++++++++++++++++++++++++++
             List<ITemp> TempList = new List<ITemp>();
             Random ram = new Random();
 
-            string aaa = "1.2.3.4";
+            Person person = new Person("name", DateTime.Now);
+            Student stu = new Student("stu", DateTime.Now);
+            Person person2 = stu;
+
+            Console.WriteLine("得到得类型;"+ person2.GetType());
+
+            string aaa = "a.2.3.4";
+            Console.WriteLine(asciiEncoding.GetBytes(aaa)[0]);
 
             for (int i = 0; i < 10; ++i)
             {
