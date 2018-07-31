@@ -163,7 +163,7 @@ namespace TryAnyCSharp
 
             Console.WriteLine("Guoliang Age:" + person1.Age.Days);
             Console.WriteLine("Paul Age:" + personDie.Age.Days / 365);
-
+            
             Console.ReadKey();
             
         }

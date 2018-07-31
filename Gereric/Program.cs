@@ -46,6 +46,7 @@ namespace Gereric
             {
                 Console.WriteLine(iter.list[0].ToString());
             }
+            
         }
 
         private static int deleConvert(string a)

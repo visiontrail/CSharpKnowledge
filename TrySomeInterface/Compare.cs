@@ -14,7 +14,7 @@ namespace TrySomeInterface
         public double m_value { get; set; }
         public string m_name { get; set; }
 
-        public int CompareTo(Compare OtherValue)
+        int IComparable<Compare>.CompareTo(Compare OtherValue)
         {
             return m_value.CompareTo(OtherValue);
         }

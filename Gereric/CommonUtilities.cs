@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Gereric
 {
-    class CommonUtilities
+    public class CommonUtilities
     {
     }
 

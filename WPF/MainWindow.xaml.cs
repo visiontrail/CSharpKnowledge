@@ -475,9 +475,6 @@ namespace WPF
         private void TryEnumerable(object sender, RoutedEventArgs e)
         {
             List<Iterator_Try> list = new List<Iterator_Try>();
-            list.Add(new Iterator_Try() { value1 = 1, value2 = 3 });
-            list.Add(new Iterator_Try() { value1 = 2, value2 = 2 });
-            list.Add(new Iterator_Try() { value1 = 3, value2 = 1 });
         }
 
         /// <summary>
@@ -551,6 +548,63 @@ namespace WPF
         private void Bgworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             Console.WriteLine("Progress Complete!");
+        }
+
+        private void StartEquatable_1(object sender, RoutedEventArgs e)
+        {
+            person_Non_Equatable per1 = new person_Non_Equatable("G1", 19);
+            person_Non_Equatable per2 = new person_Non_Equatable("G1", 19);
+
+            Console.WriteLine(per1.GetHashCode());
+            Console.WriteLine(per2.GetHashCode());
+
+            bool ret = per1.Equals(per2);
+            if(ret)
+            {
+                Console.WriteLine("在不使用IEquatable的情况下，比较相等");
+            }
+            else
+            {
+                Console.WriteLine("在不使用IEquatable的情况下，比较不相等");
+            }
+        }
+
+        private void StartEquatable_2(object sender, RoutedEventArgs e)
+        {
+            person_Non_Equatable_OverrideHashCode per1 = new person_Non_Equatable_OverrideHashCode("G2", 19);
+            person_Non_Equatable_OverrideHashCode per2 = new person_Non_Equatable_OverrideHashCode("G2", 19);
+
+            Console.WriteLine(per1.GetHashCode());
+            Console.WriteLine(per2.GetHashCode());
+
+            bool ret = per1.Equals(per2);      // 看来Equals方法不是通过GetHashCode判断的;
+            if (ret)
+            {
+                Console.WriteLine("在不使用IEquatable的情况下，比较相等");
+            }
+            else
+            {
+                Console.WriteLine("在不使用IEquatable的情况下，比较不相等");
+            }
+        }
+
+        private void StartEquatable_3(object sender, RoutedEventArgs e)
+        {
+            person_Equatable per1 = new person_Equatable("G1", 19);
+            person_Equatable per2 = new person_Equatable("G1", 19);
+
+            Console.WriteLine(per1.GetHashCode());
+            Console.WriteLine(per2.GetHashCode());
+
+            bool ret = per1.Equals(per2);
+            if (ret)
+            {
+                Console.WriteLine("在不使用IEquatable的情况下，比较相等");
+            }
+            else
+            {
+                Console.WriteLine("在不使用IEquatable的情况下，比较不相等");
+            }
         }
     }
 }

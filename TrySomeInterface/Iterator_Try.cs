@@ -9,9 +9,9 @@ namespace TrySomeInterface
 {
     public class Iterator_Try : IEnumerable
     {
-        public int value1;
-        public int value2;
-
+        Try_Equatable<int> value1 = new Try_Equatable<int>();
+        Try_Equatable<int> value2 = new Try_Equatable<int>();
+        
         /// <summary>
         /// 是IEnumerable接口包含的抽象行为;
         /// </summary>

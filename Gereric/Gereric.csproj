@@ -49,6 +49,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tuple_ReplaceOutRef.cs" />
+    <Compile Include="Where.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

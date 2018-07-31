@@ -403,6 +403,42 @@
                     </Grid>
                 </Grid>
             </TabItem>
+            <TabItem Header="接口测试">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200"></RowDefinition>
+                            <RowDefinition Height="200"></RowDefinition>
+                            <RowDefinition Height="200"></RowDefinition>
+                            <RowDefinition Height="200"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0">
+                            <StackPanel>
+                                <Label>IEquatable:</Label>
+                                <Button Click="StartEquatable_1">比较两个值—没有继承IEquatable时</Button>
+                                <Button Click="StartEquatable_2">比较两个值—重载GetHashCode</Button>
+                                <Button Click="StartEquatable_3">比较两个值—继承IEquatable</Button>
+                            </StackPanel>
+                        </Border>
+                        
+                        
+                    </Grid>
+                    
+                    
+                </Grid>
+                
+                
+            </TabItem>
+            
+            
         </TabControl>
 
 
