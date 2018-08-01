@@ -428,6 +428,14 @@
                                 <Button Click="StartEquatable_3">比较两个值—继承IEquatable</Button>
                             </StackPanel>
                         </Border>
+
+
+                        <Border Grid.Row="1">
+                            <StackPanel>
+                                <Label>IEnumerable</Label>
+                                <Button Click="StartForeach_1">开始迭代</Button>
+                            </StackPanel>
+                        </Border>
                         
                         
                     </Grid>

@@ -606,5 +606,22 @@ namespace WPF
                 Console.WriteLine("在不使用IEquatable的情况下，比较不相等");
             }
         }
+
+        private void StartForeach_1(object sender, RoutedEventArgs e)
+        {
+            Person2 p1 = new Person2("John", "Smith");
+            Person2 p2 = new Person2("John2", "Smith2");
+            Person2 p3 = new Person2("John3", "Smith3");
+
+            People list = new People();
+            list.Add(p1);
+            list.Add(p2);
+            list.Add(p3);
+            
+            foreach(Person2 itor in list)
+            {
+                Console.WriteLine("foreach:" + itor.firstName);
+            }
+        }
     }
 }

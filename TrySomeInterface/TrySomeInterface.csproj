@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Compare.cs" />
     <Compile Include="Equatable.cs" />
+    <Compile Include="IEnumerable.cs" />
     <Compile Include="Iterator_Try.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
