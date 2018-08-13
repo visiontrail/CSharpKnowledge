@@ -512,6 +512,7 @@
                                 <Button Click="StartEquatable_1">比较两个值—没有继承IEquatable时</Button>
                                 <Button Click="StartEquatable_2">比较两个值—重载GetHashCode</Button>
                                 <Button Click="StartEquatable_3">比较两个值—继承IEquatable</Button>
+                                <Button Click="StartEquatable_4">用ICompare作为函数入参</Button>
                             </StackPanel>
                         </Border>
 

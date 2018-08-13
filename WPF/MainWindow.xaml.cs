@@ -619,6 +619,20 @@ namespace WPF
             }
         }
 
+
+        private void StartEquatable_4(object sender, RoutedEventArgs e)
+        {
+            int?ret = ParticalCompare.Compare(Comparer<int>.Default, 20, 20);
+            Console.WriteLine("用ICompare作为函数入参;" + ret);
+
+            SomeComparableClass a = new SomeComparableClass();
+            SomeComparableClass b = new SomeComparableClass();
+            a.m_value = 30;
+            b.m_value = 20;
+            double? ret2 = ParticalCompare.Compare(Comparer<SomeComparableClass>.Default, a, b);
+            Console.WriteLine("用ICompare作为函数入参;" + ret2);
+        }
+
         private void StartForeach_1(object sender, RoutedEventArgs e)
         {
             Person2 p1 = new Person2("John", "Smith");
@@ -658,5 +672,6 @@ namespace WPF
                 this.time_span_second.Content = ttp.TimeDelaySecond.ToString();
             }
         }
+
     }
 }
