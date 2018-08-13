@@ -19,6 +19,8 @@ using TrySomeInterface;
 using System.Windows.Input;
 using CSLThread;
 using System.ComponentModel;
+using WPF.EventRoute;
+using WPF.TryAnyCSharp;
 
 namespace WPF
 {
@@ -34,6 +36,9 @@ namespace WPF
             new ObservableCollection<DataGridCustomer>();            // DataGrid的基础，数据;
         List<DyDataDridModel> list = new List<DyDataDridModel>();    // 用来在DataGrid中显示的实验数据; 
         ThreadPoolLearn tp = new ThreadPoolLearn();
+
+        private TimeTicked TimeTicked = TimeTicked.NeverTicked;
+        private TwoTimeSpan ttp = new TwoTimeSpan();
 
         public MainWindow()
         {
@@ -56,6 +61,13 @@ namespace WPF
             
             // WPF中的ItemsSource是可以使用LINQ进行查询筛选的;
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
+
+            // 路由事件;
+            Interface_Grid.AddHandler(Button.ClickEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
+            {
+                Console.WriteLine("The Grid RouteEvent Receive a Button Event and the Button is " + (e.OriginalSource as Button).Content.ToString());
+            }));
+            
         }
 
         #region 纯前端操作
@@ -621,6 +633,29 @@ namespace WPF
             foreach(Person2 itor in list)
             {
                 Console.WriteLine("foreach:" + itor.firstName);
+            }
+        }
+
+        private void RptTime(object sender, ReportTimeEvtArgs e)
+        {
+            Console.WriteLine("路由内容;" + (sender as FrameworkElement).Name + "点击时间;"+ e.ClickTime.ToString());
+        }
+
+        private void TimeTick(object sender, RoutedEventArgs e)
+        {
+            
+            if(this.TimeTicked == TimeTicked.NeverTicked)
+            {
+                this.Time_Span_Button.Content = "停止计时";
+                ttp.time_one = DateTime.Now;
+                this.TimeTicked = TimeTicked.PressedStart;
+            }
+            else if(this.TimeTicked == TimeTicked.PressedStart)
+            {
+                this.Time_Span_Button.Content = "开始计时";
+                ttp.time_two = DateTime.Now;
+                this.TimeTicked = TimeTicked.NeverTicked;
+                this.time_span_second.Content = ttp.TimeDelaySecond.ToString();
             }
         }
     }

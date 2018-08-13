@@ -73,6 +73,7 @@
     </ApplicationDefinition>
     <Compile Include="Component\GridCell.cs" />
     <Compile Include="Control\Calc.cs" />
+    <Compile Include="EventRoute\ButtonBase.cs" />
     <Compile Include="Model\DataGridCustomer.cs" />
     <Compile Include="Model\DataGridWithEvent.cs" />
     <Compile Include="Model\DyDataGridModel.cs" />
@@ -80,6 +81,8 @@
     <Compile Include="Control\XMLTreeViewControl.cs" />
     <Compile Include="Model\MessageModel.cs" />
     <Compile Include="Model\TreeViewItem.cs" />
+    <Compile Include="TryAnyCSharp\Time\AboutTime.cs" />
+    <Compile Include="TryAnyCSharp\Time\TimeOperation.cs" />
     <Compile Include="UserControlTemplate\DyDataGrid.xaml.cs">
       <DependentUpon>DyDataGrid.xaml</DependentUpon>
     </Compile>

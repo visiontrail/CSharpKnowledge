@@ -8,8 +8,10 @@
         xmlns:model="clr-namespace:WPF.Model"
         xmlns:localui="clr-namespace:WPF.UserControlTemplate"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:routeevt="clr-namespace:WPF.EventRoute"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1000" WindowStartupLocation="CenterScreen">
+        routeevt:ButtonTime.ReportTime="RptTime"
+        Title="MainWindow" Height="800" Width="1000" WindowStartupLocation="CenterScreen" x:Name="Main_Window">
 
     <Window.Resources>
 
@@ -46,7 +48,7 @@
                 </FileSystem>
             </x:XData>
         </XmlDataProvider>
-        
+
         <SolidColorBrush x:Key="ProgressBar.Progress" Color="#FFFFB025"/>
         <SolidColorBrush x:Key="ProgressBar.Background" Color="#FFE6E6E6"/>
         <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
@@ -120,8 +122,8 @@
                 <Grid>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300"></ColumnDefinition>
-                        <ColumnDefinition Width="300"></ColumnDefinition>
+                        <ColumnDefinition Width="300"></ColumnDefinition>  <!--第一列：WPF基础知识-->
+                        <ColumnDefinition Width="300"></ColumnDefinition>  <!--第二列：WPF高级知识，路由事件\-->
                     </Grid.ColumnDefinitions>
 
                     <DockPanel Grid.Column="0" Margin="10,0,10,0">
@@ -138,7 +140,7 @@
                             <!-- 使用Style对控件进行定制化，即所谓的CSS和Javascript -->
                             <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1">
                                 <StackPanel  Margin="3,3,3,3">
-                                    <Label>Style的用法:</Label>
+                                    <Label routeevt:ButtonTime.ReportTime="RptTime" x:Name="StyleWPF">Style的用法:</Label>
                                     <Button Style="{StaticResource BlueButton}" Margin="0,5">蓝色按钮</Button>
                                     <Button Style="{StaticResource ButtonTrigger}">蓝色按钮和触发事件</Button>
                                 </StackPanel>
@@ -177,9 +179,23 @@
                     </DockPanel>
 
                     <DockPanel Grid.Column="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100"></RowDefinition>
+                                <RowDefinition Height="150"></RowDefinition>
+                                <RowDefinition Height="120"></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                            </Grid.RowDefinitions>
 
-
-
+                            <Grid Grid.Row="0" x:Name="grid1" routeevt:ButtonTime.ReportTime="RptTime">
+                                <StackPanel x:Name="sp1" routeevt:ButtonTime.ReportTime="RptTime">
+                                    <routeevt:ButtonTime x:Name="timebutton" Height="100" routeevt:ButtonTime.ReportTime="RptTime">触发</routeevt:ButtonTime>
+                                </StackPanel>
+                            </Grid>
+                            
+                        </Grid>
                     </DockPanel>
 
                 </Grid>
@@ -460,21 +476,29 @@
                                 </StackPanel>
                             </Border>
 
+                            <Border Grid.Row="2">
+                                <StackPanel>
+                                    <Label x:Name="time_span_second">0</Label>
+                                    <Button Content="开始计时" x:Name="Time_Span_Button" Click="TimeTick"></Button>
+                                </StackPanel>
+                            </Border>
+
                         </Grid>
 
                     </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="接口测试">
-                <Grid>
+                <Grid x:Name="Interface_Grid">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="29"></ColumnDefinition>
+                        <ColumnDefinition Width="171"/>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Column="0">
+                    <Grid Grid.Column="0" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="200"></RowDefinition>
                             <RowDefinition Height="200"></RowDefinition>
