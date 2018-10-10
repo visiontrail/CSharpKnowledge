@@ -6,6 +6,11 @@
 
                 <ResourceDictionary Source="Style/BrushOne.xaml">
                     <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:WPF.ViewModel" />
+
+                    <DataTemplate x:Key="cellDropBox2">
+                        <ComboBox SelectedIndex="0" />
+                    </DataTemplate>
+
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

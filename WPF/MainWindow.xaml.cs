@@ -21,6 +21,7 @@ using CSLThread;
 using System.ComponentModel;
 using WPF.EventRoute;
 using WPF.TryAnyCSharp;
+using WPF.UserControlTemplate;
 
 namespace WPF
 {
@@ -35,6 +36,7 @@ namespace WPF
         ObservableCollection<DataGridCustomer> listbase = 
             new ObservableCollection<DataGridCustomer>();            // DataGrid的基础，数据;
         List<DyDataDridModel> list = new List<DyDataDridModel>();    // 用来在DataGrid中显示的实验数据; 
+        List<DyDataDridModel> list2 = new List<DyDataDridModel>();    // 用来在DataGrid中显示的实验数据; 
         ThreadPoolLearn tp = new ThreadPoolLearn();
 
         private TimeTicked TimeTicked = TimeTicked.NeverTicked;
@@ -363,12 +365,15 @@ namespace WPF
                 dynamic model = new DyDataDridModel();
 
                 // 向单元格内添加内容;
-                model.AddProperty("property2", new GridCell() { name = "343" }, "列2");
-                model.AddProperty("property0", new GridCell() { name = "123" }, "列0");
-                model.AddProperty("property1", new GridCell() { name = "321" }, "列1");
+                // 参数1：动态类型的类型名;
+                // 参数2：动态类型的实例;
+                model.AddProperty("property2", new GridCell() { name = "显示内容1" }, "列2");
+                model.AddProperty("property0", new GridCell() { name = "显示内容2" }, "列0");
+                model.AddProperty("property1", new GridCell() { name = "显示内容3" }, "列1");
 
                 list.Add(model);
             }
+            // 此处将所有的列信息添加到DataGrid当中;
             for (int i = 0; i <= 2; i++)
             {
                 DataGridTextColumn column = new DataGridTextColumn();
@@ -379,6 +384,39 @@ namespace WPF
 
             this.MsgDataGrid_AutoGenCol.ItemsSource = list;
             this.MsgDataGrid_AutoGenCol.BeginningEdit += MsgDataGrid_AutoGenCol_BeginningEdit;
+
+            List<string> name_list = new List<string>();
+            name_list.Add("Combox_Content1");
+            name_list.Add("Combox_Content2");
+
+            for(int i = 0; i <= 3; i++)
+            {
+                dynamic model = new DyDataDridModel();
+
+                model.AddProperty("p1", new GridCellCombox() { name_list = name_list }, "列1");
+                model.AddProperty("p2", new GridCellCombox() { name_list = name_list }, "列2");
+
+                list2.Add(model);
+            }
+            for(int i = 0; i <= 2; i++)
+            {
+                DataGridTemplateColumn column = new DataGridTemplateColumn();     // 单元格是一个template;
+                DataTemplate template = new DataTemplate();                       // 用一个DataTemplate类型填充
+                ComboBox box = new ComboBox();
+
+                Grid grid = new Grid();
+                
+                box.ItemsSource = name_list;
+
+                
+
+                column.Header = "列" + i;
+                column.CellTemplate = System.Windows.Application.Current.Resources["cellDropBox2"] as DataTemplate;
+
+                this.MsgDataGrid_AutoGenColandCellMore.Columns.Add(column);
+            }
+
+            this.MsgDataGrid_AutoGenColandCellMore.ItemsSource = list2;
         }
 
 

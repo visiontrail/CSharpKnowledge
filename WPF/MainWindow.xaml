@@ -11,7 +11,7 @@
         xmlns:routeevt="clr-namespace:WPF.EventRoute"
         mc:Ignorable="d"
         routeevt:ButtonTime.ReportTime="RptTime"
-        Title="MainWindow" Height="800" Width="1000" WindowStartupLocation="CenterScreen" x:Name="Main_Window">
+        Title="MainWindow" Height="800" Width="1500" WindowStartupLocation="CenterScreen" x:Name="Main_Window">
 
     <Window.Resources>
 
@@ -113,6 +113,7 @@
             </Setter>
         </Style>
 
+
     </Window.Resources>
 
     <Grid>
@@ -123,7 +124,7 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"></ColumnDefinition>  <!--第一列：WPF基础知识-->
-                        <ColumnDefinition Width="300"></ColumnDefinition>  <!--第二列：WPF高级知识，路由事件\-->
+                        <ColumnDefinition Width="300"></ColumnDefinition>  <!--第二列：WPF高级知识，路由事件-->
                     </Grid.ColumnDefinitions>
 
                     <DockPanel Grid.Column="0" Margin="10,0,10,0">
@@ -209,7 +210,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="500"/>
-                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- 总高度800 -->
@@ -376,14 +378,23 @@
                             <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid_AutoGenCol"/>
                         </Border>
 
+                        <!-- 一个用于接收DataGrid空间拖拽事件的实验控件 -->
                         <ScrollViewer Grid.Row="8">
                             <Label x:Name="ReceiveDataLabel" Content="在此接收DataGrid拖拽过来的数值"></Label>
                         </ScrollViewer>
 
                     </Grid>
 
-                    <!-- 这一列涉及TreeView控件的使用 -->
+                    <!-- 综合使用DataGrid的应用实例 -->
                     <Grid Grid.Column="2">
+                        
+                        <!-- Dynamic类型绑定DataGrid的同时，丰富单元格内显示类型 -->
+                        <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid_AutoGenColandCellMore"/>
+
+                    </Grid>
+
+                    <!-- 这一列涉及TreeView控件的使用 -->
+                    <Grid Grid.Column="3">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="150"/>
