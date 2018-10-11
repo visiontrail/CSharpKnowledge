@@ -39,7 +39,10 @@ namespace WPF.Model
         // 为动态类型动态添加方法;
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
-            // 可以通过调用方法的手段添加属性;
+            // 可以通过调用方法的手段添加属性，AddProperty方法一共有三个参数;
+            // 参数1：属性的名称;
+            // 参数2：属性的实例值;
+            // 参数3：列名称与属性之间建立关系;
             if (binder.Name == "AddProperty" && binder.CallInfo.ArgumentCount == 3)
             {
                 string name = args[0] as string;
@@ -60,6 +63,7 @@ namespace WPF.Model
                 result = value;
                 return true;
             }
+
             if(binder.Name == "JudgePropertyName_StartEditing" && binder.CallInfo.ArgumentCount == 1)
             {
                 string columnname = args[0] as string;

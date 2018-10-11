@@ -348,9 +348,11 @@
                                     </Grid>
                                 </DataTemplate>
 
+                                <!-- 数据模板对应的类型是MessageModel -->
                                 <DataTemplate x:Key="cellDropBox" DataType="{x:Type model:MessageModel}">
                                     <ComboBox ItemsSource="{Binding m_content_detail}" SelectedIndex="0" />
                                 </DataTemplate>
+
                             </Border.Resources>
 
                             <!-- 表格，用来显示MessageVM中所有的消息,使用ItemsSource指定数据源 -->
@@ -387,9 +389,13 @@
 
                     <!-- 综合使用DataGrid的应用实例 -->
                     <Grid Grid.Column="2">
-                        
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                        </Grid.RowDefinitions>
                         <!-- Dynamic类型绑定DataGrid的同时，丰富单元格内显示类型 -->
-                        <DataGrid AutoGenerateColumns="False" x:Name="MsgDataGrid_AutoGenColandCellMore"/>
+                        <DataGrid Grid.Row="0" AutoGenerateColumns="False" x:Name="MsgDataGrid_AutoGenColandCellMore"/>
 
                     </Grid>
 
