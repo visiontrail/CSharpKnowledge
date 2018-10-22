@@ -219,8 +219,9 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="150"/>
-                            <RowDefinition Height="120"/>
+                            <RowDefinition Height="170"/>
                             <RowDefinition Height="150"/>
+                            <RowDefinition Height="100"/>
                             <RowDefinition Height="100"/>
                         </Grid.RowDefinitions>
 
@@ -254,10 +255,22 @@
                             </StackPanel>
                         </Border>
 
+                        <!-- 有关于ItemsControl（ListBox）类型的控件，使用ItemSource进行Binding -->
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5">
+                            <StackPanel Margin="3,3,3,3">
+                                <Label>绑定ItemControl类型的控件</Label>
+                                <!-- 显示下边ListBox选择的PersonID -->
+                                <TextBox Text ="{Binding m_ID}"></TextBox>
+                                <!-- 关联ItemSource为一个List<person>容器的列表 -->
+                                <ListBox x:Name="PersonList2" Margin="0,5" ItemsSource="{Binding Path=.}" DisplayMemberPath="m_Name"></ListBox>
+                            </StackPanel>
+                        </Border>
+
                         <!-- 有关于ItemsControl(ListBox)控件，使用一个List<Person>绑定 -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" Margin="5,5,5,5" >
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Margin="5,5,5,5" >
                             <StackPanel>
-                                <!-- 每个控件都有自己的DataContext
+                                <!-- 
+                                     每个控件都有自己的DataContext
                                      DataContext可以指定为某一个区域 
                                      这样使用DataContext，也相当于实例化了一个Student对象
                                 -->
@@ -269,7 +282,7 @@
                         </Border>
 
                         <!-- 一个实时更新的输入框，绑定函数返回值的例子 -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Margin="5,5,5,5" >
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Margin="5,5,5,5" >
                             <StackPanel>
                                 <TextBox x:Name="CalcX"></TextBox>
                                 <TextBox x:Name="CalcY"></TextBox>
@@ -278,7 +291,7 @@
                         </Border>
 
                         <!-- 这个是学习依赖属性用的，DP暂时没学透彻呢 -->
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="4" Margin="5,5,5,5">
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Margin="5,5,5,5">
                             <StackPanel>
                                 <TextBox x:Name="text1"></TextBox>
                                 <Button Content="获取输入框内容" Click="GetDepProperty" ></Button>
@@ -395,7 +408,7 @@
                             <RowDefinition Height="50"></RowDefinition>
                         </Grid.RowDefinitions>
                         <!-- Dynamic类型绑定DataGrid的同时，丰富单元格内显示类型 -->
-                        <DataGrid Grid.Row="0" AutoGenerateColumns="False" x:Name="MsgDataGrid_AutoGenColandCellMore"/>
+                        <DataGrid Grid.Row="0" AutoGenerateColumns="False" x:Name="MsgDataGrid_AutoGenColandCellMore" ItemsSource="{Binding Path=.}"/>
 
                     </Grid>
 

@@ -1,4 +1,12 @@
-<Application x:Class="WPF.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:WPF" StartupUri="MainWindow.xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+<Application x:Class="WPF.App" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:local="clr-namespace:WPF" 
+             xmlns:model="clr-namespace:WPF.Model"
+             StartupUri="MainWindow.xaml" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             d1p1:Ignorable="d" 
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Application.Resources>
         <ResourceDictionary>
             
@@ -12,10 +20,11 @@
 
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate x:Key="cellDropBox2" DataType="{x:Type local:GridCellCombox}">
-                <ComboBox x:Name="RichDataGridCell_ComboBox" SelectedIndex="0" />
+            <ComboBox x:Key="RichDataGridCell_ComboBox2" SelectedIndex="0"/>
+            <DataTemplate x:Key="cellDropBox2" DataType="{x:Type model:DyDataDridModel}">
+                <ComboBox x:Name="RichDataGridCell_ComboBox" ItemsSource="{Binding p1}" SelectedIndex="0"/>
             </DataTemplate>
-            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

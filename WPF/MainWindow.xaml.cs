@@ -21,7 +21,7 @@ using CSLThread;
 using System.ComponentModel;
 using WPF.EventRoute;
 using WPF.TryAnyCSharp;
-using WPF.UserControlTemplate;
+using System.Windows.Markup;
 
 namespace WPF
 {
@@ -30,14 +30,14 @@ namespace WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<Person> persons = new List<Person>();            // 最简单的控件Binding实验数据;
-        public DataGridVM m_DgVm;                                    // DataGrid的VM层，所有针对DataGrid的操作，全部使用这个类型;
-        public MessageVM m_MessageVM =  new MessageVM();             // MessageVM层，用来显示MessageModel的;
-        ObservableCollection<DataGridCustomer> listbase = 
-            new ObservableCollection<DataGridCustomer>();            // DataGrid的基础，数据;
-        List<DyDataDridModel> list = new List<DyDataDridModel>();    // 用来在DataGrid中显示的实验数据; 
+        public List<Person> persons = new List<Person>();                                                  // 最简单的控件Binding实验数据;
+        public DataGridVM m_DgVm;                                                                          // DataGrid的VM层，所有针对DataGrid的操作，全部使用这个类型;
+        public MessageVM m_MessageVM =  new MessageVM();                                                   // MessageVM层，用来显示MessageModel的;
+        ObservableCollection<DataGridCustomer> listbase = new ObservableCollection<DataGridCustomer>();    // DataGrid的基础，数据;
 
-        ObservableCollection<DyDataDridModel> list2 = new ObservableCollection<DyDataDridModel>();    // 用来在DataGrid中显示的实验数据; 
+        List<DyDataDridModel> list = new List<DyDataDridModel>();                                          // 用来在DataGrid中显示的实验数据; 
+        ObservableCollection<DyDataDridModel> list2 = new ObservableCollection<DyDataDridModel>();         // 用来在DataGrid中显示的实验数据; 
+
         ThreadPoolLearn tp = new ThreadPoolLearn();
 
         private TimeTicked TimeTicked = TimeTicked.NeverTicked;
@@ -129,6 +129,8 @@ namespace WPF
             this.PersonList.ItemsSource = persons;                                    // 指定ItemsSource;
             this.PersonList.DisplayMemberPath = "m_Name";                             // 指定显示的属性;
             this.PersonList.SelectionChanged += PersonList_SelectionChanged;          // 当控件选择发生变化时;
+
+            this.PersonList2.DataContext = persons;
 
             // 通过SetBinding方法也可以Binding现有类(ListBox)的属性;
             this.PersonID.SetBinding(TextBox.TextProperty, new Binding("m_ID")
@@ -366,9 +368,10 @@ namespace WPF
             {
                 dynamic model = new DyDataDridModel();
 
-                // 向单元格内添加内容;
+                // 向单元格内动态添加属性及其;
                 // 参数1：动态类型的类型名;
                 // 参数2：动态类型的实例;
+                // 参数3：列名称;
                 model.AddProperty("property2", new GridCell() { name = "显示内容1" }, "列2");
                 model.AddProperty("property0", new GridCell() { name = "显示内容2" }, "列0");
                 model.AddProperty("property1", new GridCell() { name = "显示内容3" }, "列1");
@@ -393,36 +396,63 @@ namespace WPF
             List<string> name_list = new List<string>();
             name_list.Add("Combox_Content1");
             name_list.Add("Combox_Content2");
-
+          
             // 在表格中添加3行内容相同的内容;
-            for(int i = 0; i <= 3; i++)
+            for (int i = 0; i <= 2; i++)
             {
-                dynamic model = new DyDataDridModel();
 
-                model.AddProperty("p1", new GridCellCombox() { name_list = name_list }, "列1");
-                model.AddProperty("p2", new GridCellCombox() { name_list = name_list }, "列2");
-
-                list2.Add(model);
-            }
-            // 为表格添加列信息;
-            for(int i = 0; i <= 2; i++)
-            {
-                DataGridTemplateColumn column = new DataGridTemplateColumn();               // 单元格是一个template;
-                DataTemplate template = new DataTemplate();                                 // 用一个DataTemplate类型填充;
-                ComboBox box = new ComboBox();
-
-                template = Application.Current.Resources["cellDropBox2"] as DataTemplate;   // 将静态资源模板赋值给实例化的数据模板;
-                //template = this.FindResource("cellDropBox2") as DataTemplate;             // 两种方式都能够通过C#代码访问Resource资源;
+                dynamic model2 = new DyDataDridModel();                                      // 创建一个动态模型;
+                model2.AddProperty("p1", name_list, "列1");
+                model2.AddProperty("p2", DateTime.Now, "列2");
+                model2.AddProperty("p3", "显示内容", "列3");
                 
+                list2.Add(model2);
 
-                column.Header = "列" + i;                     // 填写列名称;
-                column.CellTemplate = template;               // 将单元格的显示形式赋值;
-                column.Width = 100;                           // 设置显示宽度;
+                if(i == 2)
+                {
+                    // 为表格添加列信息;
+                    for (int j = 0; j <= 2; j++)
+                    {
+                        if (j == 0)
+                        {
+                            DataGridTemplateColumn column = new DataGridTemplateColumn();                   // 单元格是一个template;
+                            DataTemplate template = new DataTemplate();                                     // 用一个DataTemplate类型填充;
+                            ComboBox box = new ComboBox();
 
-                this.MsgDataGrid_AutoGenColandCellMore.Columns.Add(column);
+                            // 实在没有什么好办法，直接在CS代码当中直接写DataTemplate的XAML代码;
+                            string xaml1 =
+                                @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
+                                                xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
+                                                xmlns:model='clr -namespace:WPF.Model'>
+                                    <ComboBox ItemsSource='{Binding p1}' SelectedIndex='0'/>
+                                 </DataTemplate>";
+
+                            template = XamlReader.Parse(xaml1) as DataTemplate;
+                            
+                            //Console.WriteLine("获取到的Combobox的名称是：" + box.Name);
+
+                            column.Header = "列" + j;                     // 填写列名称;
+                            column.CellTemplate = template;               // 将单元格的显示形式赋值;
+                            column.Width = 100;                           // 设置显示宽度;
+
+                            this.MsgDataGrid_AutoGenColandCellMore.Columns.Add(column);
+                        }
+                        else if (j == 1)
+                        {
+
+                        }
+                        else if (j == 2)
+                        {
+
+                        }
+
+                    }
+                }
+
             }
+            
 
-            this.MsgDataGrid_AutoGenColandCellMore.ItemsSource = list2;
+            this.MsgDataGrid_AutoGenColandCellMore.DataContext = list2;
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,17 @@ namespace WPF
 
     public class GridCellCombox
     {
-        public List<string> name_list { get; set; }
+        private List<string> name_list;
+        public List<string> m_name_list
+        {
+            get
+            {
+                return name_list;
+            }
+            set
+            {
+                name_list = value;
+            }
+        }
     }
 }

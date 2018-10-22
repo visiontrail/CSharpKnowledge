@@ -64,6 +64,34 @@ namespace WPF.Model
                 return true;
             }
 
+            if(binder.Name == "GetProperty" && binder.CallInfo.ArgumentCount == 1)
+            {
+                string columnname = args[0] as string;
+                if (columnname == null)
+                {
+                    result = null;
+                    return false;
+                }
+
+                // 在当前列名于属性列表中查找，看是否有匹配项;
+                if (ColName_Property.ContainsKey(columnname))
+                {
+                    string key = ColName_Property[columnname];
+                    if (Properties.ContainsKey(key))
+                    {
+                        object property = Properties[key];
+                        result = property;
+                        return true;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Can not find the right property");
+                    result = null;
+                    return false;
+                }
+            }
+
             if(binder.Name == "JudgePropertyName_StartEditing" && binder.CallInfo.ArgumentCount == 1)
             {
                 string columnname = args[0] as string;

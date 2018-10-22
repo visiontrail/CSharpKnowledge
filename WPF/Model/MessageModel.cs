@@ -104,8 +104,8 @@ namespace WPF.Model
         /// <summary>
         /// 一个下拉框;
         /// </summary>
-        private string comboxlist;
-        public string m_comboxlist
+        private List<string> comboxlist;
+        public List<string> m_comboxlist
         {
             get { return comboxlist; }
             set { comboxlist = value; }
