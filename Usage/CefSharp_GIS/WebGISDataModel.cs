@@ -14,6 +14,9 @@ namespace CefSharp_GIS
     {
         public string LocationList { get; set; }
         public int MapLevel { get; set; }
+        
+        public string Longtitude { get; set; }
+        public string Latitude { get; set; }
     }
 
     /// <summary>
@@ -21,12 +24,18 @@ namespace CefSharp_GIS
     /// </summary>
     public class MapLocationViewModel
     {
-        // 测试数据经纬度：39.923428952672154,116.38778686523436;
         private string TransmitData = FromDataToJson();
         public string m_Longitude { get; set; }
         public string m_Latitude { get; set; }
-        public int m_MapLevel { get; set; }
+        public static int m_MapLevel { get; set; }
+
+        public void onSelected(int mapLevel)
+        {
+            m_MapLevel = mapLevel;
+            Console.WriteLine("当前地图等级;"+ mapLevel);
+        }
         
+
         /// <summary>
         /// 初始化数据，并将数据转化为JSON格式;
         /// </summary>
@@ -34,10 +43,15 @@ namespace CefSharp_GIS
         private static string FromDataToJson()
         {
             List<string> LocationList = new List<string>();
-            int MapLevel = 10;
             WebGISDataModel data = new WebGISDataModel();
-            data.MapLevel = MapLevel;
-            
+
+            // 初始化地图等级;
+            data.MapLevel = 10;
+
+            // 初始化坐标，北京;
+            data.Latitude = "39.923428952672154";
+            data.Longtitude = "116.38778686523436";
+
             return ObjectToJson(data);
         }
 

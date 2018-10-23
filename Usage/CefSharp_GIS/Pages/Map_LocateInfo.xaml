@@ -19,17 +19,27 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
                 <RowDefinition Height="500"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" >
+            <StackPanel Grid.Row="0">
 
                 <Button Content="调试按钮" Click="Button_Click"></Button>
                 <Button Content="刷新页面" Click="ReloadPage"></Button>
 
             </StackPanel>
 
-            <ListView x:Name="LocationListView"></ListView>
+            <StackPanel Grid.Row="1">
+
+                <Label>当前地图等级：</Label>
+                <Label x:Name="CurrentMapLevel" Content="{Binding m_MapLevel}"></Label>
+                <TextBox x:Name="SetMapLevel"></TextBox>
+                <Button Content="更改地图等级" Click="ChangeMapLevel"></Button>
+                
+            </StackPanel>
+                        
+            <ListView x:Name="LocationListView" Grid.Row="2"></ListView>
             
         </Grid>
         
