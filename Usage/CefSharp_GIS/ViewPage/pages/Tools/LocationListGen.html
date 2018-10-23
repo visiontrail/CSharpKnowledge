@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>一个Leaflet基础使用集合</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/leaflet/0.7.7/leaflet.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <!-- 内容容器 -->
+    <div id="map"></div>
+
+    <!-- 适合手机端的地图查看 -->
+    <!-- leaflet.js是一个强大的JS地图库 -->
+    <script src="http://cdn.bootcss.com/leaflet/0.7.7/leaflet.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../js/LocationList.js"></script>
+
+    <script>
+        // L是leaflet.js当中定义的地图的显示图层,变量map是leaflet地图
+        var map = L.map('map');
+        
+        // 地图图层定义
+        var baseLayers = 
+        {
+            // 前边是地图名称，后边是设置地图图层的方法
+            "高德地图": L.tileLayer('http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', { subdomains: "1234" }),
+
+            '高德影像': L.layerGroup(
+                [
+                    L.tileLayer('http://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}', { subdomains: "1234" }), 
+                    L.tileLayer('http://t{s}.tianditu.cn/DataServer?T=cta_w&X={x}&Y={y}&L={z}', { subdomains: "1234" })
+                ]
+            ),
+
+            '默认地图': L.tileLayer('http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}').addTo(map)
+        };
+
+        // 默认地图图层为MapBox
+        L.tileLayer('https://a.tiles.mapbox.com/v3/foursquare.map-0y1jh28j/{z}/{x}/{y}.png', 
+        {
+            attribution: 'Map &copy; Pacific Rim Coordination Center (PRCC).  Certain data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            key: 'BC9A493B41014CAABB98F0471D759707',
+            styleId: 22677
+        });
+
+        // control是设置切换地图图层的控件
+        L.control.layers(baseLayers, { position: "topleft" }).addTo(map);
+
+        // 设置初始化位置和大小(leaflet)
+        map.setView(L.latLng(37.550339, 104.114129), 8);
+
+        // 使用Leaflet实现画一个区域
+        var polygon = L.polygon([
+            [37.550339, 104.114129],
+            [38.550339, 103.114129],
+            [39.550339, 101.114129]
+        ]).addTo(map);
+        polygon.bindPopup("一个区域");
+
+        // 使用Leaflet在地图上创建一个点
+        var marker = L.marker([37.550339, 104.114129]).addTo(map);
+
+        // Leaflet中map上的点击事件
+        map.on('click', onMapClick);
+
+        var LocationList = "";
+        // 在地图上点击后添加点，并记录下当前点的GPS坐标点
+        function onMapClick(e) {
+            L.marker([e.latlng.lat,e.latlng.lng]).addTo(map);
+            LocationList += '[' + e.latlng.lat + ',' + e.latlng.lng + '],';
+        }
+
+    </script>
+</body>
+
+</html>
