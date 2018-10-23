@@ -11,7 +11,7 @@
     <!-- 在WPF中利用CefSharp显示基于高德地图的WebGIS -->
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="120"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
@@ -20,26 +20,33 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"></RowDefinition>
                 <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="500"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="400"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0">
+            <Border Grid.Row="0" BorderThickness="1">
+                <StackPanel>
+                    <Button Content="调试按钮" Click="Button_Click"></Button>
+                    <Button Content="刷新页面" Click="ReloadPage"></Button>
+                </StackPanel>
+            </Border>
 
-                <Button Content="调试按钮" Click="Button_Click"></Button>
-                <Button Content="刷新页面" Click="ReloadPage"></Button>
 
-            </StackPanel>
-
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
 
                 <Label>当前地图等级：</Label>
                 <Label x:Name="CurrentMapLevel" Content="{Binding m_MapLevel}"></Label>
-                <TextBox x:Name="SetMapLevel"></TextBox>
-                <Button Content="更改地图等级" Click="ChangeMapLevel"></Button>
                 
             </StackPanel>
+
+            <StackPanel Grid.Row="2">
+
+                <TextBox x:Name="SetMapLevel"></TextBox>
+                <Button Content="更改地图等级" Click="ChangeMapLevel"></Button>
+
+            </StackPanel>
                         
-            <ListView x:Name="LocationListView" Grid.Row="2"></ListView>
+            <ListView x:Name="LocationListView" Grid.Row="3"></ListView>
             
         </Grid>
         

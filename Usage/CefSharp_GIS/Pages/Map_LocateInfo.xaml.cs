@@ -33,9 +33,8 @@ namespace CefSharp_GIS.Pages
             
             this.address.RegisterJsObject("JsObj", m_TransmitData);             // 向前端页面注册一个JsObj，前端可以通过这个进行交互;
             this.address.BeginInit();                                           // 刷新页面,以便让数据传送到前端;
-            
             this.address.FrameLoadEnd += Address_FrameLoadEnd;                  // 当页面加载完成;
-            
+            this.CurrentMapLevel.DataContext = m_TransmitData;
         }
 
         private void Address_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -47,9 +46,10 @@ namespace CefSharp_GIS.Pages
         {
             if(e.Frame.IsMain)
             {
+                // ____________________________________________________获取地图等级;
                 this.address.ExecuteScriptAsync(@"
                     document.body.onmouseup = function() {
-                        JsObj.onSelected(MapLevel);
+                        JsObj.getMaplevel(MapLevel);
                     }");
             }
             

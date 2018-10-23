@@ -202,6 +202,48 @@
                 </Grid>
             </TabItem>
 
+            <TabItem Header="Binding专用">
+
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="400"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0">
+                            <StackPanel Orientation="Vertical">
+                                <Label>利用DataContext来Binding关联：</Label>
+                                <Label x:Name="BindingLabel" Content="{Binding Path=m_iA}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
+                            <StackPanel Orientation="Vertical">
+                                <Label>利用DataContext来Binding关联（静态属性）：</Label>
+                                <Label x:Name="BindingLabel2" Content="{Binding Path=m_sA}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    
+                </Grid>
+
+                
+
+            </TabItem>
+
             <TabItem Header="各类控件的使用">
 
                 <Grid>

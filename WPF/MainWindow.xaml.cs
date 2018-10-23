@@ -117,6 +117,22 @@ namespace WPF
             persons.Add(new Person(11, "GuoLiang"));
             persons.Add(new Person(2, "RouPao"));
             persons.Add(new Person(5, "WangCY"));
+
+            ClassA Ca = new ClassA();
+
+            Ca.m_iA = 10;
+            this.BindingLabel.DataContext = Ca;
+            this.BindingLabel2.DataContext = Ca;
+
+            Task tsk = new Task(() =>
+            {
+                while(true)
+                {
+                    Thread.Sleep(2000);
+                    Ca.m_iA++;
+                }
+            });
+            tsk.Start();
         }
 
         /// <summary>

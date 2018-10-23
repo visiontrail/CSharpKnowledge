@@ -99,7 +99,7 @@ namespace WPF
         }
     }
 
-    public class ClassA
+    public class ClassA : INotifyPropertyChanged
     {
         public string m_A
         {
@@ -116,10 +116,36 @@ namespace WPF
             get;set;
         }
 
+        private int iA;
+        public int m_iA
+        {
+            get { return iA; }
+            set
+            {
+                iA = value;
+
+                if(this.PropertyChanged != null)
+                {
+                    this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs("m_iA"));
+                }
+            }
+        }
+
         public ClassA()
         {
             m_A = "在此可binding这个类实例的一个属性";
             m_B = "这是ClassA一个实例的另一个属性";
+            m_sA = "这是ClassA的静态属性";
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void RaisePropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

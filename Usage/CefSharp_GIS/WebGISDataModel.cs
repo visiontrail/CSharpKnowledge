@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,14 +23,27 @@ namespace CefSharp_GIS
     /// <summary>
     /// WPF端的内部数据模型;
     /// </summary>
-    public class MapLocationViewModel
+    public class MapLocationViewModel : INotifyPropertyChanged
     {
-        private string TransmitData = FromDataToJson();
+        private string TransmitData = FromDataToJson();             // 方向：WPF --> Chrome 通过该成员传递数据;
         public string m_Longitude { get; set; }
         public string m_Latitude { get; set; }
-        public static int m_MapLevel { get; set; }
+        private int MapLevel;
+        public int m_MapLevel                                       // 方向： Chrome --> WPF 地图等级;
+        {
+            get { return MapLevel; }
+            set
+            {
+                MapLevel = value;
 
-        public void onSelected(int mapLevel)
+                if (this.PropertyChanged != null)
+                {
+                    this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs("m_MapLevel"));
+                }
+            }
+        }
+
+        public void getMaplevel(int mapLevel)                        // 获取地图等级;
         {
             m_MapLevel = mapLevel;
             Console.WriteLine("当前地图等级;"+ mapLevel);
@@ -69,6 +83,16 @@ namespace CefSharp_GIS
             set
             {
                 TransmitData = value;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void RaisePropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
