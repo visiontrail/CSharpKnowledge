@@ -393,6 +393,7 @@ namespace WPF
             
 
             // ____________________________________________以下是丰富了单元格内容的DataGrid(在单元格内添加下拉框);
+            // 后续将该模式改造成工厂模式;
             List<string> name_list = new List<string>();
             name_list.Add("Combox_Content1");
             name_list.Add("Combox_Content2");
@@ -401,7 +402,7 @@ namespace WPF
             for (int i = 0; i <= 2; i++)
             {
 
-                dynamic model2 = new DyDataDridModel();                                      // 创建一个动态模型;
+                dynamic model2 = new DyDataDridModel();                                                     // 创建一个动态模型;
                 model2.AddProperty("p1", name_list, "列1");
                 model2.AddProperty("p2", DateTime.Now, "列2");
                 model2.AddProperty("p3", "显示内容", "列3");
@@ -424,26 +425,30 @@ namespace WPF
                                 @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
                                                 xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
                                                 xmlns:model='clr -namespace:WPF.Model'>
-                                    <ComboBox ItemsSource='{Binding p1}' SelectedIndex='0'/>
+                                    <ComboBox ItemsSource='{Binding p"+(j + 1) +@"}' SelectedIndex='0'/>
                                  </DataTemplate>";
 
                             template = XamlReader.Parse(xaml1) as DataTemplate;
                             
-                            //Console.WriteLine("获取到的Combobox的名称是：" + box.Name);
-
-                            column.Header = "列" + j;                     // 填写列名称;
-                            column.CellTemplate = template;               // 将单元格的显示形式赋值;
-                            column.Width = 100;                           // 设置显示宽度;
+                            column.Header = "列" + j;                               // 填写列名称;
+                            column.CellTemplate = template;                         // 将单元格的显示形式赋值;
+                            column.Width = 100;                                     // 设置显示宽度;
 
                             this.MsgDataGrid_AutoGenColandCellMore.Columns.Add(column);
                         }
                         else if (j == 1)
                         {
-
+                            DataGridTextColumn DGText = new DataGridTextColumn();
+                            DGText.Header = "列" + j;
+                            DGText.Binding = new Binding("p" + (j + 1).ToString());
+                            this.MsgDataGrid_AutoGenColandCellMore.Columns.Add(DGText);
                         }
                         else if (j == 2)
                         {
-
+                            DataGridTextColumn DGText = new DataGridTextColumn();
+                            DGText.Header = "列" + j;
+                            DGText.Binding = new Binding("p" + (j + 1).ToString());
+                            this.MsgDataGrid_AutoGenColandCellMore.Columns.Add(DGText);
                         }
 
                     }
