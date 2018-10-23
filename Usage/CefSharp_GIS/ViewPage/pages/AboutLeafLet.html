@@ -21,6 +21,16 @@
         // L是leaflet.js当中定义的地图的显示图层,变量map是leaflet地图
         var map = L.map('map');
         var LocationList = "";
+        var MapLevel = 10;
+        var LongtitudeFromWPF;
+        var LatitudeFromWPF;
+
+        // 数据驱动 -- 下面的对象皆为需要配置的参数，建议使用JSON格式
+        var WPFData = JSON.parse(JsObj.m_TransmitData)
+
+        MapLevel = WPFData.MapLevel;
+        L.marker([WPFData.Latitude,WPFData.Longtitude]).addTo(map);
+
         
         // 地图图层定义
         var baseLayers = 
@@ -50,7 +60,7 @@
         L.control.layers(baseLayers, { position: "topleft" }).addTo(map);
 
         // 设置初始化位置和大小(leaflet)
-        map.setView(L.latLng(39.92688,116.32088), 10);
+        map.setView(L.latLng(39.92688,116.32088), MapLevel);
 
         // 使用Leaflet实现画一个区域
         var polygon = L.polygon([
@@ -69,8 +79,10 @@
         function onMapClick(e) {
             L.marker([e.latlng.lat,e.latlng.lng]).addTo(map);
             LocationList += e.latlng.lat + ',' + e.latlng.lng;
+
             alert(LocationList);
         }
+
 
     </script>
 </body>
