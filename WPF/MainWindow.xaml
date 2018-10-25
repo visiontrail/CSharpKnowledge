@@ -170,8 +170,10 @@
                             <Border  Grid.Row="4" BorderBrush="Black" BorderThickness="1" Margin="0,5">
                                 <StackPanel>
                                     <Label>控件绑定前端元素：</Label>
-                                    <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=OneWay}"></TextBox>
-                                    <Slider x:Name="slider1" Maximum="20"></Slider>
+                                    <!-- 在控件中具有DependencyProperty能力的属性，才可以支持将Binding实例赋值到这个属性上 -->
+                                    <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="{Binding ElementName=slider1, Path=Width}"></TextBox>
+                                    <TextBox Text="{Binding ElementName=slider1, Path=Width}"></TextBox>
+                                    <Slider x:Name="slider1" Maximum="20" Width="150"></Slider>
                                 </StackPanel>
                             </Border>
 
@@ -222,15 +224,22 @@
                             <RowDefinition Height="50"></RowDefinition>
                             <RowDefinition Height="50"></RowDefinition>
                         </Grid.RowDefinitions>
-                        
+
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0">
+                            <StackPanel>
+                                <Label>有关于Binding的本质：</Label>
+                                <Label x:Name="BindingBase"></Label>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
                             <StackPanel Orientation="Vertical">
                                 <Label>利用DataContext来Binding关联：</Label>
                                 <Label x:Name="BindingLabel" Content="{Binding Path=m_iA}"/>
                             </StackPanel>
                         </Border>
 
-                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
+                        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2">
                             <StackPanel Orientation="Vertical">
                                 <Label>利用DataContext来Binding关联（静态属性）：</Label>
                                 <Label x:Name="BindingLabel2" Content="{Binding Path=m_sA}"/>

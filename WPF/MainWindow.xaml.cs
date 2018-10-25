@@ -47,9 +47,10 @@ namespace WPF
         {
             InitializeComponent();
             DrawPolyLine();                     // 用WPF画线;
-            
+
             // 以下是使用Binding关联命令的基础使用方法;
             InitPersons();                      // 首先初始化一个容器——Person列表;
+            BindingBaseKnowledge();             // 解释说明Binding的基本原理;
             BindingToProperty();                // 将类型的属性Binding到WPF控件当中;
             BindingToFunction();                // 将类型的方法Binding到WPF控件当中;
             
@@ -72,6 +73,7 @@ namespace WPF
             }));
             
         }
+        
 
         #region 纯前端操作
         /// <summary>
@@ -109,6 +111,26 @@ namespace WPF
         #endregion
 
         #region Binding的基本使用方法
+        /// <summary>
+        /// 有关于Binding的基础原理;
+        /// </summary>
+        private void BindingBaseKnowledge()
+        {
+            // Binding可以形象比喻成UI元素和逻辑对象之间的高速公路\桥梁;
+            // 既可以控制数据的流转方向，还可以在上边校验数据的正确性等等操作;
+
+            ClassA Ca = new ClassA();
+            Ca.m_iA = 10;
+
+            Binding binding = new Binding();           // 实例化了一个binding,即一座桥梁;
+            binding.Source = Ca;                       // 为Binding指定数据源;
+            binding.Path = new PropertyPath("m_iA");   // 为Binding指定访问路径;
+
+            // 指定Binding的访问目标，目标的属性路径和binding对象;
+            BindingOperations.SetBinding(this.BindingBase, Label.ContentProperty, binding);
+            this.BindingBase.SetBinding(Label.ContentProperty, "m_iA");
+        }
+
         /// <summary>
         /// 初始化实验数据Persons;
         /// </summary>
