@@ -41,6 +41,7 @@ namespace WPF
     {
         public Dictionary<int, string> m_AllList { get; set; }
         public int m_CurContent { get; set; }
+        public List<string> m_AllListString { get; set; }
 
         /// <summary>
         /// 正在编辑当中的回调事件;

@@ -242,6 +242,7 @@ namespace WPF
             this.CustomerDataGrid_AddEvent.GotMouseCapture += CustomerDataGrid_AddEvent_GotMouseCapture;          // 事件五：使用这个事件事件鼠标拖拽更加稳定;
 
             this.CustomerDataGrid_AddEvent.MouseLeftButtonDown += CustomerDataGrid_AddEvent_MouseLeftButtonDown;  // 事件六：鼠标左键点击事件，这个事件只针对DataGrid整个表格;
+            this.CustomerDataGrid_AddEvent.MouseDoubleClick += CustomerDataGrid_AddEvent_MouseDoubleClick;
             this.CustomerDataGrid_AddEvent.MouseEnter += CustomerDataGrid_AddEvent_MouseEnter;                    // 事件七：鼠标进入整个表格时触发，且只触发一次;
 
             // 另一个元素接收鼠标拖拽事件;
@@ -357,7 +358,7 @@ namespace WPF
             Console.WriteLine("MouseLeftButtonDown;函数参数e.Source反馈的数据类型是:" + e.Source.GetType());
             Console.WriteLine("MouseLeftButtonDown;函数参数e.OriginalSource反馈的数据类型是:" + e.OriginalSource.GetType());
         }
-
+        
         /// <summary>
         /// 事件七：鼠标进入整个DataGrid表格后就会触发;
         /// 只触发一次,直到下一次鼠标再次进入表格的时候才会再次触发;
@@ -369,6 +370,18 @@ namespace WPF
             Console.WriteLine("MouseEnter;函数参数sender反馈的数据类型是:" + sender.GetType());
             Console.WriteLine("MouseEnter;函数参数e.Source反馈的数据类型是:" + e.Source.GetType());
             Console.WriteLine("MouseEnter;函数参数e.OriginalSource反馈的数据类型是:" + e.OriginalSource.GetType());
+        }
+
+        /// <summary>
+        /// 事件八：当单元格被双击的时候;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CustomerDataGrid_AddEvent_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine("MouseDoubleClick;函数参数sender反馈的数据类型是:" + sender.GetType());
+            Console.WriteLine("MouseDoubleClick;函数参数e.Source反馈的数据类型是:" + e.Source.GetType());
+            Console.WriteLine("MouseDoubleClick;函数参数e.OriginalSource反馈的数据类型是:" + e.OriginalSource.GetType());
         }
 
         /// <summary>
@@ -452,7 +465,9 @@ namespace WPF
                 model2.AddProperty("p2", new GridCellComboBox()
                 {
                     m_AllList = dic_list,
-                    m_CurContent = 2
+                    m_AllListString = name_list,
+                    m_CurContent = 2,
+                    name = "枚举类型1"
                 }, "列2");
                 model2.AddProperty("p3", DateTime.Now, "列3");
                 model2.AddProperty("p4", "显示内容", "列4");
@@ -476,8 +491,8 @@ namespace WPF
                             string xaml1 =
                                 @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
                                                 xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
-                                                xmlns:model='clr -namespace:WPF.Model'>
-                                    <ComboBox ItemsSource='{Binding p"+(j + 1) +@"}' SelectedIndex='0'/>
+                                                xmlns:model='clr-namespace:WPF.Model'>
+                                    <ComboBox ItemsSource='{Binding p"+(j + 1) + @"}' SelectedIndex='0'/>
                                  </DataTemplate>";
 
                             template = XamlReader.Parse(xaml1) as DataTemplate;
@@ -492,7 +507,29 @@ namespace WPF
                         else if(j == 1)
                         {
                             DataGridTemplateColumn column = new DataGridTemplateColumn();
+                            DataTemplate template = new DataTemplate();
+                            TextBlock text = new TextBlock();
+
+                            // 当单元格被编辑的时候;
                             this.MsgDataGrid_AutoGenColandCellMore.BeginningEdit += MsgDataGrid_AutoGenColandCellMore_BeginningEdit;
+                            // 当单元格被双击的时候;
+                            //this.MsgDataGrid_AutoGenColandCellMore.MouseDoubleClick += MsgDataGrid_AutoGenColandCellMore_MouseDoubleClick;
+
+                            string xaml1 =
+                               @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
+                                                xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
+                                                xmlns:model='clr-namespace:WPF.Model'>
+                                    <TextBlock Text='{Binding p" + (j + 1) + @".name}'/>
+                                 </DataTemplate>";
+
+                            template = XamlReader.Parse(xaml1) as DataTemplate;
+
+                            column.Header = j;                                      // 填写列名称;
+                            column.CellTemplate = template;                         // 将单元格的显示形式赋值;
+                            column.Width = 230;                                     // 设置显示宽度;
+
+                            this.MsgDataGrid_AutoGenColandCellMore.Columns.Add(column);
+
                         }
                         else if (j == 2)
                         {
@@ -522,6 +559,26 @@ namespace WPF
         {
             // 获取单元格内容;
             DyDataDridModel cell = e.Column.GetCellContent(e.Row).DataContext as DyDataDridModel;
+
+            DataGridTemplateColumn column = new DataGridTemplateColumn();
+            DataTemplate template = new DataTemplate();
+            TextBlock text = new TextBlock();
+
+            // 当单元格被编辑的时候;
+            this.MsgDataGrid_AutoGenColandCellMore.BeginningEdit += MsgDataGrid_AutoGenColandCellMore_BeginningEdit;
+            // 当单元格被双击的时候;
+            //this.MsgDataGrid_AutoGenColandCellMore.MouseDoubleClick += MsgDataGrid_AutoGenColandCellMore_MouseDoubleClick;
+
+            string xaml1 =
+               @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
+                                                xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
+                                                xmlns:model='clr-namespace:WPF.Model'>
+                                    <ComboBox ItemsSource='{Binding p" + (int.Parse(e.Column.Header.ToString()) + 1) + @".m_AllListString}'/>
+                                 </DataTemplate>";
+
+            template = XamlReader.Parse(xaml1) as DataTemplate;
+
+            (e.Column as DataGridTemplateColumn).CellTemplate = template;
             
         }
 
