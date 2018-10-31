@@ -108,7 +108,7 @@ namespace WPF.Model
                     if(Properties.ContainsKey(key))
                     {
                         object property = Properties[key];
-                        (property as GridCell).EditingCalback();
+                        (property as GridCell).EditingCallback();
                         result = property;
                         return true;
                     }
@@ -134,6 +134,11 @@ namespace WPF.Model
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             return Properties.TryGetValue(binder.Name, out result);
+        }
+
+        public void CellEditingEvent(string HeaderName)
+        {
+
         }
 
     }

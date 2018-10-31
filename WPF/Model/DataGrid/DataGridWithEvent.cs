@@ -26,15 +26,15 @@ namespace WPF.Model
             switch(colHeader)
             {
                 case "Column1":
-                    this.column1.EditingCalback();
+                    this.column1.EditingCallback();
                     break;
 
                 case "Column2":
-                    this.column2.EditingCalback();
+                    this.column2.EditingCallback();
                     break;
 
                 case "Column3":
-                    this.column3.EditingCalback();
+                    this.column3.EditingCallback();
                     break;
 
                 default:

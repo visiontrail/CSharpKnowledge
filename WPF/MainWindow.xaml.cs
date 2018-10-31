@@ -431,20 +431,33 @@ namespace WPF
             
 
             // ____________________________________________以下是丰富了单元格内容的DataGrid(在单元格内添加下拉框);
-            // 后续将该模式改造成工厂模式;
             List<string> name_list = new List<string>();
             name_list.Add("Combox_Content1");
             name_list.Add("Combox_Content2");
-          
+
+            Dictionary<int, string> dic_list = new Dictionary<int, string>();
+            dic_list.Add(1, "枚举类型1");
+            dic_list.Add(2, "枚举类型2");
+            dic_list.Add(3, "枚举类型3");
+
+            
+
             // 在表格中添加3行内容相同的内容;
             for (int i = 0; i <= 2; i++)
             {
 
-                dynamic model2 = new DyDataDridModel();                                                     // 创建一个动态模型;
+                dynamic model2 = new DyDataDridModel();                    // 创建一个动态模型;
+
                 model2.AddProperty("p1", name_list, "列1");
-                model2.AddProperty("p2", DateTime.Now, "列2");
-                model2.AddProperty("p3", "显示内容", "列3");
-                
+                model2.AddProperty("p2", new GridCellComboBox()
+                {
+                    m_AllList = dic_list,
+                    m_CurContent = 2
+                }, "列2");
+                model2.AddProperty("p3", DateTime.Now, "列3");
+                model2.AddProperty("p4", "显示内容", "列4");
+
+
                 list2.Add(model2);
 
                 if(i == 2)
@@ -452,6 +465,7 @@ namespace WPF
                     // 为表格添加列信息;
                     for (int j = 0; j <= 2; j++)
                     {
+                        // 第一种情况，直接显示一个list类型，没有带有任何功能;
                         if (j == 0)
                         {
                             DataGridTemplateColumn column = new DataGridTemplateColumn();                   // 单元格是一个template;
@@ -470,18 +484,24 @@ namespace WPF
                             
                             column.Header = "列" + j;                               // 填写列名称;
                             column.CellTemplate = template;                         // 将单元格的显示形式赋值;
-                            column.Width = 100;                                     // 设置显示宽度;
+                            column.Width = 230;                                     // 设置显示宽度;
 
                             this.MsgDataGrid_AutoGenColandCellMore.Columns.Add(column);
                         }
-                        else if (j == 1)
+                        // 第二种情况，填充一个自定义类型，使得该单元格内可以实现自定义功能;
+                        else if(j == 1)
+                        {
+                            DataGridTemplateColumn column = new DataGridTemplateColumn();
+                            this.MsgDataGrid_AutoGenColandCellMore.BeginningEdit += MsgDataGrid_AutoGenColandCellMore_BeginningEdit;
+                        }
+                        else if (j == 2)
                         {
                             DataGridTextColumn DGText = new DataGridTextColumn();
                             DGText.Header = "列" + j;
                             DGText.Binding = new Binding("p" + (j + 1).ToString());
                             this.MsgDataGrid_AutoGenColandCellMore.Columns.Add(DGText);
                         }
-                        else if (j == 2)
+                        else if (j == 3)
                         {
                             DataGridTextColumn DGText = new DataGridTextColumn();
                             DGText.Header = "列" + j;
@@ -498,6 +518,12 @@ namespace WPF
             this.MsgDataGrid_AutoGenColandCellMore.DataContext = list2;
         }
 
+        private void MsgDataGrid_AutoGenColandCellMore_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            // 获取单元格内容;
+            DyDataDridModel cell = e.Column.GetCellContent(e.Row).DataContext as DyDataDridModel;
+            
+        }
 
         private void MsgDataGrid_AutoGenCol_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
