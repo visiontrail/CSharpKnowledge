@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace WPF   
 {
@@ -145,6 +147,39 @@ namespace WPF
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    /// <summary>
+    /// 可以用于ClassA类型对象的Binding过程的数值校验;
+    /// </summary>
+    class ClassACheckValidation : ValidationRule
+    {
+        /// <summary>
+        /// 在Binding关联数据的过程中，如果设置了ValidationRule的话，会自动调用该函数;
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="cultureInfo"></param>
+        /// <returns></returns>
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            try
+            {
+                int checkval = int.Parse(value.ToString());
+                if(checkval < 100 && checkval > 0)
+                {
+                    return new ValidationResult(true, "");
+                }
+                else
+                {
+                    return new ValidationResult(false, "数值超范围");
+                }
+
+            }
+            catch
+            {
+                return new ValidationResult(false, "输入数值格式不正确");
             }
         }
     }

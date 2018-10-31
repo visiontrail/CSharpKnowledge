@@ -253,7 +253,7 @@
 
             </TabItem>
 
-            <TabItem Header="各类控件的使用">
+            <TabItem x:Name="AllControlUsage" Header="各类控件的使用">
 
                 <Grid>
 
@@ -302,7 +302,16 @@
                                 <!-- 显示下边ListBox选择的PersonID -->
                                 <TextBox x:Name="PersonID"></TextBox>
                                 <!-- 关联ItemSource为一个List<person>容器的列表 -->
-                                <ListBox x:Name="PersonList" Margin="0,5"></ListBox>
+                                <ListBox x:Name="PersonList" Margin="0,5">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Path=m_ID}" Width="30"/>
+                                                <TextBlock Text="{Binding Path=m_Name}" Width="60"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
                             </StackPanel>
                         </Border>
 
@@ -313,7 +322,7 @@
                                 <!-- 显示下边ListBox选择的PersonID -->
                                 <TextBox Text ="{Binding m_ID}"></TextBox>
                                 <!-- 关联ItemSource为一个List<person>容器的列表 -->
-                                <ListBox x:Name="PersonList2" Margin="0,5" ItemsSource="{Binding Path=.}" DisplayMemberPath="m_Name"></ListBox>
+                                <ListBox x:Name="PersonList2" Margin="0,5" ItemsSource="{Binding Path=.}"></ListBox>
                             </StackPanel>
                         </Border>
 
@@ -459,7 +468,8 @@
                             <RowDefinition Height="50"></RowDefinition>
                         </Grid.RowDefinitions>
                         <!-- Dynamic类型绑定DataGrid的同时，丰富单元格内显示类型 -->
-                        <DataGrid Grid.Row="0" AutoGenerateColumns="False" x:Name="MsgDataGrid_AutoGenColandCellMore" ItemsSource="{Binding Path=.}"/>
+                        <DataGrid Grid.Row="0" AutoGenerateColumns="False" SelectionMode="Single" x:Name="MsgDataGrid_AutoGenColandCellMore" 
+                                  ItemsSource="{Binding Path=.}" SelectionUnit="Cell"/>
 
                     </Grid>
 

@@ -122,9 +122,9 @@ namespace WPF
             ClassA Ca = new ClassA();
             Ca.m_iA = 10;
 
-            Binding binding = new Binding();           // 实例化了一个binding,即一座桥梁;
-            binding.Source = Ca;                       // 为Binding指定数据源;
-            binding.Path = new PropertyPath("m_iA");   // 为Binding指定访问路径;
+            Binding binding = new Binding();                       // 实例化了一个binding,即一座桥梁;
+            binding.Source = Ca;                                   // 为Binding指定数据源;
+            binding.Path = new PropertyPath("m_iA");               // 为Binding指定访问路径;
 
             // 指定Binding的访问目标，目标的属性路径和binding对象;
             BindingOperations.SetBinding(this.BindingBase, Label.ContentProperty, binding);
@@ -165,11 +165,11 @@ namespace WPF
             //_____________________________________________________________以下是使用Binding关联XAML和C#属性的实验
             // 这个是ItemsControl类的控件使用binding关联数据源的方法;
             this.PersonList.ItemsSource = persons;                                    // 指定ItemsSource;
-            this.PersonList.DisplayMemberPath = "m_Name";                             // 指定显示的属性;
             this.PersonList.SelectionChanged += PersonList_SelectionChanged;          // 当控件选择发生变化时;
 
-            this.PersonList2.DataContext = persons;
-
+            this.AllControlUsage.DataContext = persons;                                   // 如果没有明确的ItemsSource
+            this.PersonList2.DisplayMemberPath = "m_Name";
+            
             // 通过SetBinding方法也可以Binding现有类(ListBox)的属性;
             this.PersonID.SetBinding(TextBox.TextProperty, new Binding("m_ID")
             {
