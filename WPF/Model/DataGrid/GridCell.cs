@@ -16,6 +16,10 @@ namespace WPF
         /// DataGrid加载的时候，要显示在单元格内的内容;
         /// </summary>
         public string name { get; set; }
+
+        /// <summary>
+        /// 当单元格被编辑的时候的事件触发;
+        /// </summary>
         public abstract void EditingCallback();
     }
 

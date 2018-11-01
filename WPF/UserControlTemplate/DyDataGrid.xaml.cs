@@ -35,7 +35,6 @@ namespace WPF.UserControlTemplate
             m_dataGridVM = new DataGridVM(new List<string>());
             m_dataGridVM.m_ColumnNameList.ListChanged += M_ColumnNameList_ListChanged;
             m_dataGridVM.m_ColumnContent.ListChanged += M_ColumnContent_ListChanged;
-            this.DyGrid.ItemsSource = m_dataGridVM.m_ColumnContent.m_content;
         }
 
         private void M_ColumnContent_ListChanged(object sender, EventArgs e)
@@ -50,16 +49,6 @@ namespace WPF.UserControlTemplate
         /// <param name="e"></param>
         private void M_ColumnNameList_ListChanged(object sender, EventArgs e)
         {
-            // 只要列表发生改变，就要清空所有;
-            this.DyGrid.Columns.Clear();
-            foreach (string iter in m_dataGridVM.m_ColumnNameList.m_list)
-            {
-                this.DyGrid.Columns.Add(new DataGridTextColumn()
-                {
-                    Header = iter,
-                    Width = iter.Length * 10
-                });
-            }
         }
     }
 }

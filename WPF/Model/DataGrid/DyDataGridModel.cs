@@ -92,6 +92,7 @@ namespace WPF.Model
                 }
             }
 
+            // 判断单元格是否正在被编辑;
             if(binder.Name == "JudgePropertyName_StartEditing" && binder.CallInfo.ArgumentCount == 1)
             {
                 string columnname = args[0] as string;

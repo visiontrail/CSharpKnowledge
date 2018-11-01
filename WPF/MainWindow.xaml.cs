@@ -341,7 +341,7 @@ namespace WPF
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex);
             }
 
         }
@@ -507,13 +507,15 @@ namespace WPF
                         else if(j == 1)
                         {
                             DataGridTemplateColumn column = new DataGridTemplateColumn();
-                            DataTemplate template = new DataTemplate();
-                            TextBlock text = new TextBlock();
+                            DataTemplate TextBlockTemplate = new DataTemplate();
+                            DataTemplate ComboBoxTemplate = new DataTemplate();
 
                             // 当单元格被编辑的时候;
-                            this.MsgDataGrid_AutoGenColandCellMore.BeginningEdit += MsgDataGrid_AutoGenColandCellMore_BeginningEdit;
+                            //this.MsgDataGrid_AutoGenColandCellMore.BeginningEdit += MsgDataGrid_AutoGenColandCellMore_BeginningEdit;
                             // 当单元格被双击的时候;
                             //this.MsgDataGrid_AutoGenColandCellMore.MouseDoubleClick += MsgDataGrid_AutoGenColandCellMore_MouseDoubleClick;
+                            // 当单元格失去焦点的时候;
+                            this.MsgDataGrid_AutoGenColandCellMore.LostFocus += MsgDataGrid_AutoGenColandCellMore_LostFocus;
 
                             string xaml1 =
                                @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
@@ -522,10 +524,19 @@ namespace WPF
                                     <TextBlock Text='{Binding p" + (j + 1) + @".name}'/>
                                  </DataTemplate>";
 
-                            template = XamlReader.Parse(xaml1) as DataTemplate;
+                            string xaml2 =
+                               @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
+                                                xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
+                                                xmlns:model='clr-namespace:WPF.Model'>
+                                    <ComboBox ItemsSource='{Binding p" + (j + 1) + @".m_AllListString}' SelectedIndex='0'/>
+                                 </DataTemplate>";
+
+                            TextBlockTemplate = XamlReader.Parse(xaml1) as DataTemplate;
+                            ComboBoxTemplate = XamlReader.Parse(xaml2) as DataTemplate;
 
                             column.Header = j;                                      // 填写列名称;
-                            column.CellTemplate = template;                         // 将单元格的显示形式赋值;
+                            column.CellTemplate = TextBlockTemplate;                         // 将单元格的显示形式赋值;
+                            column.CellEditingTemplate = ComboBoxTemplate;                 // 将单元格的编辑形式赋值;
                             column.Width = 230;                                     // 设置显示宽度;
 
                             this.MsgDataGrid_AutoGenColandCellMore.Columns.Add(column);
@@ -554,40 +565,23 @@ namespace WPF
 
             this.MsgDataGrid_AutoGenColandCellMore.DataContext = list2;
         }
-
-        private void MsgDataGrid_AutoGenColandCellMore_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
-        {
-            // 获取单元格内容;
-            DyDataDridModel cell = e.Column.GetCellContent(e.Row).DataContext as DyDataDridModel;
-
-            DataGridTemplateColumn column = new DataGridTemplateColumn();
-            DataTemplate template = new DataTemplate();
-            TextBlock text = new TextBlock();
-
-            // 当单元格被编辑的时候;
-            this.MsgDataGrid_AutoGenColandCellMore.BeginningEdit += MsgDataGrid_AutoGenColandCellMore_BeginningEdit;
-            // 当单元格被双击的时候;
-            //this.MsgDataGrid_AutoGenColandCellMore.MouseDoubleClick += MsgDataGrid_AutoGenColandCellMore_MouseDoubleClick;
-
-            string xaml1 =
-               @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
-                                                xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
-                                                xmlns:model='clr-namespace:WPF.Model'>
-                                    <ComboBox ItemsSource='{Binding p" + (int.Parse(e.Column.Header.ToString()) + 1) + @".m_AllListString}'/>
-                                 </DataTemplate>";
-
-            template = XamlReader.Parse(xaml1) as DataTemplate;
-
-            (e.Column as DataGridTemplateColumn).CellTemplate = template;
-            
-        }
-
+        
+        /// <summary>
+        /// 普通只显示字符类型的DynamicDataGrid的正在被编辑事件;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MsgDataGrid_AutoGenCol_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
             Console.WriteLine("开始编辑单元格;函数参数e反馈的实体可以是单元格内数据类型" + (e.Column.GetCellContent(e.Row)).DataContext.GetType());
             Console.WriteLine("当前选中单元格列名:" + e.Column.Header + ",选中行数：" + e.Row.GetIndex());
             dynamic temp = e.Column.GetCellContent(e.Row).DataContext as DyDataDridModel;
             temp.JudgePropertyName_StartEditing(e.Column.Header);
+        }
+
+        private void MsgDataGrid_AutoGenColandCellMore_LostFocus(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
