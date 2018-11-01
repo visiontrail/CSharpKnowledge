@@ -13,14 +13,34 @@ namespace WPF.Model
     /// </summary>
     public class DyDataDridModel : DynamicObject
     {
-        // 用来保存这个动态类型的所有属性;
-        // string为属性的名字;
-        // object为属性的值（同时也包含了类型）;
-        Dictionary<string, object> Properties = new Dictionary<string, object>();
+        /// <summary>
+        /// 用来保存这个动态类型的所有属性;Key为属性的名字，Value为属性的实例;
+        /// </summary>
+        public Dictionary<string, object> Properties { get; set; }
 
-        // 用来保存中文列名与属性的对应关系;
-        Dictionary<string, string> ColName_Property = new Dictionary<string, string>();
+        /// <summary>
+        /// 用来保存中文列名与属性的对应关系;Key为列名（即与属性名对应），Value为列的Header名(即显示名);
+        /// </summary>
+        public Dictionary<string, string> ColName_Property { get; set; }
 
+        /// <summary>
+        /// 优化结构:使用元组保存所有的动态属性;
+        /// Item1:属性名;
+        /// Item2:列名;
+        /// Item3:属性实例;
+        /// </summary>
+        public List<Tuple<string, string, object>> PropertyList { get; set; }
+
+        /// <summary>
+        /// 构造函数，初始化数据;
+        /// </summary>
+        public DyDataDridModel()
+        {
+            Properties = new Dictionary<string, object>();
+            ColName_Property = new Dictionary<string, string>();
+            PropertyList = new List<Tuple<string, string, object>>();
+        }
+        
         /// <summary>
         /// 系统调用，在为dynamic类型添加属性的时候会自动调用;
         /// </summary>
@@ -59,6 +79,8 @@ namespace WPF.Model
                 // 添加列名与属性列表的映射关系;
                 string column_name = args[2] as string;
                 ColName_Property.Add(column_name, name);
+
+                PropertyList.Add(new Tuple<string, string, object>(name, column_name, value));
 
                 result = value;
                 return true;
@@ -127,7 +149,7 @@ namespace WPF.Model
         }
 
         /// <summary>
-        /// 系统调用，会在dynamic类型访问属性是，调用该函数去寻找这个类型中是否存在对应的属性;
+        /// 系统调用，会在dynamic类型访问属性时，调用该函数去寻找这个类型中是否存在对应的属性;
         /// </summary>
         /// <param name="binder"></param>
         /// <param name="result"></param>

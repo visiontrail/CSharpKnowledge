@@ -8,10 +8,12 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF.Model;
 using WPF.ViewModel;
 
 namespace WPF.UserControlTemplate
@@ -23,32 +25,80 @@ namespace WPF.UserControlTemplate
     public partial class DyDataGrid : UserControl
     {
         /// <summary>
-        /// DataGridVM有两个属性
-        /// m_ColumnNameList用来保存所有的列名;
-        /// m_ColumnContent用来保存所有的内容;
+        /// 动态表的所有列信息,该属性必须设置，否则无法正常显示;
+        /// 设置该属性之后，动态表就会将所有列对应的模板全部生成;
         /// </summary>
-        public DataGridVM m_dataGridVM;                                    // DataGrid的VM层;
-        
-        public DyDataGrid()
+        private DyDataDridModel m_ColumnModel;
+        public DyDataDridModel ColumnModel
         {
-            InitializeComponent();
-            m_dataGridVM = new DataGridVM(new List<string>());
-            m_dataGridVM.m_ColumnNameList.ListChanged += M_ColumnNameList_ListChanged;
-            m_dataGridVM.m_ColumnContent.ListChanged += M_ColumnContent_ListChanged;
-        }
+            get
+            {
+                return m_ColumnModel;
+            }
+            set
+            {
+                m_ColumnModel = value;
+                // 获取所有列信息，并将列信息填充到DataGrid当中;
+                foreach(var iter in m_ColumnModel.PropertyList)
+                {
+                    if(iter.Item3 is System.Collections.Generic.List<string>)
+                    {
+                        DataGridTemplateColumn column = new DataGridTemplateColumn();                   // 单元格是一个template;
+                        DataTemplate template = new DataTemplate();                                     // 用一个DataTemplate类型填充;
+                        ComboBox box = new ComboBox();
 
-        private void M_ColumnContent_ListChanged(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
+                        // 实在没有什么好办法，直接在CS代码当中直接写DataTemplate的XAML代码;
+                        string xaml1 =
+                            @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
+                                                xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
+                                                xmlns:model='clr-namespace:WPF.Model'>
+                                    <ComboBox ItemsSource='{Binding " + iter.Item1 + @"}' SelectedIndex='0'/>
+                                 </DataTemplate>";
+
+                        template = XamlReader.Parse(xaml1) as DataTemplate;
+
+                        column.Header = iter.Item2;                               // 填写列名称;
+                        column.CellTemplate = template;                           // 将单元格的显示形式赋值;
+                        column.Width = 230;                                       // 设置显示宽度;
+
+                        this.DynamicDataGrid.Columns.Add(column);
+                    }
+                    else if(iter.Item3 is GridCellComboBox)
+                    {
+
+                    }
+                    else if(iter.Item3 is DateTime)
+                    {
+
+                    }
+                    else if(iter.Item3 is String)
+                    {
+
+                    }
+                }
+            }
         }
 
         /// <summary>
-        /// DataGridVM层列表发生变化时,将变化添加到View中;
+        /// 动态表构造函数;
+        /// </summary>
+        public DyDataGrid()
+        {
+            InitializeComponent();
+            
+            this.DynamicDataGrid.BeginningEdit += DynamicDataGrid_BeginningEdit;
+        }
+
+        /// <summary>
+        /// 单元格开始编辑时;
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void M_ColumnNameList_ListChanged(object sender, EventArgs e)
+        private void DynamicDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
+            dynamic temp = e.Column.GetCellContent(e.Row).DataContext as DyDataDridModel;
+            // 根据不同的列（既数据类型）改变不同的处理策略;
+            temp.JudgePropertyName_StartEditing(e.Column.Header);
         }
     }
 }

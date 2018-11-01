@@ -413,7 +413,7 @@ namespace WPF
         /// </summary>
         private void InitDynamicClassToDataGrid()
         {
-            // ____________________________________________以下是通过简单的生成
+            // ________________________________________________________________________________以下是通过简单的生成
             // 动态添加内容,i表示有多少行,目前的处理就是添加i行相同的内容;
             for (int i = 0; i <= 5; i++)
             {
@@ -458,9 +458,9 @@ namespace WPF
             // 在表格中添加3行内容相同的内容;
             for (int i = 0; i <= 2; i++)
             {
-
                 dynamic model2 = new DyDataDridModel();                    // 创建一个动态模型;
 
+                // 创建实验数据;
                 model2.AddProperty("p1", name_list, "列1");
                 model2.AddProperty("p2", new GridCellComboBox()
                 {
@@ -473,7 +473,11 @@ namespace WPF
                 model2.AddProperty("p4", "显示内容", "列4");
 
 
-                list2.Add(model2);
+                list2.Add(model2);                                         // 三行内容信息集合;
+
+                //______________________________________________________封装usercontrol的DyDataGrid动态表;
+                this.DynamicDataGrid.ColumnModel = model2;
+                this.DynamicDataGrid.DataContext = list2;
 
                 if(i == 2)
                 {
@@ -517,22 +521,22 @@ namespace WPF
                             // 当单元格失去焦点的时候;
                             this.MsgDataGrid_AutoGenColandCellMore.LostFocus += MsgDataGrid_AutoGenColandCellMore_LostFocus;
 
-                            string xaml1 =
+                            string textblock_xaml =
                                @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
                                                 xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
                                                 xmlns:model='clr-namespace:WPF.Model'>
                                     <TextBlock Text='{Binding p" + (j + 1) + @".name}'/>
                                  </DataTemplate>";
 
-                            string xaml2 =
+                            string combobox_xaml =
                                @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
                                                 xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
                                                 xmlns:model='clr-namespace:WPF.Model'>
                                     <ComboBox ItemsSource='{Binding p" + (j + 1) + @".m_AllListString}' SelectedIndex='0'/>
                                  </DataTemplate>";
 
-                            TextBlockTemplate = XamlReader.Parse(xaml1) as DataTemplate;
-                            ComboBoxTemplate = XamlReader.Parse(xaml2) as DataTemplate;
+                            TextBlockTemplate = XamlReader.Parse(textblock_xaml) as DataTemplate;
+                            ComboBoxTemplate = XamlReader.Parse(combobox_xaml) as DataTemplate;
 
                             column.Header = j;                                      // 填写列名称;
                             column.CellTemplate = TextBlockTemplate;                         // 将单元格的显示形式赋值;
@@ -576,9 +580,16 @@ namespace WPF
             Console.WriteLine("开始编辑单元格;函数参数e反馈的实体可以是单元格内数据类型" + (e.Column.GetCellContent(e.Row)).DataContext.GetType());
             Console.WriteLine("当前选中单元格列名:" + e.Column.Header + ",选中行数：" + e.Row.GetIndex());
             dynamic temp = e.Column.GetCellContent(e.Row).DataContext as DyDataDridModel;
+
+            // 根据不同的列（既数据类型）改变不同的处理策略;
             temp.JudgePropertyName_StartEditing(e.Column.Header);
         }
 
+        /// <summary>
+        /// 当单元格失去鼠标焦点的时候;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MsgDataGrid_AutoGenColandCellMore_LostFocus(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();

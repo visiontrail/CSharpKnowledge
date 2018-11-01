@@ -469,13 +469,18 @@
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="200"></RowDefinition>
-                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="200"></RowDefinition>
                         </Grid.RowDefinitions>
                         <!-- 
                             Dynamic类型绑定DataGrid的同时，丰富单元格内显示类型
                         -->
                         <DataGrid Grid.Row="0" AutoGenerateColumns="False" SelectionMode="Single" x:Name="MsgDataGrid_AutoGenColandCellMore" 
                                   ItemsSource="{Binding Path=.}" SelectionUnit="Cell"/>
+
+                        <!--
+                            将Dynamic动态表封装成用户控件
+                        -->
+                        <localui:DyDataGrid x:Name="DynamicDataGrid" Grid.Row="1" ></localui:DyDataGrid>
 
                     </Grid>
 
