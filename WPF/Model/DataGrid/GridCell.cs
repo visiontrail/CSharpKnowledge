@@ -21,6 +21,16 @@ namespace WPF
         /// 当单元格被编辑的时候的事件触发;
         /// </summary>
         public abstract void EditingCallback();
+
+        /// <summary>
+        /// 当表格失去焦点后;
+        /// </summary>
+        public abstract void LostFocusCallback();
+
+        /// <summary>
+        /// 当表格的单元格选择发生变化的时候;
+        /// </summary>
+        public abstract void SelectionCellChanged();
     }
 
     /// <summary>
@@ -29,12 +39,19 @@ namespace WPF
     /// </summary>
     public class GridCell : AbsDataGridCell
     {
-        /// <summary>
-        /// 编辑字符类型单元格时候的回调;
-        /// </summary>
         public override void EditingCallback()
         {
             Console.WriteLine("String GridCell Editing Callback:" + name);
+        }
+
+        public override void LostFocusCallback()
+        {
+            Console.WriteLine("String GridCell LostFocus CallBack");
+        }
+
+        public override void SelectionCellChanged()
+        {
+            Console.WriteLine("String GridCell SelectionCellChanged CallBack");
         }
     }
 
@@ -43,9 +60,16 @@ namespace WPF
     /// </summary>
     public class GridCellComboBox : AbsDataGridCell
     {
+        /// <summary>
+        /// 该单元格内ComboBox要显示的所有内容;
+        /// </summary>
         public Dictionary<int, string> m_AllList { get; set; }
+
+        /// <summary>
+        /// 当前显示的内容，添加这个;
+        /// </summary>
         public int m_CurContent { get; set; }
-        public List<string> m_AllListString { get; set; }
+        
 
         /// <summary>
         /// 正在编辑当中的回调事件;
@@ -53,33 +77,17 @@ namespace WPF
         /// </summary>
         public override void EditingCallback()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("第一步：判断开始编辑的事件触发:" + m_CurContent);
         }
 
-        /// <summary>
-        /// 鼠标双击事件回调;
-        /// 鼠标双击后，才会出现ComboBox下拉框选项;
-        /// </summary>
-        public void MouseDoubleClickCallBack()
+        public override void LostFocusCallback()
         {
-
+            Console.WriteLine("ComboBox LostFocus CallBack");
         }
 
-        /// <summary>
-        /// 当选择完成之后，单元格失去焦点后的事件回调;
-        /// 选择完成后，向后台服务器发送请求;
-        /// </summary>
-        public void SelectedCallBack()
+        public override void SelectionCellChanged()
         {
-
+            Console.WriteLine("ComboBox GridCell SelectionCellChanged CallBack");
         }
-    }
-
-    /// <summary>
-    /// 在DataGrid中显示BIT类型的数据模型;
-    /// </summary>
-    public class GridCellBit : GridCell
-    {
-
     }
 }

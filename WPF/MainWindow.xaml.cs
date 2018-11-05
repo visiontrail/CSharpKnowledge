@@ -242,8 +242,8 @@ namespace WPF
             this.CustomerDataGrid_AddEvent.GotMouseCapture += CustomerDataGrid_AddEvent_GotMouseCapture;          // 事件五：使用这个事件事件鼠标拖拽更加稳定;
 
             this.CustomerDataGrid_AddEvent.MouseLeftButtonDown += CustomerDataGrid_AddEvent_MouseLeftButtonDown;  // 事件六：鼠标左键点击事件，这个事件只针对DataGrid整个表格;
-            this.CustomerDataGrid_AddEvent.MouseDoubleClick += CustomerDataGrid_AddEvent_MouseDoubleClick;
             this.CustomerDataGrid_AddEvent.MouseEnter += CustomerDataGrid_AddEvent_MouseEnter;                    // 事件七：鼠标进入整个表格时触发，且只触发一次;
+            this.CustomerDataGrid_AddEvent.MouseDoubleClick += CustomerDataGrid_AddEvent_MouseDoubleClick;
 
             // 另一个元素接收鼠标拖拽事件;
             this.ReceiveDataLabel.AllowDrop = true;
@@ -451,7 +451,7 @@ namespace WPF
             Dictionary<int, string> dic_list = new Dictionary<int, string>();
             dic_list.Add(1, "枚举类型1");
             dic_list.Add(2, "枚举类型2");
-            dic_list.Add(3, "枚举类型3");
+            dic_list.Add(6, "枚举类型3");
 
             
 
@@ -460,27 +460,56 @@ namespace WPF
             {
                 dynamic model2 = new DyDataDridModel();                    // 创建一个动态模型;
 
-                // 创建实验数据;
-                model2.AddProperty("p1", name_list, "列1");
-                model2.AddProperty("p2", new GridCellComboBox()
+                if(i == 0)
                 {
-                    m_AllList = dic_list,
-                    m_AllListString = name_list,
-                    m_CurContent = 2,
-                    name = "枚举类型1"
-                }, "列2");
-                model2.AddProperty("p3", DateTime.Now, "列3");
-                model2.AddProperty("p4", "显示内容", "列4");
+                    // 创建实验数据;
+                    model2.AddProperty("p1", name_list, "列1");
+                    model2.AddProperty("p2", new GridCellComboBox()
+                    {
+                        m_AllList = dic_list,
+                        m_CurContent = 6,
+                        name = "枚举类型3"
+                    }, "列2");
+                    model2.AddProperty("p3", DateTime.Now, "列3");
+                    model2.AddProperty("p4", "显示内容6", "列4");
+                }
+                else if(i == 1)
+                {
+                    // 创建实验数据;
+                    model2.AddProperty("p1", name_list, "列1");
+                    model2.AddProperty("p2", new GridCellComboBox()
+                    {
+                        m_AllList = dic_list,
+                        m_CurContent = 2,
+                        name = "枚举类型1"
+                    }, "列2");
+                    model2.AddProperty("p3", DateTime.Now, "列3");
+                    model2.AddProperty("p4", "显示内容1", "列4");
+                }
+                else if(i == 2)
+                {
 
+                    // 创建实验数据;
+                    model2.AddProperty("p1", name_list, "列1");
+                    model2.AddProperty("p2", new GridCellComboBox()
+                    {
+                        m_AllList = dic_list,
+                        m_CurContent = 2,
+                        name = "枚举类型2"
+                    }, "列2");
+                    model2.AddProperty("p3", DateTime.Now, "列3");
+                    model2.AddProperty("p4", "显示内容3", "列4");
+                }
 
                 list2.Add(model2);                                         // 三行内容信息集合;
 
-                //______________________________________________________封装usercontrol的DyDataGrid动态表;
-                this.DynamicDataGrid.ColumnModel = model2;
-                this.DynamicDataGrid.DataContext = list2;
-
-                if(i == 2)
+                if (i == 2)
                 {
+                    //__________________________________________________当数据收集完成之后，使用封装usercontrol的DyDataGrid创建动态表;
+                    this.DynamicDataGrid.ColumnModel = model2;
+                    this.DynamicDataGrid.DataContext = list2;
+                    //_______________________________________________________________________________________________________________
+
                     // 为表格添加列信息;
                     for (int j = 0; j <= 2; j++)
                     {
@@ -538,10 +567,10 @@ namespace WPF
                             TextBlockTemplate = XamlReader.Parse(textblock_xaml) as DataTemplate;
                             ComboBoxTemplate = XamlReader.Parse(combobox_xaml) as DataTemplate;
 
-                            column.Header = j;                                      // 填写列名称;
+                            column.Header = j;                                               // 填写列名称;
                             column.CellTemplate = TextBlockTemplate;                         // 将单元格的显示形式赋值;
-                            column.CellEditingTemplate = ComboBoxTemplate;                 // 将单元格的编辑形式赋值;
-                            column.Width = 230;                                     // 设置显示宽度;
+                            column.CellEditingTemplate = ComboBoxTemplate;                   // 将单元格的编辑形式赋值;
+                            column.Width = 230;                                              // 设置显示宽度;
 
                             this.MsgDataGrid_AutoGenColandCellMore.Columns.Add(column);
 
@@ -592,7 +621,7 @@ namespace WPF
         /// <param name="e"></param>
         private void MsgDataGrid_AutoGenColandCellMore_LostFocus(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         /// <summary>
