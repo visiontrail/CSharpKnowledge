@@ -50,10 +50,10 @@ namespace WPF.UserControlTemplate
                         
                         string xaml1 =
                             @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
-                                                xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
-                                                xmlns:model='clr-namespace:WPF.Model'>
-                                    <ComboBox ItemsSource='{Binding " + iter.Item1 + @"}' SelectedIndex='0'/>
-                                 </DataTemplate>";
+                                            xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
+                                            xmlns:model='clr-namespace:WPF.Model'>
+                                <ComboBox ItemsSource='{Binding " + iter.Item1 + @"}' SelectedIndex='0'/>
+                            </DataTemplate>";
 
                         template = XamlReader.Parse(xaml1) as DataTemplate;
 
@@ -72,17 +72,17 @@ namespace WPF.UserControlTemplate
                         
                         string textblock_xaml =
                            @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
-                                                xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
-                                                xmlns:model='clr-namespace:WPF.Model'>
-                                    <TextBlock Text='{Binding " + iter.Item1 + @".name}'/>
-                                 </DataTemplate>";
+                                            xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
+                                            xmlns:model='clr-namespace:WPF.Model'>
+                                <TextBlock Text='{Binding " + iter.Item1 + @".name}'/>
+                            </DataTemplate>";
 
                         string combobox_xaml =
                            @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
-                                                xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
-                                                xmlns:model='clr-namespace:WPF.Model'>
-                                    <ComboBox ItemsSource='{Binding " + iter.Item1 + @".m_AllList.Values}' SelectedIndex='0'/>
-                                 </DataTemplate>";
+                                            xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
+                                            xmlns:model='clr-namespace:WPF.Model'>
+                                <ComboBox ItemsSource='{Binding " + iter.Item1 + @".m_AllList.Values}' SelectedIndex='0'/>
+                             </DataTemplate>";
 
                         TextBlockTemplate = XamlReader.Parse(textblock_xaml) as DataTemplate;
                         ComboBoxTemplate = XamlReader.Parse(combobox_xaml) as DataTemplate;
