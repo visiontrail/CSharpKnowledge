@@ -248,6 +248,9 @@ namespace WPF
             // 另一个元素接收鼠标拖拽事件;
             this.ReceiveDataLabel.AllowDrop = true;
             this.ReceiveDataLabel.Drop += ReceiveDataLabel_Drop;
+
+            this.ReceiveDataLabel2.AllowDrop = true;
+            this.ReceiveDataLabel2.Drop += ReceiveDataLabel2_Drop;
             
         }
 
@@ -397,7 +400,18 @@ namespace WPF
             Console.WriteLine(cell.column1.name);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReceiveDataLabel2_Drop(object sender, DragEventArgs e)
+        {
+            DyDataDridModel cell = e.Data.GetData(typeof(DyDataDridModel)) as DyDataDridModel;
 
+            //(sender as Label).Content += ":" + cell.
+        }
+        
         /// <summary>
         /// 同一个数据源可以显示到两个不同的DataGrid控件当中;
         /// </summary>
@@ -453,8 +467,6 @@ namespace WPF
             dic_list.Add(2, "枚举类型2");
             dic_list.Add(6, "枚举类型3");
 
-            
-
             // 在表格中添加3行内容相同的内容;
             for (int i = 0; i <= 2; i++)
             {
@@ -480,7 +492,7 @@ namespace WPF
                     model2.AddProperty("p2", new GridCellComboBox()
                     {
                         m_AllList = dic_list,
-                        m_CurContent = 2,
+                        m_CurContent = 1,
                         name = "枚举类型1"
                     }, "列2");
                     model2.AddProperty("p3", DateTime.Now, "列3");

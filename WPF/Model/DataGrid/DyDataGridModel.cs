@@ -164,7 +164,7 @@ namespace WPF.Model
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public bool JudgePropertyName_ChangeSelection(string name)
+        public bool JudgePropertyName_ChangeSelection(string name, object SelectionObj)
         {
             bool ret = false;
 
@@ -175,7 +175,7 @@ namespace WPF.Model
                 if (Properties.ContainsKey(key))
                 {
                     object property = Properties[key];
-                    (property as AbsDataGridCell).SelectionCellChanged();
+                    (property as AbsDataGridCell).SelectionCellChanged(SelectionObj);
                     return true;
                 }
             }

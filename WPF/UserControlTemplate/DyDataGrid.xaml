@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid x:Name="DynamicDataGrid"  Grid.Row="0" AutoGenerateColumns="False" 
+        <DataGrid x:Name="DynamicDataGrid"  Grid.Row="0" AutoGenerateColumns="False" CanUserAddRows="False"
                   SelectionMode="Single" ItemsSource="{Binding Path=.}" SelectionUnit="Cell"/>
     </Grid>
 </UserControl>

@@ -52,7 +52,7 @@ namespace WPF.UserControlTemplate
                             @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
                                             xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
                                             xmlns:model='clr-namespace:WPF.Model'>
-                                <ComboBox ItemsSource='{Binding " + iter.Item1 + @"}' SelectedIndex='0'/>
+                                <ComboBox ItemsSource='{Binding " + iter.Item1 + @"}' SelectedIndex='1'/>
                             </DataTemplate>";
 
                         template = XamlReader.Parse(xaml1) as DataTemplate;
@@ -81,7 +81,7 @@ namespace WPF.UserControlTemplate
                            @"<DataTemplate xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
                                             xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
                                             xmlns:model='clr-namespace:WPF.Model'>
-                                <ComboBox ItemsSource='{Binding " + iter.Item1 + @".m_AllList.Values}' SelectedIndex='0'/>
+                                <ComboBox ItemsSource='{Binding " + iter.Item1 + @".m_AllList}' SelectedIndex='0'/>
                              </DataTemplate>";
 
                         TextBlockTemplate = XamlReader.Parse(textblock_xaml) as DataTemplate;
@@ -119,7 +119,8 @@ namespace WPF.UserControlTemplate
             
             this.DynamicDataGrid.BeginningEdit += DynamicDataGrid_BeginningEdit;                  // 当表格发生正在编辑的状态;
             this.DynamicDataGrid.LostFocus += DynamicDataGrid_LostFocus;                          // 当表格失去焦点的时候;
-            this.DynamicDataGrid.SelectionChanged += DynamicDataGrid_SelectionChanged;
+            this.DynamicDataGrid.SelectionChanged += DynamicDataGrid_SelectionChanged;            // 当选择发生变化的时候;
+            this.DynamicDataGrid.GotMouseCapture += DynamicDataGrid_GotMouseCapture;
         }
         
         /// <summary>
@@ -170,7 +171,12 @@ namespace WPF.UserControlTemplate
 
         }
 
-
+        /// <summary>
+        /// 当单元格选择发生变化的时候;
+        /// TODO:当第一次获取焦点的时候，也会触发该函数;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DynamicDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (((e.OriginalSource as ComboBox).SelectedIndex == -1))
@@ -181,6 +187,7 @@ namespace WPF.UserControlTemplate
             {
                 try
                 {
+                    // 由于前端的选择模式被限定在了SingleMode，所以以下默认取第一个就可以;
                     (sender as DataGrid).SelectedCells[0].Item.GetType();
                 }
                 catch (Exception ex)
@@ -190,17 +197,44 @@ namespace WPF.UserControlTemplate
             }
             try
             {
-                Console.WriteLine("第二步：判断选择变化的事件触发" + (e.OriginalSource as ComboBox).SelectedIndex);
-                Console.WriteLine("选择改变事件触发，Sender的数据类型是:" + (sender as DataGrid).SelectedCells[0].Item.GetType());
-
+                // TODO:当前只有ComboBox这样的特殊类型，后续添加新的类型之后，这个还需要修改;
+                Console.WriteLine("判断当期是否是第一次进入编辑状态：" + e.OriginalSource.GetType());
                 ((sender as DataGrid).SelectedCells[0].Item as DyDataDridModel).JudgePropertyName_ChangeSelection(
-                    (sender as DataGrid).SelectedCells[0].Column.Header.ToString());
+                    (sender as DataGrid).SelectedCells[0].Column.Header.ToString(), (e.OriginalSource as ComboBox).SelectedItem);
             }
             catch
             {
 
             }
 
+        }
+
+        /// <summary>
+        /// 获取鼠标事件，拖拽动作的起点;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DynamicDataGrid_GotMouseCapture(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if ((e.OriginalSource as DataGrid).Items.CurrentItem is DyDataDridModel)
+                {
+                    Console.WriteLine("GotMouseCapture;捕获鼠标除了移动之外的任何事件，传过来的参数数据类型为:" + e.Source.GetType());
+                    DataGrid sender_item = e.OriginalSource as DataGrid;
+                    foreach (var iter in (e.OriginalSource as DataGrid).SelectedCells)
+                    {
+                        if (e.LeftButton == MouseButtonState.Pressed)
+                        {
+                            DragDropEffects myDropEffect = DragDrop.DoDragDrop(sender_item, iter.Item as DyDataDridModel, DragDropEffects.Copy);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace WPF
         /// <summary>
         /// 当表格的单元格选择发生变化的时候;
         /// </summary>
-        public abstract void SelectionCellChanged();
+        public abstract void SelectionCellChanged(object SelectionObj);
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace WPF
             Console.WriteLine("String GridCell LostFocus CallBack");
         }
 
-        public override void SelectionCellChanged()
+        public override void SelectionCellChanged(object SelectionObj)
         {
             Console.WriteLine("String GridCell SelectionCellChanged CallBack");
         }
@@ -77,17 +77,30 @@ namespace WPF
         /// </summary>
         public override void EditingCallback()
         {
-            Console.WriteLine("第一步：判断开始编辑的事件触发:" + m_CurContent);
+            Console.WriteLine("判断开始编辑的事件触发;" + m_CurContent);
         }
 
         public override void LostFocusCallback()
         {
             Console.WriteLine("ComboBox LostFocus CallBack");
         }
-
-        public override void SelectionCellChanged()
+        
+        /// <summary>
+        /// 当单元格内选择发生变化的时候;
+        /// </summary>
+        /// <param name="SelectionObj"></param>
+        public override void SelectionCellChanged(object SelectionObj)
         {
-            Console.WriteLine("ComboBox GridCell SelectionCellChanged CallBack");
+            var selectionNo = (KeyValuePair<int, string>)SelectionObj;
+            if(selectionNo.Key == this.m_CurContent)
+            {
+                return;
+            }
+            else
+            {
+                Console.WriteLine("用户的选择由"+ m_AllList[this.m_CurContent] + "变更为" + selectionNo.Value +"，进行相关操作：");
+                this.name = selectionNo.Value;
+            }
         }
     }
 }
