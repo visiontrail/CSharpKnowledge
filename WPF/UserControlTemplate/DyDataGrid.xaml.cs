@@ -120,7 +120,7 @@ namespace WPF.UserControlTemplate
             this.DynamicDataGrid.BeginningEdit += DynamicDataGrid_BeginningEdit;                  // 当表格发生正在编辑的状态;
             this.DynamicDataGrid.LostFocus += DynamicDataGrid_LostFocus;                          // 当表格失去焦点的时候;
             this.DynamicDataGrid.SelectionChanged += DynamicDataGrid_SelectionChanged;            // 当选择发生变化的时候;
-            this.DynamicDataGrid.GotMouseCapture += DynamicDataGrid_GotMouseCapture;
+            this.DynamicDataGrid.GotMouseCapture += DynamicDataGrid_GotMouseCapture;              // 捕获鼠标事件，在该事件中添加拖拽判断;
         }
         
         /// <summary>
@@ -180,7 +180,7 @@ namespace WPF.UserControlTemplate
         /// <param name="e"></param>
         private void DynamicDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (((e.OriginalSource as ComboBox).SelectedIndex == -1))
+            if (((e.OriginalSource as ComboBox).SelectedIndex == -1) || e.RemovedItems.Count == 0)
             {
                 return;
             }
@@ -226,6 +226,7 @@ namespace WPF.UserControlTemplate
                     DataGrid sender_item = e.OriginalSource as DataGrid;                  // 获取当前被操作的控件;
                     foreach (var iter in (e.OriginalSource as DataGrid).SelectedCells)
                     {
+                        // 如果鼠标右键是按下的话;
                         if (e.LeftButton == MouseButtonState.Pressed)
                         {
                             // 设置拖拽事件的参数;
