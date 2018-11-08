@@ -137,6 +137,7 @@ namespace WPF.UserControlTemplate
 
         /// <summary>
         /// 单元格失去焦点之后;
+        /// 该事件触发过于频繁，暂时不使用该事件进行处理;
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -221,11 +222,16 @@ namespace WPF.UserControlTemplate
                 if ((e.OriginalSource as DataGrid).Items.CurrentItem is DyDataDridModel)
                 {
                     Console.WriteLine("GotMouseCapture;捕获鼠标除了移动之外的任何事件，传过来的参数数据类型为:" + e.Source.GetType());
-                    DataGrid sender_item = e.OriginalSource as DataGrid;
+
+                    DataGrid sender_item = e.OriginalSource as DataGrid;                  // 获取当前被操作的控件;
                     foreach (var iter in (e.OriginalSource as DataGrid).SelectedCells)
                     {
                         if (e.LeftButton == MouseButtonState.Pressed)
                         {
+                            // 设置拖拽事件的参数;
+                            // 参数一：拖拽事件作用源的控件实例;
+                            // 参数二：赋值给拖拽目标的参数实例;
+                            // 参数三：拖拽的效果;
                             DragDropEffects myDropEffect = DragDrop.DoDragDrop(sender_item, iter.Item as DyDataDridModel, DragDropEffects.Copy);
                         }
                     }
