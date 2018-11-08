@@ -88,10 +88,12 @@ namespace WPF
         /// <summary>
         /// 当单元格内选择发生变化的时候;
         /// </summary>
-        /// <param name="SelectionObj"></param>
+        /// <param name="SelectionObj">从前端传送过来的用户选择的数据</param>
         public override void SelectionCellChanged(object SelectionObj)
         {
             var selectionNo = (KeyValuePair<int, string>)SelectionObj;
+
+            // 如果用户选择没有发生变化的话,直接返回，不做处理;
             if(selectionNo.Key == this.m_CurContent)
             {
                 return;

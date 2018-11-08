@@ -180,6 +180,8 @@ namespace WPF.UserControlTemplate
         /// <param name="e"></param>
         private void DynamicDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // 如果SelectedIndex是-1，则表明是初始化过程中调用的;
+            // 如果RemovedItems.Count是0的话，则表明是第一次发生变化的时候被调用的;
             if (((e.OriginalSource as ComboBox).SelectedIndex == -1) || e.RemovedItems.Count == 0)
             {
                 return;
@@ -199,7 +201,6 @@ namespace WPF.UserControlTemplate
             try
             {
                 // TODO:当前只有ComboBox这样的特殊类型，后续添加新的类型之后，这个还需要修改;
-                Console.WriteLine("判断当期是否是第一次进入编辑状态：" + e.OriginalSource.GetType());
                 ((sender as DataGrid).SelectedCells[0].Item as DyDataDridModel).JudgePropertyName_ChangeSelection(
                     (sender as DataGrid).SelectedCells[0].Column.Header.ToString(), (e.OriginalSource as ComboBox).SelectedItem);
             }
