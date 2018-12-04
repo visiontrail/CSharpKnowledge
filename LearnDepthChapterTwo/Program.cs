@@ -17,6 +17,13 @@ namespace Delegate
         static void Main(string[] args)
         {
             TryClass a = new TryClass();
+
+            DelegateClass dc = new DelegateClass();
+            dc.PrintStringdele += PrintString2;
+            dc.PrintStringdele += PrintString;
+            dc.m_member1 = "Muti_Delegate";
+            dc.PrintAllDel();
+
             // ================== 以下是委托的简单用法 =========================
             // 创建委托类型的实例;
             // 将委托实例就相当于创建了一个属性，这个属性可以为起“赋值”，即订阅对应的方法，且可以订阅多个方法;
@@ -26,6 +33,7 @@ namespace Delegate
             printstring = new StringProcessor(Program.PrintString2);
             printstring2 = new StringProcessor2(Program.PrintString);
             printstring += PrintString;
+
 
             printstring("Delegate~printstring");
             
