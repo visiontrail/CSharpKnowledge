@@ -14,6 +14,7 @@ namespace Delegate
 
     class Program
     {
+        private static List<string> strlist = new List<string>();
         static void Main(string[] args)
         {
             TryClass a = new TryClass();
@@ -23,6 +24,15 @@ namespace Delegate
             dc.PrintStringdele += PrintString;
             dc.m_member1 = "Muti_Delegate";
             dc.PrintAllDel();
+
+            strlist.Add("1");
+
+            List<string> findret = strlist.FindAll(new Predicate<string>(delegate (string instring) {
+                if (instring == "1")
+                    return true;
+                else
+                    return false;
+            }));
 
             // ================== 以下是委托的简单用法 =========================
             // 创建委托类型的实例;
