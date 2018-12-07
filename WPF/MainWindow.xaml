@@ -11,7 +11,9 @@
         xmlns:routeevt="clr-namespace:WPF.EventRoute"
         mc:Ignorable="d"
         routeevt:ButtonTime.ReportTime="RptTime"
-        Title="MainWindow" Height="800" Width="1500" WindowStartupLocation="CenterScreen" x:Name="Main_Window">
+    Title="MainWindow" Height="765" Width="1366" WindowStartupLocation="CenterScreen" x:Name="Main_Window">
+
+    <!-- 注意，在这个位置写RptTime的话，则说明窗口中的任何一个控件都能够获取到那个Button发出的路由事件 -->
 
     <Window.Resources>
 
@@ -192,9 +194,9 @@
                                 <RowDefinition Height="100"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0" x:Name="grid1" routeevt:ButtonTime.ReportTime="RptTime">
+                            <Grid x:Name="RouteEventGrid1" Grid.Row="0" routeevt:ButtonTime.ReportTime="RptTime">
                                 <StackPanel x:Name="sp1" routeevt:ButtonTime.ReportTime="RptTime">
-                                    <routeevt:ButtonTime x:Name="timebutton" Height="100" routeevt:ButtonTime.ReportTime="RptTime">触发</routeevt:ButtonTime>
+                                    <routeevt:ButtonTime x:Name="timebutton" Height="100" routeevt:ButtonTime.ReportTime="RptTime">我是一个从Button继承带有路由事件的按钮</routeevt:ButtonTime>
                                 </StackPanel>
                             </Grid>
                             
@@ -354,7 +356,7 @@
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Margin="5,5,5,5">
                             <StackPanel>
                                 <TextBox x:Name="text1"></TextBox>
-                                <Button Content="获取输入框内容" Click="GetDepProperty" ></Button>
+                                <Button x:Name="GetInputButton" Content="获取输入框内容" Click="GetDepProperty" ></Button>
                             </StackPanel>
                         </Border>
 
@@ -596,6 +598,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
+            
             <TabItem Header="接口测试">
                 <Grid x:Name="Interface_Grid">
                     <Grid.ColumnDefinitions>
@@ -630,10 +633,7 @@
                                 <Button Click="StartForeach_1">开始迭代</Button>
                             </StackPanel>
                         </Border>
-
-
                     </Grid>
-
 
                 </Grid>
 

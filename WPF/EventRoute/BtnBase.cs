@@ -29,16 +29,18 @@ namespace WPF.EventRoute
     {
         // 一个路由事件静态实例;
         // 注意：路由事件的第一个名字需要和CLR事件的名称一致才行!!;
+        // 在这里注册的Button的路由事件ReportTime，在XAML中，也需要用这个函数名字对应的路由事件处理;
         public static readonly RoutedEvent ReportRoutedEvent = EventManager.RegisterRoutedEvent
             ("ReportTime", RoutingStrategy.Bubble, typeof(EventHandler<ReportTimeEvtArgs>), typeof(ButtonTime));
 
-        // CLR事件包装;
+        // 按钮点击事件;
         public event RoutedEventHandler ReportTime
         {
             add { this.AddHandler(ReportRoutedEvent, value); }
             remove { this.RemoveHandler(ReportRoutedEvent, value); }
         }
 
+        // 为什么在Button已经有Click事件的前提下，重写了OnClick事件呢~？
         // 当发生点击的时候，可以通过更新事件参数，将该自定义的路由事件参数传递出去;
         protected override void OnClick()
         {

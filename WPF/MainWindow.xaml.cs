@@ -40,6 +40,8 @@ namespace WPF
 
         ThreadPoolLearn tp = new ThreadPoolLearn();
 
+        
+
         private TimeTicked TimeTicked = TimeTicked.NeverTicked;
         private TwoTimeSpan ttp = new TwoTimeSpan();
 
@@ -66,10 +68,20 @@ namespace WPF
             // WPF中的ItemsSource是可以使用LINQ进行查询筛选的;
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
 
-            // 路由事件;
-            Interface_Grid.AddHandler(Button.ClickEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
+
+            // 路由事件，在最外层的Grid可以收到内层Button发出的Click事件;
+            // 这个就是路由事件的好处，它能够自定义事件的参数;
+            RouteEventGrid1.AddHandler(ButtonTime.ReportRoutedEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
             {
-                Console.WriteLine("The Grid RouteEvent Receive a Button Event and the Button is " + (e.OriginalSource as Button).Content.ToString());
+                Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() +
+                    "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime);
+            }));
+
+            // 这个Interface_Grid就无法路由到这个事件;
+            Interface_Grid.AddHandler(Button.ClickEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
+            { 
+                Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() + 
+                    "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime );
             }));
             
         }

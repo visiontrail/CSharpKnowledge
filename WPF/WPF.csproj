@@ -113,7 +113,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\DataGrid\GridCell.cs" />
     <Compile Include="Control\Calc.cs" />
-    <Compile Include="EventRoute\ButtonBase.cs" />
+    <Compile Include="EventRoute\BtnBase.cs" />
     <Compile Include="Model\DataGrid\DataGridCustomer.cs" />
     <Compile Include="Model\DataGrid\DataGridWithEvent.cs" />
     <Compile Include="Model\DataGrid\DyDataGridModel.cs" />
