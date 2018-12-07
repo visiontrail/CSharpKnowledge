@@ -44,15 +44,14 @@ namespace JsonParser
         }
 
         /// <summary>
-        /// 为什么这么做?
+        /// 为什么这么做?;
         /// </summary>
         /// <param name="FilePath">Json文件</param>
         /// <returns>Json文件中的对象;</returns>
         public static JObject ReadJsonFileMethodThree(string FilePath)
         {
-            FileStream fs = new FileStream(FilePath, FileMode.Open, 
-                                FileAccess.Read, FileShare.ReadWrite);
-            StreamReader sr = new StreamReader(fs, Encoding.GetEncoding("gb2312"));     // 指定编码格式;
+            FileStream fs = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            StreamReader sr = new StreamReader(fs, Encoding.GetEncoding("gb2312"));     // 指定编码格式,这里也可以是其他的编码格式;
             JObject JObj = JObject.Parse(sr.ReadToEnd().ToString());
             fs.Close();
             return JObj;

@@ -12,9 +12,9 @@ namespace Delegate
         public string m_member1;
         public PrintString PrintStringdele;
 
-        public void PrintAllDel()
+        public void PrintAllDel(string prt_str)
         {
-            PrintStringdele(m_member1);
+            PrintStringdele(prt_str);
             PrintStringdele.GetInvocationList();
         }
     }
