@@ -77,7 +77,7 @@ namespace WPF
                     "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime);
             }));
 
-            // 这个Interface_Grid就无法路由到这个事件;
+            // 这个Interface_Grid就无法路由到这个事件,因为这两个控件不再同一棵树上;
             Interface_Grid.AddHandler(Button.ClickEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
             { 
                 Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() + 
@@ -911,6 +911,12 @@ namespace WPF
         private void RptTime(object sender, ReportTimeEvtArgs e)
         {
             Console.WriteLine("路由内容;" + (sender as FrameworkElement).Name + "点击时间;"+ e.ClickTime.ToString());
+            Console.WriteLine("事件点击的源头;" + (e.OriginalSource as ButtonTime).Content);
+        }
+
+        private void RptTime2(object sender, ReportTimeEvtArgs e)
+        {
+            Console.WriteLine("路由内容2;" + (sender as FrameworkElement).Name + "点击时间;" + e.ClickTime.ToString());
         }
 
         private void TimeTick(object sender, RoutedEventArgs e)

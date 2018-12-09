@@ -10,6 +10,9 @@ using WPF.Model;
 
 namespace WPF.Control
 {
+    /// <summary>
+    /// 从XML文件中读取出树形结构;
+    /// </summary>
     public class XMLTreeViewControl
     {
         private XmlDataProvider xmldata;
@@ -17,10 +20,12 @@ namespace WPF.Control
         public List<TreeViewComposite> items;                      // 保存一个完整的树形结构;
         TreeViewComposite root = new TreeViewComposite();
 
-        // 实验程序，现在构造器中直接读取一个XML;
+        /// <summary>
+        /// 在构造器中直接读取一个XML
+        /// </summary>
         public XMLTreeViewControl()
         {
-            string path = System.IO.Directory.GetCurrentDirectory();
+            string path = System.IO.Directory.GetCurrentDirectory();        // 获取当前程序的工作路径;
             xmldata = new XmlDataProvider();
             xmlsource = new XmlDocument();
             items = new List<TreeViewComposite>();
