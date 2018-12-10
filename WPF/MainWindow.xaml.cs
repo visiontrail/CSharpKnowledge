@@ -75,6 +75,12 @@ namespace WPF
             {
                 Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() +
                     "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime);
+
+                DepPropertyBase dpb = new DepPropertyBase();
+                dpb.SetValue(DepPropertyBase.NameProperty, this.StyleWPF.Content);
+                string ret = (string)dpb.GetValue(DepPropertyBase.NameProperty);
+                Console.WriteLine("获取依赖属性的值为：" + ret);
+
             }));
 
             // 这个Interface_Grid就无法路由到这个事件,因为这两个控件不再同一棵树上;

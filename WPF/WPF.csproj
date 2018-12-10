@@ -111,14 +111,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DepProperty\DepPropertyBase.cs" />
     <Compile Include="Model\DataGrid\GridCell.cs" />
-    <Compile Include="Control\Calc.cs" />
+    <Compile Include="Functional\Calc.cs" />
     <Compile Include="EventRoute\BtnBase.cs" />
     <Compile Include="Model\DataGrid\DataGridCustomer.cs" />
     <Compile Include="Model\DataGrid\DataGridWithEvent.cs" />
     <Compile Include="Model\DataGrid\DyDataGridModel.cs" />
     <Compile Include="Model\Person.cs" />
-    <Compile Include="Control\XMLTreeViewControl.cs" />
+    <Compile Include="Functional\XMLTreeViewControl.cs" />
     <Compile Include="Model\MessageModel.cs" />
     <Compile Include="Model\TreeViewItem.cs" />
     <Compile Include="TryAnyCSharp\Time\AboutTime.cs" />
