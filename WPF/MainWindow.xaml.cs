@@ -45,6 +45,8 @@ namespace WPF
         private TimeTicked TimeTicked = TimeTicked.NeverTicked;
         private TwoTimeSpan ttp = new TwoTimeSpan();
 
+        private RoutedCommand clearCMD = new RoutedCommand("Clear", typeof(MainWindow));
+
         public MainWindow()
         {
             InitializeComponent();
@@ -64,6 +66,8 @@ namespace WPF
 
             // 以下是使用控件TreeView的方法;
             InitTreeViewComposite();            // 直接使用一个组合模式的实例填入到TreeView当中;
+
+            InitCommandFunction();              // 在这里生成命令Binding;
             
             // WPF中的ItemsSource是可以使用LINQ进行查询筛选的;
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
@@ -76,22 +80,72 @@ namespace WPF
                 Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() +
                     "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime);
 
+                // 借用路由事件的按钮，实验依赖属性;
                 DepPropertyBase dpb = new DepPropertyBase();
+                
+                // 依赖属性可以通过Set\Get设置依赖属性的数值;
                 dpb.SetValue(DepPropertyBase.NameProperty, this.StyleWPF.Content);
                 string ret = (string)dpb.GetValue(DepPropertyBase.NameProperty);
+                // 同样也可以通过CLR封装器进行访问;
+                dpb.Name = (string)this.StyleWPF.Content;
+                ret = (string)dpb.Name;
+
                 Console.WriteLine("获取依赖属性的值为：" + ret);
+
+                // 设置依赖属性的依赖;
+                Binding bd = new Binding("Text") {
+                    Source = this.StyleWPF
+                };
+                // 设置关联关系;
+                BindingOperations.SetBinding(dpb, DepPropertyBase.NameProperty, bd);
 
             }));
 
             // 这个Interface_Grid就无法路由到这个事件,因为这两个控件不再同一棵树上;
             Interface_Grid.AddHandler(Button.ClickEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
             { 
-                Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() + 
-                    "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime );
+                //Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() + 
+                //    "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime );
             }));
             
         }
-        
+
+        private void InitCommandFunction()
+        {
+            this.CommandButton.Command = this.clearCMD;                                 // 为控件添加命令;
+            this.clearCMD.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));   // 为命令添加快捷键;
+
+            this.CommandButton.CommandTarget = this.CommandTextBox;                     // 设置命令的目标;
+
+            // 创建命令关联;
+            CommandBinding cb = new CommandBinding();
+            cb.Command = this.clearCMD;
+            cb.CanExecute += Cb_CanExecute;
+            cb.Executed += Cb_Executed;
+
+            this.CommandStackPanel.CommandBindings.Add(cb);
+        }
+
+        private void Cb_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if(string.IsNullOrEmpty(this.CommandTextBox.Text))
+            {
+                e.CanExecute = false;
+            }
+            else
+            {
+                e.CanExecute = true;
+            }
+            e.Handled = true;
+        }
+
+        private void Cb_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.CommandTextBox.Clear();
+        }
+
+
+
 
         #region 纯前端操作
         /// <summary>

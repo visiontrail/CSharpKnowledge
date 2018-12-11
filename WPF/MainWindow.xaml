@@ -120,8 +120,9 @@
 
     <Grid>
         <TabControl>
+            
             <!-- 主要用来展示纯前端的处理 -->
-            <TabItem Header="纯前端处理">
+            <TabItem Header="前端\路由事件\依赖属性\命令">
                 <Grid>
 
                     <Grid.ColumnDefinitions>
@@ -194,11 +195,20 @@
                                 <RowDefinition Height="100"></RowDefinition>
                             </Grid.RowDefinitions>
 
+                            <!-- 路由事件和依赖属性都在这里 -->
                             <Grid x:Name="RouteEventGrid1" Grid.Row="0" routeevt:ButtonTime.ReportTime="RptTime">
                                 <StackPanel x:Name="sp1" routeevt:ButtonTime.ReportTime="RptTime">
                                     <routeevt:ButtonTime x:Name="timebutton" Height="100" routeevt:ButtonTime.ReportTime="RptTime">
                                         我是一个从Button继承带有路由事件的按钮
                                     </routeevt:ButtonTime>
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- WPF中的命令系统 -->
+                            <Grid Grid.Row="1" Margin="0,10">
+                                <StackPanel x:Name="CommandStackPanel">
+                                    <TextBox x:Name="CommandTextBox"></TextBox>
+                                    <Button x:Name="CommandButton">清空命令(清空以上输入)</Button>
                                 </StackPanel>
                             </Grid>
                             
