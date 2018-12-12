@@ -39,13 +39,15 @@ namespace WPF
         ObservableCollection<DyDataDridModel> list2 = new ObservableCollection<DyDataDridModel>();         // 用来在DataGrid中显示的实验数据; 
 
         ThreadPoolLearn tp = new ThreadPoolLearn();
-
-        
-
         private TimeTicked TimeTicked = TimeTicked.NeverTicked;
         private TwoTimeSpan ttp = new TwoTimeSpan();
 
-        private RoutedCommand clearCMD = new RoutedCommand("Clear", typeof(MainWindow));
+        /// <summary>
+        /// RouteCommand的作用是;
+        /// 继承自ICommand，在控件中的Command和ComandBinding中的Command起到了一个“信封”的作用;
+        /// 这个所谓的信封就是在控件和CommandBinding之间起到一个关联作用的;
+        /// </summary>
+        private RoutedCommand clearCMD = new RoutedCommand("Clear", typeof(MainWindow));                    // 命令的名字和注册命令的类型;
 
         public MainWindow()
         {
@@ -67,7 +69,8 @@ namespace WPF
             // 以下是使用控件TreeView的方法;
             InitTreeViewComposite();            // 直接使用一个组合模式的实例填入到TreeView当中;
 
-            InitCommandFunction();              // 在这里生成命令Binding;
+            // 一下是Command命令的使用方法;
+            InitCommandFunctionBase();          // 在这里生成命令Binding;
             
             // WPF中的ItemsSource是可以使用LINQ进行查询筛选的;
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
@@ -79,6 +82,8 @@ namespace WPF
             {
                 Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() +
                     "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime);
+
+                // ————————依赖属性————————————
 
                 // 借用路由事件的按钮，实验依赖属性;
                 DepPropertyBase dpb = new DepPropertyBase();
@@ -110,22 +115,28 @@ namespace WPF
             
         }
 
-        private void InitCommandFunction()
+        private void InitCommandFunctionBase()
         {
             this.CommandButton.Command = this.clearCMD;                                 // 为控件添加命令;
-            this.clearCMD.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));   // 为命令添加快捷键;
-
             this.CommandButton.CommandTarget = this.CommandTextBox;                     // 设置命令的目标;
 
+            this.clearCMD.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));   // 为命令添加快捷键;
+            
             // 创建命令关联;
             CommandBinding cb = new CommandBinding();
-            cb.Command = this.clearCMD;
-            cb.CanExecute += Cb_CanExecute;
-            cb.Executed += Cb_Executed;
+            cb.Command = this.clearCMD;                            // CommandBinding的Command
+            cb.CanExecute += Cb_CanExecute;                        // CommandBinding对应命令可以执行的监听;
+            cb.Executed += Cb_Executed;                            // CommandBinding对应命令可以执行的处理;
 
             this.CommandStackPanel.CommandBindings.Add(cb);
         }
 
+        /// <summary>
+        /// 这个附加在Button所在控件树之上的StackPanel控件上的监听线程;
+        /// 微软默认控制了Button的Enable属性,如果返回false，则Enable属性则也false;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Cb_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             if(string.IsNullOrEmpty(this.CommandTextBox.Text))

@@ -184,6 +184,7 @@
 
                     </DockPanel>
 
+                    <!-- 路由事件和依赖属性 -->
                     <DockPanel Grid.Column="1">
                         <Grid>
                             <Grid.RowDefinitions>
