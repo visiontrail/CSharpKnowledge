@@ -69,7 +69,7 @@ namespace WPF
             // 以下是使用控件TreeView的方法;
             InitTreeViewComposite();            // 直接使用一个组合模式的实例填入到TreeView当中;
 
-            // 一下是Command命令的使用方法;
+            // 以下是Command命令的使用方法;
             InitCommandFunctionBase();          // 在这里生成命令Binding;
             
             // WPF中的ItemsSource是可以使用LINQ进行查询筛选的;
@@ -83,7 +83,7 @@ namespace WPF
                 Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() +
                     "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime);
 
-                // ————————依赖属性————————————
+                // ————————依赖属性————————————;
 
                 // 借用路由事件的按钮，实验依赖属性;
                 DepPropertyBase dpb = new DepPropertyBase();
@@ -115,10 +115,15 @@ namespace WPF
             
         }
 
+        /// <summary>
+        /// 初始化命令;
+        /// </summary>
         private void InitCommandFunctionBase()
         {
-            this.CommandButton.Command = this.clearCMD;                                 // 为控件添加命令;
+            // 微软CLR默认使用了左单击时为执行命令的时机;
+            this.CommandButton.Command = this.clearCMD;                                 // 为控件即命令源添加命令;
             this.CommandButton.CommandTarget = this.CommandTextBox;                     // 设置命令的目标;
+            this.CommandButton.CommandParameter = "CommandParameter";                   // 设置命令参数,命令源就是用这个来传参的;
 
             this.clearCMD.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));   // 为命令添加快捷键;
             
@@ -128,7 +133,9 @@ namespace WPF
             cb.CanExecute += Cb_CanExecute;                        // CommandBinding对应命令可以执行的监听;
             cb.Executed += Cb_Executed;                            // CommandBinding对应命令可以执行的处理;
 
-            this.CommandStackPanel.CommandBindings.Add(cb);
+            this.CommandStackPanel.CommandBindings.Add(cb);        // 在控件树上的上游节点添加这个CommandBinding;
+            
+
         }
 
         /// <summary>
@@ -153,6 +160,7 @@ namespace WPF
         private void Cb_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             this.CommandTextBox.Clear();
+            //Console.WriteLine("命令的参数是：" + e.Parameter.ToString());
         }
 
 
