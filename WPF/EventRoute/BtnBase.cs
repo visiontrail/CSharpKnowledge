@@ -37,7 +37,7 @@ namespace WPF.EventRoute
         // 参数三：路由事件的参数类型;
         // 参数四：路由事件的控件类型;
         public static readonly RoutedEvent ReportRoutedEvent = EventManager.RegisterRoutedEvent
-            ("ReportTime", RoutingStrategy.Bubble, typeof(EventHandler<ReportTimeEvtArgs>), typeof(ButtonTime));
+            ("ReportTime", RoutingStrategy.Tunnel, typeof(EventHandler<ReportTimeEvtArgs>), typeof(ButtonTime));
 
         // 按钮点击事件;
         public event RoutedEventHandler ReportTime

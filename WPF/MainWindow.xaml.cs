@@ -78,7 +78,7 @@ namespace WPF
 
             // 路由事件，在最外层的Grid可以收到内层Button发出的Click事件;
             // 这个就是路由事件的好处，它能够自定义事件的参数;
-            RouteEventGrid1.AddHandler(ButtonTime.ReportRoutedEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
+            DockPanel_RouteEvent.AddHandler(ButtonTime.ReportRoutedEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
             {
                 Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() +
                     "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime);

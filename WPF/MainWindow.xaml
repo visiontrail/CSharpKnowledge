@@ -130,7 +130,7 @@
                         <ColumnDefinition Width="300"></ColumnDefinition>  <!--第二列：WPF高级知识，路由事件-->
                     </Grid.ColumnDefinitions>
 
-                    <DockPanel Grid.Column="0" Margin="10,0,10,0">
+                    <DockPanel Grid.Column="0" Margin="10,0,10,0" x:Name="None_RouteEvent_DockPanel" routeevt:ButtonTime.ReportTime="RptTime">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100"></RowDefinition>
@@ -185,7 +185,7 @@
                     </DockPanel>
 
                     <!-- 路由事件和依赖属性 -->
-                    <DockPanel Grid.Column="1">
+                    <DockPanel Grid.Column="1" x:Name="DockPanel_RouteEvent" routeevt:ButtonTime.ReportTime="RptTime">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100"></RowDefinition>
@@ -198,10 +198,27 @@
 
                             <!-- 路由事件和依赖属性都在这里 -->
                             <Grid x:Name="RouteEventGrid1" Grid.Row="0" routeevt:ButtonTime.ReportTime="RptTime">
+                                
                                 <StackPanel x:Name="sp1" routeevt:ButtonTime.ReportTime="RptTime">
-                                    <routeevt:ButtonTime x:Name="timebutton" Height="100" routeevt:ButtonTime.ReportTime="RptTime">
-                                        我是一个从Button继承带有路由事件的按钮
-                                    </routeevt:ButtonTime>
+                                    
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"></RowDefinition>
+                                            <RowDefinition Height="40"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- ！！不在timebutton的路由路径上，所以路由事件无法到达！！ -->
+                                        <StackPanel x:Name="sp2" routeevt:ButtonTime.ReportTime="RptTime">
+                                        </StackPanel>
+
+                                        <routeevt:ButtonTime x:Name="timebutton" Height="40" routeevt:ButtonTime.ReportTime="RptTime" Grid.Row="1">
+                                            我是一个从Button继承带有路由事件的按钮
+                                        </routeevt:ButtonTime>
+
+
+
+                                    </Grid>
+
                                 </StackPanel>
                             </Grid>
 
