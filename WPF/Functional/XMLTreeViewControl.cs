@@ -42,6 +42,11 @@ namespace WPF.Control
             }
         }
 
+        /// <summary>
+        /// 递归读取XML文档;
+        /// </summary>
+        /// <param name="eles"></param>
+        /// <param name="father_ele"></param>
         private void readfile(XmlNodeList eles, TreeViewComposite father_ele)
         {
             

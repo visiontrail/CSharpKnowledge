@@ -117,12 +117,16 @@ namespace WPF
 
         /// <summary>
         /// 初始化命令;
+        /// 但是Command和路由事件一样，也有很多限制，比如CommandTarget也必须在命令源的控件树之上;
+        /// 否则，命令目标也是无法到达的;
         /// </summary>
         private void InitCommandFunctionBase()
         {
             // 微软CLR默认使用了左单击时为执行命令的时机;
             this.CommandButton.Command = this.clearCMD;                                 // 为控件即命令源添加命令;
             this.CommandButton.CommandTarget = this.CommandTextBox;                     // 设置命令的目标;
+            //this.CommandButton.CommandTarget = this.CommandTextBox2;                    // 如果用到的Targe是没有在命令源的控件树之上，则会出现问题
+                                                                                          // (导致的问题是CanExecute根本进不去);
             this.CommandButton.CommandParameter = "CommandParameter";                   // 设置命令参数,命令源就是用这个来传参的;
 
             this.clearCMD.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));   // 为命令添加快捷键;
@@ -134,13 +138,12 @@ namespace WPF
             cb.Executed += Cb_Executed;                            // CommandBinding对应命令可以执行的处理;
 
             this.CommandStackPanel.CommandBindings.Add(cb);        // 在控件树上的上游节点添加这个CommandBinding;
-            
-
         }
 
         /// <summary>
         /// 这个附加在Button所在控件树之上的StackPanel控件上的监听线程;
         /// 微软默认控制了Button的Enable属性,如果返回false，则Enable属性则也false;
+        /// 但是必须保证Target在命令源的控件树之上才行;
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -154,12 +157,16 @@ namespace WPF
             {
                 e.CanExecute = true;
             }
+
             e.Handled = true;
         }
 
         private void Cb_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            this.CommandTextBox.Clear();
+            if(e.OriginalSource is TextBox)
+            {
+                (e.OriginalSource as TextBox).Clear();
+            }
             //Console.WriteLine("命令的参数是：" + e.Parameter.ToString());
         }
 
