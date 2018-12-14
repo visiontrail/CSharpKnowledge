@@ -11,7 +11,7 @@
         xmlns:routeevt="clr-namespace:WPF.EventRoute"
         mc:Ignorable="d"
         routeevt:ButtonTime.ReportTime="RptTime2"
-    Title="MainWindow" Height="765" Width="1366" WindowStartupLocation="CenterScreen" x:Name="Main_Window">
+    Title="MainWindow" Height="900" Width="1500" WindowStartupLocation="CenterScreen" x:Name="Main_Window">
 
     <!-- 注意，在这个位置写RptTime的话，则说明窗口中的任何一个控件都能够获取到那个Button发出的路由事件 -->
 
@@ -121,15 +121,15 @@
     <Grid>
         <TabControl>
             
-            <!-- 主要用来展示纯前端的处理 -->
+            <!-- 主要用来展示WPF的基础知识 -->
             <TabItem Header="前端\路由事件\依赖属性\命令">
                 <Grid>
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"></ColumnDefinition>  <!--第一列：WPF基础知识-->
-                        <ColumnDefinition Width="300"></ColumnDefinition>  <!--第二列：WPF高级知识，路由事件-->
+                        <ColumnDefinition Width="300"></ColumnDefinition>  <!--第二列：WPF高级知识，路由事件\依赖属性\命令-->
                     </Grid.ColumnDefinitions>
 
+                    <!-- WPF的纯前端交互处理 -->
                     <DockPanel Grid.Column="0" Margin="10,0,10,0" x:Name="None_RouteEvent_DockPanel" routeevt:ButtonTime.ReportTime="RptTime">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -170,7 +170,7 @@
                             <TextBox x:Name="tb" Text="{Binding Path=., Source={StaticResource ResourceKey=BindingStatic}}"  Style="{StaticResource tbstyle}" Grid.Row="3"/>
 
                             <!-- 也可以使用Binding关联其他控件的属性 -->
-                            <Border  Grid.Row="4" BorderBrush="Black" BorderThickness="1" Margin="0,5">
+                            <Border Grid.Row="4" BorderBrush="Black" BorderThickness="1" Margin="0,5">
                                 <StackPanel>
                                     <Label>控件绑定前端元素：</Label>
                                     <!-- 在控件中具有DependencyProperty能力的属性，才可以支持将Binding实例赋值到这个属性上 -->
@@ -211,11 +211,9 @@
                                         <StackPanel x:Name="sp2" routeevt:ButtonTime.ReportTime="RptTime">
                                         </StackPanel>
 
-                                        <routeevt:ButtonTime x:Name="timebutton" Height="40" routeevt:ButtonTime.ReportTime="RptTime" Grid.Row="1">
+                                        <routeevt:ButtonTime x:Name="timebutton" Height="40" Grid.Row="1" Click="TimeButton_Click" routeevt:ButtonTime.ReportTime="Button_Click2">
                                             我是一个从Button继承带有路由事件的按钮
                                         </routeevt:ButtonTime>
-
-
 
                                     </Grid>
 
@@ -241,6 +239,29 @@
                             <Grid Grid.Row="3" Margin="0,10">
                             </Grid>
                             
+                        </Grid>
+                    </DockPanel>
+
+                    <!-- 所有都是自定义控件，看看控件解耦和之后，如何处理控件之间的关系 -->
+                    <DockPanel Grid.Column="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="180"></RowDefinition>
+                                <RowDefinition Height="150"></RowDefinition>
+                                <RowDefinition Height="120"></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <!-- 搜索TextBox，更新下边的TreeView -->
+                            <Border BorderThickness="1" Grid.Row="0" Margin="0,10,0,10">
+                                <StackPanel>
+                                    
+                                </StackPanel>
+                            </Border>
+
+
                         </Grid>
                     </DockPanel>
 
@@ -274,7 +295,7 @@
                                 <Label x:Name="BindingBase"></Label>
                             </StackPanel>
                         </Border>
-                        
+
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
                             <StackPanel Orientation="Vertical">
                                 <Label>利用DataContext来Binding关联：</Label>
@@ -289,17 +310,14 @@
                             </StackPanel>
                         </Border>
                     </Grid>
-                    
+
                 </Grid>
-
-                
-
             </TabItem>
 
+            <!-- 汇总各个控件的使用方法 -->
             <TabItem x:Name="AllControlUsage" Header="各类控件的使用">
 
                 <Grid>
-
                     <!-- 总宽度1000 -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>

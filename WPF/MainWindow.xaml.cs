@@ -1023,5 +1023,15 @@ namespace WPF
             }
         }
 
+        private void TimeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("直接的事件关联，接收到的事件参数:" + (e.OriginalSource as ButtonTime));
+        }
+
+        private void Button_Click2(object sender, ReportTimeEvtArgs e)
+        {
+            Console.WriteLine("直接的事件关联，接收到的事件参数:" + (e as ReportTimeEvtArgs).ClickTime);
+            Console.WriteLine("直接的事件关联，接收到的e.OriginalSource:" + (e.OriginalSource as ButtonTime).ToString());
+        }
     }
 }
