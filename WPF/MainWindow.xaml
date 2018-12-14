@@ -127,6 +127,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"></ColumnDefinition>  <!--第一列：WPF基础知识-->
                         <ColumnDefinition Width="300"></ColumnDefinition>  <!--第二列：WPF高级知识，路由事件\依赖属性\命令-->
+                        <ColumnDefinition Width="300"></ColumnDefinition>  <!--第三列：WPF如何解耦和前后端代码-->
                     </Grid.ColumnDefinitions>
 
                     <!-- WPF的纯前端交互处理 -->
@@ -257,7 +258,7 @@
                             <!-- 搜索TextBox，更新下边的TreeView -->
                             <Border BorderThickness="1" Grid.Row="0" Margin="0,10,0,10">
                                 <StackPanel>
-                                    
+                                    <localui:SearchTextBox></localui:SearchTextBox>
                                 </StackPanel>
                             </Border>
 

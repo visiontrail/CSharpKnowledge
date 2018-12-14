@@ -130,6 +130,7 @@
     <Compile Include="UserControlTemplate\MessageDataGrid.xaml.cs">
       <DependentUpon>MessageDataGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControlTemplate\SearchTextBox.cs" />
     <Compile Include="UserControlTemplate\SpecialTextBox.cs" />
     <Compile Include="ViewModel\DataGridVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
