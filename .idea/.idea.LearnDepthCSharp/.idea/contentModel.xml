@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Guoli\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Guoli\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_LearnDepthCSharp.2096217684.00" t="ExcludeRecursive" />
+    <e p="E:\Workspace\Learn\CSharp\CSharpKnowledge" t="IncludeFlat">
+      <e p="ADO" t="Include">
+        <e p="ADO_UI" t="IncludeRecursive">
+          <e p="ADO_UI.csproj" t="IncludeRecursive" />
+          <e p="App.config" t="Include" />
+          <e p="App.xaml" t="Include" />
+          <e p="App.xaml.cs" t="Include" />
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="MainWindow.xaml" t="Include" />
+          <e p="MainWindow.xaml.cs" t="Include" />
+          <e p="obj" t="ExcludeRecursive" />
+          <e p="Properties" t="Include">
+            <e p="AssemblyInfo.cs" t="Include" />
+            <e p="Resources.Designer.cs" t="Include" />
+            <e p="Resources.resx" t="Include" />
+            <e p="Settings.Designer.cs" t="Include" />
+            <e p="Settings.settings" t="Include" />
+          </e>
+        </e>
+        <e p="ADO_UI_Console" t="IncludeRecursive">
+          <e p="ADO_UI_Console.csproj" t="IncludeRecursive" />
+          <e p="App.config" t="Include" />
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="obj" t="ExcludeRecursive" />
+          <e p="Program.cs" t="Include" />
+          <e p="Properties" t="Include">
+            <e p="AssemblyInfo.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="BaseKnowledge" t="Include" />
+      <e p="Data\JSON\JsonParser" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="JsonParser.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="ReadJsonFile.cs" t="Include" />
+      </e>
+      <e p="DataBase_Knowledge" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DataBase_Knowledge.csproj" t="IncludeRecursive" />
+        <e p="DataSet_Base.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="DataParser" t="Include" />
+      <e p="DataStructure" t="Include">
+        <e p="LinkNode" t="IncludeRecursive">
+          <e p="App.config" t="Include" />
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="LinkNode.csproj" t="IncludeRecursive" />
+          <e p="LNode.cs" t="Include" />
+          <e p="obj" t="ExcludeRecursive" />
+          <e p="Program.cs" t="Include" />
+          <e p="Properties" t="Include">
+            <e p="AssemblyInfo.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="DLR" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DyDataGridModel.cs" t="Include" />
+        <e p="Dynamic_DLR.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="GarbageCollect" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="GarbageCollect.csproj" t="IncludeRecursive" />
+        <e p="GarbageFactory.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="GenericCSharp" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ClassFolder" t="Include">
+          <e p="Generic.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Person.cs" t="Include" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="TryAnyCSharp.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="Gereric" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CommonUtilities.cs" t="Include" />
+        <e p="Generic_Base.cs" t="Include" />
+        <e p="Gereric.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Pair.cs" t="Include" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Tuple_ReplaceOutRef.cs" t="Include" />
+        <e p="Where.cs" t="Include" />
+      </e>
+      <e p="LearnDepthChapterOne" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Classtry1.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Property.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="LearnDepthChapterTwo" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ClassFolder" t="Include">
+          <e p="ChapterTwoClass.cs" t="Include" />
+        </e>
+        <e p="Delegate.csproj" t="IncludeRecursive" />
+        <e p="DelegateBase.cs" t="Include" />
+        <e p="DelegateClass.cs" t="Include" />
+        <e p="Lambda.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="LearnDepthCSharp.sln" t="IncludeFlat" />
+      <e p="LightMVVM" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="IMessageManager.cs" t="Include" />
+        <e p="LightMVVM.csproj" t="IncludeRecursive" />
+        <e p="MessageManager.cs" t="Include" />
+        <e p="MvvmBase.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="MVVM" t="Include">
+        <e p="INotifyView" t="IncludeRecursive">
+          <e p="App.config" t="Include" />
+          <e p="App.xaml" t="Include" />
+          <e p="App.xaml.cs" t="Include" />
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="INotifyView.csproj" t="IncludeRecursive" />
+          <e p="MainWindow.xaml" t="Include" />
+          <e p="MainWindow.xaml.cs" t="Include" />
+          <e p="obj" t="ExcludeRecursive" />
+          <e p="Properties" t="Include">
+            <e p="AssemblyInfo.cs" t="Include" />
+            <e p="Resources.Designer.cs" t="Include" />
+            <e p="Resources.resx" t="Include" />
+            <e p="Settings.Designer.cs" t="Include" />
+            <e p="Settings.settings" t="Include" />
+          </e>
+          <e p="ShowString.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Nullable" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Nullable.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive">
+        <e p="MSTest.TestAdapter.1.2.1\build\_common\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll" t="Include" />
+        <e p="MSTest.TestAdapter.1.2.1\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll" t="Include" />
+        <e p="MSTest.TestAdapter.1.2.1\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll" t="Include" />
+        <e p="MSTest.TestAdapter.1.2.1\build\_common\zh-Hans\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll" t="Include" />
+        <e p="MSTest.TestAdapter.1.2.1\build\_common\zh-Hans\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll" t="Include" />
+        <e p="MSTest.TestAdapter.1.2.1\build\_common\zh-Hans\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll" t="Include" />
+      </e>
+      <e p="Thread" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ClassDiagram1.cd" t="Include" />
+        <e p="CLRThreadBasic_Delegate.cs" t="Include" />
+        <e p="CSLThread.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="ThreadBasic.cs" t="Include" />
+        <e p="ThreadPoolLearn.cs" t="Include" />
+      </e>
+      <e p="TryAnyCSharp2" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="TryAnyCSharp2.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="TrySomeInterface" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Compare.cs" t="Include" />
+        <e p="Equatable.cs" t="Include" />
+        <e p="IEnumerable.cs" t="Include" />
+        <e p="Iterator_Try.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="TrySomeInterface.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="UnitTestForAllProject" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CefSharpGIS" t="Include">
+          <e p="UnitTest_MapLocationViewModel.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="UnitTestForAllProject.csproj" t="IncludeRecursive" />
+        <e p="zh-Hans" t="Include" />
+      </e>
+      <e p="Usage" t="Include">
+        <e p="CefSharp_GIS" t="IncludeRecursive">
+          <e p="App.config" t="Include" />
+          <e p="App.xaml" t="Include" />
+          <e p="App.xaml.cs" t="Include" />
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="CefSharp_GIS.csproj" t="IncludeRecursive" />
+          <e p="MainWindow.xaml" t="Include" />
+          <e p="MainWindow.xaml.cs" t="Include" />
+          <e p="obj" t="ExcludeRecursive" />
+          <e p="packages.config" t="Include" />
+          <e p="Pages" t="Include">
+            <e p="Map_LocateInfo.xaml" t="Include" />
+            <e p="Map_LocateInfo.xaml.cs" t="Include" />
+          </e>
+          <e p="Properties" t="Include">
+            <e p="AssemblyInfo.cs" t="Include" />
+            <e p="Resources.Designer.cs" t="Include" />
+            <e p="Resources.resx" t="Include" />
+            <e p="Settings.Designer.cs" t="Include" />
+            <e p="Settings.settings" t="Include" />
+          </e>
+          <e p="ViewPage\Pages\AboutLeafLet.html" t="Include" />
+          <e p="WebGISDataModel.cs" t="Include" />
+        </e>
+        <e p="ViewPage" t="Include" />
+      </e>
+      <e p="WPF" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="App.xaml" t="Include" />
+        <e p="App.xaml.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DepProperty" t="Include">
+          <e p="DepPropertyBase.cs" t="Include" />
+        </e>
+        <e p="EventRoute" t="Include">
+          <e p="BtnBase.cs" t="Include" />
+        </e>
+        <e p="Functional" t="Include">
+          <e p="Calc.cs" t="Include" />
+          <e p="XMLTreeViewControl.cs" t="Include" />
+        </e>
+        <e p="MainWindow.xaml" t="Include" />
+        <e p="MainWindow.xaml.cs" t="Include" />
+        <e p="Model" t="Include">
+          <e p="DataGrid" t="Include">
+            <e p="DataGridCustomer.cs" t="Include" />
+            <e p="DataGridWithEvent.cs" t="Include" />
+            <e p="DyDataGridModel.cs" t="Include" />
+            <e p="GridCell.cs" t="Include" />
+          </e>
+          <e p="MessageModel.cs" t="Include" />
+          <e p="Person.cs" t="Include" />
+          <e p="TreeViewItem.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="Resources.Designer.cs" t="Include" />
+          <e p="Resources.resx" t="Include" />
+          <e p="Settings.Designer.cs" t="Include" />
+          <e p="Settings.settings" t="Include" />
+        </e>
+        <e p="README.md" t="Include" />
+        <e p="Style" t="Include">
+          <e p="BrushOne.xaml" t="Include" />
+          <e p="StyleOne.xaml" t="Include" />
+        </e>
+        <e p="TryAnyCSharp" t="Include">
+          <e p="Time" t="Include">
+            <e p="AboutTime.cs" t="Include" />
+            <e p="TimeOperation.cs" t="Include" />
+          </e>
+        </e>
+        <e p="UserControlTemplate" t="Include">
+          <e p="DataGridCellCombox.xaml" t="Include" />
+          <e p="DyDataGrid.xaml" t="Include" />
+          <e p="DyDataGrid.xaml.cs" t="Include" />
+          <e p="MessageDataGrid.xaml" t="Include" />
+          <e p="MessageDataGrid.xaml.cs" t="Include" />
+          <e p="SearchTextBox.cs" t="Include" />
+          <e p="SpecialTextBox.cs" t="Include" />
+        </e>
+        <e p="ViewModel" t="Include">
+          <e p="DataGridVM.cs" t="Include" />
+          <e p="MainViewModel.cs" t="Include" />
+          <e p="MessageVM.cs" t="Include" />
+          <e p="ViewModelLocator.cs" t="Include" />
+        </e>
+        <e p="WPF.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="WPFControl" t="Include">
+        <e p="DataGridBinding" t="IncludeRecursive">
+          <e p="App.xaml" t="Include" />
+          <e p="App.xaml.cs" t="Include" />
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="DataGridBinding.csproj" t="IncludeRecursive" />
+          <e p="MainWindow.xaml" t="Include" />
+          <e p="MainWindow.xaml.cs" t="Include" />
+          <e p="obj" t="ExcludeRecursive" />
+          <e p="People.cs" t="Include" />
+          <e p="PeopleDataGrid.cs" t="Include" />
+          <e p="PeoplesViewModel.cs" t="Include" />
+          <e p="Person.cs" t="Include" />
+          <e p="Properties" t="Include">
+            <e p="AssemblyInfo.cs" t="Include" />
+            <e p="Resources.Designer.cs" t="Include" />
+            <e p="Resources.resx" t="Include" />
+            <e p="Settings.Designer.cs" t="Include" />
+            <e p="Settings.settings" t="Include" />
+          </e>
+        </e>
+      </e>
+    </e>
+  </component>
+</project>

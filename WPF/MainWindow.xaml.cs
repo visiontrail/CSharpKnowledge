@@ -796,7 +796,8 @@ namespace WPF
             // 微软CLR默认使用了左单击时为执行命令的时机;
             this.CommandButton.Command = this.clearCMD;                                 // 为控件即命令源添加命令;
             this.CommandButton.CommandTarget = this.CommandTextBox;                     // 设置命令的目标;
-                                                                                        //this.CommandButton.CommandTarget = this.CommandTextBox2;                    // 如果用到的Targe是没有在命令源的控件树之上，则会出现问题
+                                                                                        //this.CommandButton.CommandTarget = this.CommandTextBox2;
+                                                                                        // 如果用到的Targe是没有在命令源的控件树之上，则会出现问题
                                                                                         // (导致的问题是CanExecute根本进不去);
             this.CommandButton.CommandParameter = "CommandParameter";                   // 设置命令参数,命令源就是用这个来传参的;
 
