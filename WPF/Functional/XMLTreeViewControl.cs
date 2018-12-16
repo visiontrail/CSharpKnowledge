@@ -19,6 +19,7 @@ namespace WPF.Control
         private XmlDocument xmlsource;                             // 方式一：使用Document进行XML文件的读取;
         public List<TreeViewComposite> items;                      // 保存一个完整的树形结构;
         TreeViewComposite root = new TreeViewComposite();
+        public List<string> ret = new List<string>();              // 保存检索结果;
 
         /// <summary>
         /// 在构造器中直接读取一个XML
@@ -71,6 +72,31 @@ namespace WPF.Control
                 father_ele.m_SubList.Add(item);
                 readfile(ele.ChildNodes, item);
             }
+        }
+
+        public List<string> finditems(List<TreeViewComposite> findlist)
+        {
+            foreach(TreeViewComposite iter in findlist)
+            {
+                if(iter.m_ItemName.Contains("详细内容2"))
+                {
+                    ret.Add(iter.m_ItemName);
+                }
+                if(iter.m_SubList.Count == 0)
+                {
+                    continue;
+                }
+
+                finditems(iter.m_SubList);
+            }
+
+            return ret;
+        }
+
+        private static bool FindTreeViewContent(TreeViewComposite iter)
+        {
+            iter.m_SubList.Find(FindTreeViewContent);
+            return true;
         }
     }
 }

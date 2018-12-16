@@ -558,7 +558,8 @@
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="150"/>
                             <RowDefinition Height="50"/>
-                            <RowDefinition Height="120"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="150"/>
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
 
@@ -592,10 +593,12 @@
                             </StackPanel>
                         </ScrollViewer>
 
-                        <Button Content="Start Parse" Click="StartParseXML" Grid.Row="2" Margin="0,10"></Button>
+                        <Button Content="Start Parse XML" Click="StartParseXML" Grid.Row="2" Margin="0,10"></Button>
+
+                        <Button Content="Refresh TreeView" Click="RefreshTreeView" Grid.Row="3" Margin="0,10"></Button>
 
                         <!-- 通过读取XML文件来填写属性结构的模板 -->
-                        <ScrollViewer Grid.Row="3">
+                        <ScrollViewer Grid.Row="4">
                             <TreeView x:Name="TreeViewReadFromXMLFile">
                                 <TreeView.ItemTemplate>
                                     <HierarchicalDataTemplate DataType="{x:Type model:TreeViewComposite}" ItemsSource="{Binding m_SubList}">
@@ -606,6 +609,8 @@
                                 </TreeView.ItemTemplate>
                             </TreeView>
                         </ScrollViewer>
+
+                        <ListBox x:Name="SearchRes" Grid.Row="5"></ListBox>
 
                     </Grid>
                 </Grid>

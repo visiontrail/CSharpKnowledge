@@ -10,7 +10,7 @@ namespace WPF.UserControlTemplate
 {
     /// <summary>
     /// 负责搜索的Text输入框;
-    /// 解耦和第一级别：重写控件方法;
+    /// 解耦和第一级别：重写控件类型;
     /// </summary>
     class SearchTextBox : TextBox
     {
@@ -22,6 +22,7 @@ namespace WPF.UserControlTemplate
         {
             base.OnTextChanged(e);
 
+            // 能获取到的信息;
             Console.WriteLine("用户输入内容发生改变:" + (e.OriginalSource as TextBox).Text.ToString());
             Console.WriteLine("用户行为:" + e.UndoAction);
             foreach(TextChange change in e.Changes)
