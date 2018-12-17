@@ -25,7 +25,7 @@ namespace WPF.UserControlTemplate
     public partial class CLS_TreeView_ReadXML : UserControl, I_CLS_UserControl
     {
         public XMLTreeViewControl TreeView_Content;    // 用于保存TreeView当中的内容;
-        public ListBox BelongControl;                 // 关联附属控件;
+        public ListBox BelongControl;                  // 关联附属控件;
         private ObservableCollection<ListViewSearchResult> ret = new ObservableCollection<ListViewSearchResult>(); // 用于保存搜索结果
         
         public CLS_TreeView_ReadXML()
