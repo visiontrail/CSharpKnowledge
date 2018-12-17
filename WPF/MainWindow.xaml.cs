@@ -74,9 +74,10 @@ namespace WPF
             InitRouteEventandDepProperty();
 
             // 以下是Command命令的使用方法;
-            InitCommandFunctionBase();          // 在这里生成命令Binding;
+            InitCommandFunctionBase();          // 在这里生成Command相关的Binding;
 
-            // 
+            // 设置自定义控件之间的关系;
+            InitUserControlRelation();
             
             // WPF中的ItemsSource是可以使用LINQ进行查询筛选的;
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
@@ -712,8 +713,6 @@ namespace WPF
         {
             List<string> ret = new List<string>();
             a.ret.Clear();
-            ret = a.finditems(a.items);
-            this.SearchRes.ItemsSource = ret;
         }
 
         /// <summary>
@@ -840,6 +839,15 @@ namespace WPF
                 (e.OriginalSource as TextBox).Clear();
             }
             //Console.WriteLine("命令的参数是：" + e.Parameter.ToString());
+        }
+        #endregion
+
+        #region 设置自定义控件之间的关系
+        private void InitUserControlRelation()
+        {
+            // 定义搜索按钮的关联;
+            this.SearchTextBox.Target_element = this.SearchTreeView;
+            this.SearchTreeView.BelongControl = this.SearchReslutListBox;
         }
         #endregion
 

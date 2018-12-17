@@ -111,6 +111,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CLSInterface\I_CLS_UserControl.cs" />
     <Compile Include="DepProperty\DepPropertyBase.cs" />
     <Compile Include="Model\DataGrid\GridCell.cs" />
     <Compile Include="Functional\Calc.cs" />
@@ -118,19 +119,23 @@
     <Compile Include="Model\DataGrid\DataGridCustomer.cs" />
     <Compile Include="Model\DataGrid\DataGridWithEvent.cs" />
     <Compile Include="Model\DataGrid\DyDataGridModel.cs" />
+    <Compile Include="Model\ListViewSearchResult.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Functional\XMLTreeViewControl.cs" />
     <Compile Include="Model\MessageModel.cs" />
     <Compile Include="Model\TreeViewItem.cs" />
     <Compile Include="TryAnyCSharp\Time\AboutTime.cs" />
     <Compile Include="TryAnyCSharp\Time\TimeOperation.cs" />
+    <Compile Include="UserControlTemplate\CLS_TreeView_ReadXML.xaml.cs">
+      <DependentUpon>CLS_TreeView_ReadXML.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControlTemplate\DyDataGrid.xaml.cs">
       <DependentUpon>DyDataGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControlTemplate\MessageDataGrid.xaml.cs">
       <DependentUpon>MessageDataGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControlTemplate\SearchTextBox.cs" />
+    <Compile Include="UserControlTemplate\CLS_SearchTextBox.cs" />
     <Compile Include="UserControlTemplate\SpecialTextBox.cs" />
     <Compile Include="ViewModel\DataGridVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -153,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Style\StyleOne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlTemplate\CLS_TreeView_ReadXML.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

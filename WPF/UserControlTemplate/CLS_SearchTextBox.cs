@@ -12,10 +12,10 @@ namespace WPF.UserControlTemplate
     /// 负责搜索的Text输入框;
     /// 解耦和第一级别：重写控件类型;
     /// </summary>
-    class SearchTextBox : TextBox
+    class CLS_SearchTextBox : TextBox
     {
         // 目标作用的UI控件;
-        public FrameworkElement Target_element;
+        public I_CLS_UserControl Target_element;
 
         // 当搜索框输入发生改变时;
         protected override void OnTextChanged(TextChangedEventArgs e)
@@ -31,6 +31,33 @@ namespace WPF.UserControlTemplate
             }
 
             // 在这里写作用在Target_element的真正执行方法;
+            if(Target_element != null)
+            {
+                Target_element.UpdateBelongControl(this, new SearchButtonEventArgs() {
+                    SearchContent = (e.OriginalSource as TextBox).Text.ToString(),
+                    SearchUndoAction = e.UndoAction,
+                    SearchTextChange = e.Changes
+                });
+            }
+                
         }
+    }
+
+    public class SearchButtonEventArgs : EventArgs
+    {
+        /// <summary>
+        /// 用户搜索的字符;
+        /// </summary>
+        public string SearchContent;
+
+        /// <summary>
+        /// 用户的行为;
+        /// </summary>
+        public UndoAction SearchUndoAction;
+
+        /// <summary>
+        /// 字符改变情况;
+        /// </summary>
+        public ICollection<TextChange> SearchTextChange;
     }
 }

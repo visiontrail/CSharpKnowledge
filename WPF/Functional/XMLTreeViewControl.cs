@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +19,8 @@ namespace WPF.Control
         private XmlDataProvider xmldata;
         private XmlDocument xmlsource;                             // 方式一：使用Document进行XML文件的读取;
         public List<TreeViewComposite> items;                      // 保存一个完整的树形结构;
-        TreeViewComposite root = new TreeViewComposite();
-        public List<string> ret = new List<string>();              // 保存检索结果;
+        TreeViewComposite root = new TreeViewComposite();          // 组合模式根节点;
+        public ObservableCollection<ListViewSearchResult> ret = new ObservableCollection<ListViewSearchResult>();              // 保存检索结果;
 
         /// <summary>
         /// 在构造器中直接读取一个XML
@@ -74,20 +75,22 @@ namespace WPF.Control
             }
         }
 
-        public List<string> finditems(List<TreeViewComposite> findlist)
+        public ObservableCollection<ListViewSearchResult> finditems(List<TreeViewComposite> findlist, string search_content)
         {
             foreach(TreeViewComposite iter in findlist)
             {
-                if(iter.m_ItemName.Contains("详细内容2"))
+                if(iter.m_ItemName.Contains(search_content))
                 {
-                    ret.Add(iter.m_ItemName);
+                    ListViewSearchResult temp = new ListViewSearchResult();
+                    temp.m_ShowContent = iter.m_ItemName;
+                    ret.Add(temp);
                 }
                 if(iter.m_SubList.Count == 0)
                 {
                     continue;
                 }
 
-                finditems(iter.m_SubList);
+                finditems(iter.m_SubList, search_content);
             }
 
             return ret;
