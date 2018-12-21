@@ -121,8 +121,14 @@ namespace WPF.UserControlTemplate
             this.DynamicDataGrid.LostFocus += DynamicDataGrid_LostFocus;                          // 当表格失去焦点的时候;
             this.DynamicDataGrid.SelectionChanged += DynamicDataGrid_SelectionChanged;            // 当选择发生变化的时候;
             this.DynamicDataGrid.GotMouseCapture += DynamicDataGrid_GotMouseCapture;              // 捕获鼠标事件，在该事件中添加拖拽判断;
+            this.DynamicDataGrid.LostFocus += DynamicDataGrid_LostFocus1;
         }
-        
+
+        private void DynamicDataGrid_LostFocus1(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("111" +e.OriginalSource.GetType());
+        }
+
         /// <summary>
         /// 单元格开始编辑时;
         /// </summary>

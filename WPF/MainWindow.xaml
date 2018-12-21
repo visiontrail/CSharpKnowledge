@@ -10,8 +10,10 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:routeevt="clr-namespace:WPF.EventRoute"
         mc:Ignorable="d"
-        routeevt:ButtonTime.ReportTime="RptTime"
-        Title="MainWindow" Height="800" Width="1500" WindowStartupLocation="CenterScreen" x:Name="Main_Window">
+        routeevt:ButtonTime.ReportTime="RptTime2"
+    Title="MainWindow" Height="900" Width="1500" WindowStartupLocation="CenterScreen" x:Name="Main_Window">
+
+    <!-- 注意，在这个位置写RptTime的话，则说明窗口中的任何一个控件都能够获取到那个Button发出的路由事件 -->
 
     <Window.Resources>
 
@@ -118,16 +120,18 @@
 
     <Grid>
         <TabControl>
-            <!-- 主要用来展示纯前端的处理 -->
-            <TabItem Header="纯前端处理">
+            
+            <!-- 主要用来展示WPF的基础知识 -->
+            <TabItem Header="前端\路由事件\依赖属性\命令">
                 <Grid>
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"></ColumnDefinition>  <!--第一列：WPF基础知识-->
-                        <ColumnDefinition Width="300"></ColumnDefinition>  <!--第二列：WPF高级知识，路由事件-->
+                        <ColumnDefinition Width="300"></ColumnDefinition>  <!--第二列：WPF高级知识，路由事件\依赖属性\命令-->
+                        <ColumnDefinition Width="300"></ColumnDefinition>  <!--第三列：WPF如何解耦和前后端代码-->
                     </Grid.ColumnDefinitions>
 
-                    <DockPanel Grid.Column="0" Margin="10,0,10,0">
+                    <!-- WPF的纯前端交互处理 -->
+                    <DockPanel Grid.Column="0" Margin="10,0,10,0" x:Name="None_RouteEvent_DockPanel" routeevt:ButtonTime.ReportTime="RptTime">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100"></RowDefinition>
@@ -167,7 +171,7 @@
                             <TextBox x:Name="tb" Text="{Binding Path=., Source={StaticResource ResourceKey=BindingStatic}}"  Style="{StaticResource tbstyle}" Grid.Row="3"/>
 
                             <!-- 也可以使用Binding关联其他控件的属性 -->
-                            <Border  Grid.Row="4" BorderBrush="Black" BorderThickness="1" Margin="0,5">
+                            <Border Grid.Row="4" BorderBrush="Black" BorderThickness="1" Margin="0,5">
                                 <StackPanel>
                                     <Label>控件绑定前端元素：</Label>
                                     <!-- 在控件中具有DependencyProperty能力的属性，才可以支持将Binding实例赋值到这个属性上 -->
@@ -181,7 +185,8 @@
 
                     </DockPanel>
 
-                    <DockPanel Grid.Column="1">
+                    <!-- 路由事件和依赖属性 -->
+                    <DockPanel Grid.Column="1" x:Name="DockPanel_RouteEvent" routeevt:ButtonTime.ReportTime="RptTime">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100"></RowDefinition>
@@ -192,12 +197,78 @@
                                 <RowDefinition Height="100"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0" x:Name="grid1" routeevt:ButtonTime.ReportTime="RptTime">
+                            <!-- 路由事件和依赖属性都在这里 -->
+                            <Grid x:Name="RouteEventGrid1" Grid.Row="0" routeevt:ButtonTime.ReportTime="RptTime">
+                                
                                 <StackPanel x:Name="sp1" routeevt:ButtonTime.ReportTime="RptTime">
-                                    <routeevt:ButtonTime x:Name="timebutton" Height="100" routeevt:ButtonTime.ReportTime="RptTime">触发</routeevt:ButtonTime>
+                                    
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"></RowDefinition>
+                                            <RowDefinition Height="40"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- ！！不在timebutton的路由路径上，所以路由事件无法到达！！ -->
+                                        <StackPanel x:Name="sp2" routeevt:ButtonTime.ReportTime="RptTime">
+                                        </StackPanel>
+
+                                        <routeevt:ButtonTime x:Name="timebutton" Height="40" Grid.Row="1" Click="TimeButton_Click" routeevt:ButtonTime.ReportTime="Button_Click2">
+                                            我是一个从Button继承带有路由事件的按钮
+                                        </routeevt:ButtonTime>
+
+                                    </Grid>
+
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- WPF中的命令系统 -->
+                            <Grid Grid.Row="1" Margin="0,10">
+                                <StackPanel x:Name="CommandStackPanel">
+                                    <TextBox x:Name="CommandTextBox"></TextBox>
+                                    <Button x:Name="CommandButton">清空命令(清空以上输入)</Button>
+                                    
                                 </StackPanel>
                             </Grid>
                             
+                            <!-- WPF中的命令系统二 -->
+                            <Grid Grid.Row="2" Margin="0,10">
+                                <StackPanel x:Name="CommandStackPanel2">
+                                    <TextBox x:Name="CommandTextBox2"></TextBox>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Grid.Row="3" Margin="0,10">
+                            </Grid>
+                            
+                        </Grid>
+                    </DockPanel>
+
+                    <!-- 所有都是自定义控件，看看控件解耦和之后，如何处理控件之间的关系 -->
+                    <DockPanel Grid.Column="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="380"></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <!-- 搜索TextBox，更新下边的TreeView -->
+                            <Border BorderThickness="1" Grid.Row="0" Margin="0,10,0,10">
+                                <StackPanel>
+                                    <localui:CLS_SearchTextBox x:Name="SearchTextBox" Margin="0,10,0,10"></localui:CLS_SearchTextBox>
+                                    <localui:CLS_TreeView_ReadXML x:Name="SearchTreeView" Margin="0,10,0,10" Height="150"></localui:CLS_TreeView_ReadXML>
+                                    <ListBox x:Name="SearchReslutListBox" Height="180">
+                                        <ListBox.ItemTemplate>
+                                            <HierarchicalDataTemplate DataType="{x:Type model:ListViewSearchResult}">
+                                                <TextBlock Text="{Binding Path=m_ShowContent}"></TextBlock>
+                                            </HierarchicalDataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </StackPanel>
+                            </Border>
+
+
                         </Grid>
                     </DockPanel>
 
@@ -231,7 +302,7 @@
                                 <Label x:Name="BindingBase"></Label>
                             </StackPanel>
                         </Border>
-                        
+
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
                             <StackPanel Orientation="Vertical">
                                 <Label>利用DataContext来Binding关联：</Label>
@@ -246,17 +317,14 @@
                             </StackPanel>
                         </Border>
                     </Grid>
-                    
+
                 </Grid>
-
-                
-
             </TabItem>
 
+            <!-- 汇总各个控件的使用方法 -->
             <TabItem x:Name="AllControlUsage" Header="各类控件的使用">
 
                 <Grid>
-
                     <!-- 总宽度1000 -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>
@@ -354,7 +422,7 @@
                         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="5" Margin="5,5,5,5">
                             <StackPanel>
                                 <TextBox x:Name="text1"></TextBox>
-                                <Button Content="获取输入框内容" Click="GetDepProperty" ></Button>
+                                <Button x:Name="GetInputButton" Content="获取输入框内容" Click="GetDepProperty" ></Button>
                             </StackPanel>
                         </Border>
 
@@ -496,7 +564,8 @@
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="150"/>
                             <RowDefinition Height="50"/>
-                            <RowDefinition Height="120"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="150"/>
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
 
@@ -530,10 +599,10 @@
                             </StackPanel>
                         </ScrollViewer>
 
-                        <Button Content="Start Parse" Click="StartParseXML" Grid.Row="2" Margin="0,10"></Button>
+                        <Button Content="Start Parse XML" Click="StartParseXML" Grid.Row="2" Margin="0,10"></Button>
 
                         <!-- 通过读取XML文件来填写属性结构的模板 -->
-                        <ScrollViewer Grid.Row="3">
+                        <ScrollViewer Grid.Row="4">
                             <TreeView x:Name="TreeViewReadFromXMLFile">
                                 <TreeView.ItemTemplate>
                                     <HierarchicalDataTemplate DataType="{x:Type model:TreeViewComposite}" ItemsSource="{Binding m_SubList}">
@@ -544,6 +613,8 @@
                                 </TreeView.ItemTemplate>
                             </TreeView>
                         </ScrollViewer>
+
+                        <ListBox x:Name="SearchRes" Grid.Row="5"></ListBox>
 
                     </Grid>
                 </Grid>
@@ -596,6 +667,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
+            
             <TabItem Header="接口测试">
                 <Grid x:Name="Interface_Grid">
                     <Grid.ColumnDefinitions>
@@ -630,10 +702,7 @@
                                 <Button Click="StartForeach_1">开始迭代</Button>
                             </StackPanel>
                         </Border>
-
-
                     </Grid>
-
 
                 </Grid>
 

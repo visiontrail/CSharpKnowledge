@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<MessageTemplate>
+    <Message Flag="消息内容">
+        <MessageAttribute Flag="详细内容1"></MessageAttribute>
+        <MessageAttribute Flag="详细内容2">
+            <MessageAttribute Flag="详细内容2—内容1"></MessageAttribute>
+            <MessageAttribute Flag="详细内容2—内容2"></MessageAttribute>
+            <MessageAttribute Flag="详细内容2—内容3"></MessageAttribute>
+        </MessageAttribute>
+        <MessageAttribute Flag="详细内容3"></MessageAttribute>
+        <MessageAttribute Flag="详细内容4">
+            <MessageAttribute Flag="详细内容4—内容1"></MessageAttribute>
+            <MessageAttribute Flag="详细内容4—内容2"></MessageAttribute>
+            <MessageAttribute Flag="详细内容4—内容3"></MessageAttribute>
+            <MessageAttribute Flag="详细内容4—内容4"></MessageAttribute>
+            <MessageAttribute Flag="详细内容4—内容5"></MessageAttribute>
+        </MessageAttribute>
+    </Message>
+    <Message Flag="消息内容2">
+        <MessageAttribute Flag="详细内容1"></MessageAttribute>
+        <MessageAttribute Flag="详细内容2"></MessageAttribute>
+        <MessageAttribute Flag="详细内容3">
+            <MessageAttribute Flag="详细内容4—内容1"></MessageAttribute>
+            <MessageAttribute Flag="详细内容4—内容2"></MessageAttribute>
+            <MessageAttribute Flag="详细内容4—内容3"></MessageAttribute>
+        </MessageAttribute>
+    </Message>
+</MessageTemplate>

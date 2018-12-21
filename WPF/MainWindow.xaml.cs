@@ -39,9 +39,16 @@ namespace WPF
         ObservableCollection<DyDataDridModel> list2 = new ObservableCollection<DyDataDridModel>();         // 用来在DataGrid中显示的实验数据; 
 
         ThreadPoolLearn tp = new ThreadPoolLearn();
-
         private TimeTicked TimeTicked = TimeTicked.NeverTicked;
         private TwoTimeSpan ttp = new TwoTimeSpan();
+        private XMLTreeViewControl a;
+
+        /// <summary>
+        /// RouteCommand的作用是;
+        /// 继承自ICommand，在控件中的Command和ComandBinding中的Command起到了一个“信封”的作用;
+        /// 这个所谓的信封就是在控件和CommandBinding之间起到一个关联作用的;
+        /// </summary>
+        private RoutedCommand clearCMD = new RoutedCommand("Clear", typeof(MainWindow));                    // 命令的名字和注册命令的类型;
 
         public MainWindow()
         {
@@ -62,19 +69,20 @@ namespace WPF
 
             // 以下是使用控件TreeView的方法;
             InitTreeViewComposite();            // 直接使用一个组合模式的实例填入到TreeView当中;
+
+            // 以下是路由事件以及依赖属性的使用方法;
+            InitRouteEventandDepProperty();
+
+            // 以下是Command命令的使用方法;
+            InitCommandFunctionBase();          // 在这里生成Command相关的Binding;
+
+            // 设置自定义控件之间的关系;
+            InitUserControlRelation();
             
             // WPF中的ItemsSource是可以使用LINQ进行查询筛选的;
             this.StuList.ItemsSource = from stu in this.stus.m_StuList where stu.m_Name.StartsWith("G") select stu;
-
-            // 路由事件;
-            Interface_Grid.AddHandler(Button.ClickEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
-            {
-                Console.WriteLine("The Grid RouteEvent Receive a Button Event and the Button is " + (e.OriginalSource as Button).Content.ToString());
-            }));
-            
         }
         
-
         #region 纯前端操作
         /// <summary>
         /// WPF可以实现简单的绘图功能;
@@ -686,7 +694,7 @@ namespace WPF
         #region 有关Treeview以及解析XML
         private void StartParseXML(object sender, RoutedEventArgs e)
         {
-            XMLTreeViewControl a = new XMLTreeViewControl();
+            a = new XMLTreeViewControl();
             this.TreeViewReadFromXMLFile.ItemsSource = a.items;
 
             foreach (TreeViewComposite item in a.items)
@@ -699,6 +707,12 @@ namespace WPF
             {
                 Console.WriteLine(iter.Header as string);
             }
+        }
+
+        private void RefreshTreeView(object sender, RoutedEventArgs e)
+        {
+            List<string> ret = new List<string>();
+            a.ret.Clear();
         }
 
         /// <summary>
@@ -722,6 +736,118 @@ namespace WPF
             t2.m_SubList.Add(t4);
 
             this.tv_composite.ItemsSource = root;
+        }
+        
+        #endregion
+
+        #region 有关路由事件、依赖属性和命令
+        /// <summary>
+        /// 有关路由事件和依赖属性在这里初始化;
+        /// </summary>
+        private void InitRouteEventandDepProperty()
+        {
+            // 路由事件，在最外层的Grid可以收到内层Button发出的Click事件;
+            // 这个就是路由事件的好处，它能够自定义事件的参数;
+            DockPanel_RouteEvent.AddHandler(ButtonTime.ReportRoutedEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
+            {
+                Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() +
+                    "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime);
+
+                // ————————依赖属性————————————;
+
+                // 借用路由事件的按钮，实验依赖属性;
+                DepPropertyBase dpb = new DepPropertyBase();
+
+                // 依赖属性可以通过Set\Get设置依赖属性的数值;
+                dpb.SetValue(DepPropertyBase.NameProperty, this.StyleWPF.Content);
+                string ret = (string)dpb.GetValue(DepPropertyBase.NameProperty);
+                // 同样也可以通过CLR封装器进行访问;
+                dpb.Name = (string)this.StyleWPF.Content;
+                ret = (string)dpb.Name;
+
+                Console.WriteLine("获取依赖属性的值为：" + ret);
+
+                // 设置依赖属性的依赖;
+                Binding bd = new Binding("Text")
+                {
+                    Source = this.StyleWPF
+                };
+                // 设置关联关系;
+                BindingOperations.SetBinding(dpb, DepPropertyBase.NameProperty, bd);
+
+            }));
+
+            // 这个Interface_Grid就无法路由到这个事件,因为这两个控件不再同一棵树上;
+            Interface_Grid.AddHandler(Button.ClickEvent, new RoutedEventHandler((object sender, RoutedEventArgs e) =>
+            {
+                //Console.WriteLine("The " + sender.GetType() + " Receive a Button Event and the Button is " + (e.OriginalSource as ButtonTime).Content.ToString() + 
+                //    "and ClickTime is:" + (e as ReportTimeEvtArgs).ClickTime );
+            }));
+        }
+
+        /// <summary>
+        /// 初始化命令;
+        /// 但是Command和路由事件一样，也有很多限制，比如CommandTarget也必须在命令源的控件树之上;
+        /// 否则，命令目标也是无法到达的;
+        /// </summary>
+        private void InitCommandFunctionBase()
+        {
+            // 微软CLR默认使用了左单击时为执行命令的时机;
+            this.CommandButton.Command = this.clearCMD;                                 // 为控件即命令源添加命令;
+            this.CommandButton.CommandTarget = this.CommandTextBox;                     // 设置命令的目标;
+                                                                                        //this.CommandButton.CommandTarget = this.CommandTextBox2;
+                                                                                        // 如果用到的Targe是没有在命令源的控件树之上，则会出现问题
+                                                                                        // (导致的问题是CanExecute根本进不去);
+            this.CommandButton.CommandParameter = "CommandParameter";                   // 设置命令参数,命令源就是用这个来传参的;
+
+            this.clearCMD.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Alt));   // 为命令添加快捷键;
+
+            // 创建命令关联;
+            CommandBinding cb = new CommandBinding();
+            cb.Command = this.clearCMD;                            // CommandBinding的Command
+            cb.CanExecute += Cb_CanExecute;                        // CommandBinding对应命令可以执行的监听;
+            cb.Executed += Cb_Executed;                            // CommandBinding对应命令可以执行的处理;
+
+            this.CommandStackPanel.CommandBindings.Add(cb);        // 在控件树上的上游节点添加这个CommandBinding;
+        }
+
+        /// <summary>
+        /// 这个附加在Button所在控件树之上的StackPanel控件上的监听线程;
+        /// 微软默认控制了Button的Enable属性,如果返回false，则Enable属性则也false;
+        /// 但是必须保证Target在命令源的控件树之上才行;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Cb_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.CommandTextBox.Text))
+            {
+                e.CanExecute = false;
+            }
+            else
+            {
+                e.CanExecute = true;
+            }
+
+            e.Handled = true;
+        }
+
+        private void Cb_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (e.OriginalSource is TextBox)
+            {
+                (e.OriginalSource as TextBox).Clear();
+            }
+            //Console.WriteLine("命令的参数是：" + e.Parameter.ToString());
+        }
+        #endregion
+
+        #region 设置自定义控件之间的关系
+        private void InitUserControlRelation()
+        {
+            // 定义搜索按钮的关联;
+            this.SearchTextBox.Target_element = this.SearchTreeView;
+            this.SearchTreeView.BelongControl = this.SearchReslutListBox;
         }
         #endregion
 
@@ -899,6 +1025,12 @@ namespace WPF
         private void RptTime(object sender, ReportTimeEvtArgs e)
         {
             Console.WriteLine("路由内容;" + (sender as FrameworkElement).Name + "点击时间;"+ e.ClickTime.ToString());
+            Console.WriteLine("事件点击的源头;" + (e.OriginalSource as ButtonTime).Content);
+        }
+
+        private void RptTime2(object sender, ReportTimeEvtArgs e)
+        {
+            Console.WriteLine("路由内容2;" + (sender as FrameworkElement).Name + "点击时间;" + e.ClickTime.ToString());
         }
 
         private void TimeTick(object sender, RoutedEventArgs e)
@@ -917,6 +1049,17 @@ namespace WPF
                 this.TimeTicked = TimeTicked.NeverTicked;
                 this.time_span_second.Content = ttp.TimeDelaySecond.ToString();
             }
+        }
+
+        private void TimeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("直接的事件关联，接收到的事件参数:" + (e.OriginalSource as ButtonTime));
+        }
+
+        private void Button_Click2(object sender, ReportTimeEvtArgs e)
+        {
+            Console.WriteLine("直接的事件关联，接收到的事件参数:" + (e as ReportTimeEvtArgs).ClickTime);
+            Console.WriteLine("直接的事件关联，接收到的e.OriginalSource:" + (e.OriginalSource as ButtonTime).ToString());
         }
 
     }

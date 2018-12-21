@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<MessageTemplate>
-    <Message Flag="消息内容">
-        <MessageAttribute Flag="详细内容1"></Message>
-        <MessageAttribute Flag="详细内容2"></Message>
-        <MessageAttribute Flag="详细内容3"></Message>
-        <MessageAttribute Flag="详细内容4"></Message>
-    </Message>
-</MessageTemplate>
