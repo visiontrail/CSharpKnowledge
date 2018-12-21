@@ -86,7 +86,6 @@
     <Compile Include="ClassFolder\ChapterTwoClass.cs" />
     <Compile Include="DelegateBase.cs" />
     <Compile Include="DelegateClass.cs" />
-    <Compile Include="Lambda.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
