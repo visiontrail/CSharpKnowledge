@@ -102,14 +102,7 @@ namespace LearnDepthChapterTwo
             // Print out the result of the tree execution.
             Console.WriteLine("The return value of the block expression:");
             Console.WriteLine(result);
-
-            Lambda la = new Lambda("lambda_a");
-            Lambda lb = new Lambda("lambda_b");
-
-            Lambda lr = new Lambda("");
-            lr = la + lb;
-
-            Console.WriteLine("lr is" + lr.Name);
+          
         }
 
         // 一个符合委托声明的函数实现;

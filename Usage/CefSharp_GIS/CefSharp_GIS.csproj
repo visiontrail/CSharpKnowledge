@@ -147,4 +147,7 @@
   </Target>
   <Import Project="..\..\packages\CefSharp.Common.67.0.0\build\CefSharp.Common.targets" Condition="Exists('..\..\packages\CefSharp.Common.67.0.0\build\CefSharp.Common.targets')" />
   <Import Project="..\..\packages\CefSharp.Wpf.67.0.0\build\CefSharp.Wpf.targets" Condition="Exists('..\..\packages\CefSharp.Wpf.67.0.0\build\CefSharp.Wpf.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /I /E /F /Y $(SolutionDir)Usage\CefSharp_GIS\ViewPage\* "$(TargetDir)ViewPage"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
