@@ -1,0 +1,19 @@
+﻿<Window x:Class="MvvmLightDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MvvmLightDemo"
+        xmlns:vm="clr-namespace:MvvmLightDemo.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+    <Grid>
+
+        <StackPanel>
+            <Label Content="{Binding Label1Show}"></Label>
+            <Button Command="{Binding Button_Click_ChangeText}">Change Text</Button>
+        </StackPanel>
+        
+    </Grid>
+</Window>
