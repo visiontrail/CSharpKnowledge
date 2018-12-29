@@ -9,11 +9,18 @@
         Title="MainWindow" Height="450" Width="800"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <Grid>
-
-        <StackPanel>
-            <Label Content="{Binding Label1Show}"></Label>
-            <Button Command="{Binding Button_Click_ChangeText}">Change Text</Button>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="90*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="0" >
+            <Button Command="">Nav To PrePage</Button>
+            <Button Command="{Binding NavToNextPage}">Nav To NextPage</Button>
         </StackPanel>
+
+        <Frame Content="{Binding AttachFrame}" Grid.Row="1"></Frame>
         
     </Grid>
 </Window>

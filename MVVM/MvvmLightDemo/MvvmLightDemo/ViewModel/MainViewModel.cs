@@ -1,6 +1,8 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
+using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace MvvmLightDemo.ViewModel
 {
@@ -19,7 +21,11 @@ namespace MvvmLightDemo.ViewModel
     public class MainViewModel : ViewModelBase
     {
         public RelayCommand Button_Click_ChangeText { get; set; }
+        public RelayCommand NavToNextPage { get; set; }
 
+        /// <summary>
+        /// ÏÔÊ¾×Ö·û;
+        /// </summary>
         private string m_LabelShow;
         public string Label1Show
         {
@@ -30,20 +36,64 @@ namespace MvvmLightDemo.ViewModel
         }
 
         /// <summary>
+        /// Ö÷±êÇ©Ò³;
+        /// </summary>
+        private Page m_MFrame;
+        public Page MFrame
+        {
+            get { return m_MFrame; }
+            set { Set(ref m_MFrame, value); }
+        }
+
+        /// <summary>
+        /// ¸½±êÇ©Ò³;
+        /// </summary>
+        private Page m_AttachFrame;
+        public Page AttachFrame
+        {
+            get { return m_AttachFrame; }
+            set { Set(ref m_AttachFrame, value); }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
             Button_Click_ChangeText = new RelayCommand(ChangeText);
+            NavToNextPage = new RelayCommand(NavNextPage);
+
             Label1Show = "ShowOne";
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+
+            MFrame = new MainPage();
+            AttachFrame = new NextPage();
         }
 
-
-        void ChangeText()
+        private void NavNextPage()
         {
-            Console.WriteLine("1111111111");
-            Label1Show = "ShowOneChange";
+            base.Cleanup();
         }
         
+        void ChangeText()
+        {
+            Label1Show = "ShowOneChange";
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (Count > 65534)
+                Count = 0;
+
+            Count++;
+            Label1Show = "ShowTimerCount:" + Count.ToString();
+        }
+
+        
+        private DispatcherTimer timer = new DispatcherTimer();
+        private int Count = 0;
+
     }
 }
