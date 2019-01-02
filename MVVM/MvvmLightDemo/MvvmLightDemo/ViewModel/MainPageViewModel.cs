@@ -11,10 +11,13 @@ namespace MvvmLightDemo.ViewModel
 {
     public class MainPageViewModel : ViewModelBase
     {
+        /// <summary>
+        /// 依赖命令：改变字符显示;
+        /// </summary>
         public RelayCommand Button_Click_ChangeText { get; set; }
 
         /// <summary>
-        /// 显示字符;
+        /// 依赖属性：显示字符;
         /// </summary>
         private string m_LabelShow;
         public string Label1Show
@@ -36,7 +39,10 @@ namespace MvvmLightDemo.ViewModel
             timer.Start();
         }
 
-        void ChangeText()
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ChangeText()
         {
             Label1Show = "ShowOneChange";
         }
