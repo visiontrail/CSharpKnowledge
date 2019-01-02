@@ -52,6 +52,7 @@ namespace MvvmLightDemo.ViewModel
 
             // 更多的时候，默认在这里注册就可以了;
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<MainPageViewModel>();
             
         }
 
@@ -65,6 +66,14 @@ namespace MvvmLightDemo.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        public MainPageViewModel MainPage
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MainPageViewModel>();
             }
         }
         

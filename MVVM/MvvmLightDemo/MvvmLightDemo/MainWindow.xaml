@@ -20,7 +20,7 @@
             <Button Command="{Binding NavToNextPage}">Nav To NextPage</Button>
         </StackPanel>
 
-        <Frame Content="{Binding AttachFrame}" Grid.Row="1"></Frame>
+        <Frame Content="{Binding AttachPage}" Grid.Row="1"></Frame>
         
     </Grid>
 </Window>

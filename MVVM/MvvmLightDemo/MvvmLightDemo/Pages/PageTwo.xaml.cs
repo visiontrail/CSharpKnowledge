@@ -18,9 +18,9 @@ namespace MvvmLightDemo
     /// <summary>
     /// NextPage.xaml 的交互逻辑
     /// </summary>
-    public partial class NextPage : Page
+    public partial class PageTwo : Page
     {
-        public NextPage()
+        public PageTwo()
         {
             InitializeComponent();
         }

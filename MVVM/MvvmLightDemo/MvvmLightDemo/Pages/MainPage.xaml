@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MvvmLightDemo"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MainPage" DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+      Title="MainPage" DataContext="{Binding Source={StaticResource Locator}, Path=MainPage}">
 
     <Grid>
         <StackPanel>

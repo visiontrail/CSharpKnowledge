@@ -20,39 +20,36 @@ namespace MvvmLightDemo.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        public RelayCommand Button_Click_ChangeText { get; set; }
         public RelayCommand NavToNextPage { get; set; }
 
         /// <summary>
-        /// 显示字符;
+        /// 主页Frame;
         /// </summary>
-        private string m_LabelShow;
-        public string Label1Show
+        private Frame m_MainWindowFrame;
+        public Frame MainWindowFrame
         {
-            get { return m_LabelShow; }
-
-            // MvvmLight实现的Set方法,好处就是不用自己实现RaisePropertyChanged函数了;
-            set { Set(ref m_LabelShow, value); }
+            get { return m_MainWindowFrame; }
+            set { Set(ref m_MainWindowFrame, value); }
         }
-
+        
         /// <summary>
         /// 主标签页;
         /// </summary>
-        private Page m_MFrame;
-        public Page MFrame
+        private Page m_MPage;
+        public Page MPage
         {
-            get { return m_MFrame; }
-            set { Set(ref m_MFrame, value); }
+            get { return m_MPage; }
+            set { Set(ref m_MPage, value); }
         }
 
         /// <summary>
         /// 附标签页;
         /// </summary>
-        private Page m_AttachFrame;
-        public Page AttachFrame
+        private Page m_AttachPage;
+        public Page AttachPage
         {
-            get { return m_AttachFrame; }
-            set { Set(ref m_AttachFrame, value); }
+            get { return m_AttachPage; }
+            set { Set(ref m_AttachPage, value); }
         }
 
         /// <summary>
@@ -60,40 +57,16 @@ namespace MvvmLightDemo.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            Button_Click_ChangeText = new RelayCommand(ChangeText);
-            NavToNextPage = new RelayCommand(NavNextPage);
-
-            Label1Show = "ShowOne";
-            timer.Interval = new TimeSpan(0, 0, 1);
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
-
-            MFrame = new MainPage();
-            AttachFrame = new NextPage();
+            NavToNextPage = new RelayCommand(NavNextPage);   // 导航到下一个Page页;
+            
+            MPage = new MainPage();
+            AttachPage = new PageTwo();
         }
 
         private void NavNextPage()
         {
-            base.Cleanup();
+            
         }
         
-        void ChangeText()
-        {
-            Label1Show = "ShowOneChange";
-        }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            if (Count > 65534)
-                Count = 0;
-
-            Count++;
-            Label1Show = "ShowTimerCount:" + Count.ToString();
-        }
-
-        
-        private DispatcherTimer timer = new DispatcherTimer();
-        private int Count = 0;
-
     }
 }

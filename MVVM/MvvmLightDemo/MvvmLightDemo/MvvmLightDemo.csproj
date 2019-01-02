@@ -72,10 +72,11 @@
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\NextPage.xaml.cs">
-      <DependentUpon>NextPage.xaml</DependentUpon>
+    <Compile Include="Pages\PageTwo.xaml.cs">
+      <DependentUpon>PageTwo.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControl\MvvmButton.cs" />
+    <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
@@ -94,7 +95,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\NextPage.xaml">
+    <Page Include="Pages\PageTwo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
