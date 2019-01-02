@@ -22,6 +22,8 @@ namespace MvvmLightDemo.ViewModel
     {
         public RelayCommand NavToNextPage { get; set; }
 
+        public RelayCommand NavToPrePage { get; set; }
+
         /// <summary>
         /// 主页Frame;
         /// </summary>
@@ -58,15 +60,28 @@ namespace MvvmLightDemo.ViewModel
         public MainViewModel()
         {
             NavToNextPage = new RelayCommand(NavNextPage);   // 导航到下一个Page页;
+            NavToPrePage = new RelayCommand(NavPrePage);
             
             MPage = new MainPage();
             AttachPage = new PageTwo();
-        }
+            MainWindowFrame = new Frame();
 
-        private void NavNextPage()
-        {
-            
+            MainWindowFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden;
+            MainWindowFrame.Content = MPage;
         }
         
+        /// <summary>
+        /// 处理点击下一页;
+        /// </summary>
+        private void NavNextPage()
+        {
+            MainWindowFrame.Content = AttachPage;
+        }
+
+        private void NavPrePage()
+        {
+            MainWindowFrame.Content = MPage;
+        }
+
     }
 }

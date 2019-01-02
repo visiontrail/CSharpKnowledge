@@ -28,6 +28,7 @@ namespace MvvmLightDemo.ViewModel
         public MainPageViewModel()
         {
             Button_Click_ChangeText = new RelayCommand(ChangeText);
+            Button_Click_ChangeText.CanExecute(1);
 
             Label1Show = "ShowOne";
             timer.Interval = new TimeSpan(0, 0, 1);
