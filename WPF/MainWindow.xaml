@@ -27,7 +27,7 @@
         </ControlTemplate>
 
         <!-- 一个在XAML当中用到的string实例 -->
-        <sys:String x:Key="BindingStatic">关联静态资源以及圆角Style</sys:String>
+        <sys:String x:Key="StaticStringResource">关联静态资源以及圆角Style</sys:String>
 
         <!-- 后边树形结构用到的数据 -->
         <XmlDataProvider x:Key="xdp" XPath="FileSystem/Folder">
@@ -168,16 +168,17 @@
                             </Border>
 
                             <!-- 可以使用Binding关联一个静态Source，既然是静态Source，Path就使用.来代替（因为不用指定属性） -->
-                            <TextBox x:Name="tb" Text="{Binding Path=., Source={StaticResource ResourceKey=BindingStatic}}"  Style="{StaticResource tbstyle}" Grid.Row="3"/>
+                            <TextBox x:Name="tb" Text="{Binding Path=., Source={StaticResource ResourceKey=StaticStringResource}}"  Style="{StaticResource tbstyle}" Grid.Row="3"/>
 
                             <!-- 也可以使用Binding关联其他控件的属性 -->
                             <Border Grid.Row="4" BorderBrush="Black" BorderThickness="1" Margin="0,5">
                                 <StackPanel>
                                     <Label>控件绑定前端元素：</Label>
                                     <!-- 在控件中具有DependencyProperty能力的属性，才可以支持将Binding实例赋值到这个属性上 -->
-                                    <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="{Binding ElementName=slider1, Path=Width}"></TextBox>
-                                    <TextBox Text="{Binding ElementName=slider1, Path=Width}"></TextBox>
-                                    <Slider x:Name="slider1" Maximum="20" Width="150"></Slider>
+                                    <TextBox Text="{Binding ElementName=slider1, Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                             Width="{Binding ElementName=slider1, Path=Width}"/>
+                                    <TextBox Text="{Binding ElementName=slider1, Path=Width}"/>
+                                    <Slider x:Name="slider1" Maximum="20" Width="150"/>
                                 </StackPanel>
                             </Border>
 
@@ -186,7 +187,6 @@
                     </DockPanel>
 
                     <!-- 路由事件和依赖属性 -->
-                    <!-- 路由事件RptTime处理 -->
                     <DockPanel Grid.Column="1" x:Name="DockPanel_RouteEvent" routeevt:ButtonTime.ReportTime="RptTime">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -214,6 +214,7 @@
                                         <StackPanel x:Name="sp2" routeevt:ButtonTime.ReportTime="RptTime">
                                         </StackPanel>
 
+                                        <!-- 从这里的一个按钮发送路由事件 -->
                                         <routeevt:ButtonTime x:Name="timebutton" Height="40" Grid.Row="1" Click="TimeButton_Click" routeevt:ButtonTime.ReportTime="Button_Click2">
                                             我是一个从Button继承带有路由事件的按钮
                                         </routeevt:ButtonTime>
@@ -228,7 +229,6 @@
                                 <StackPanel x:Name="CommandStackPanel">
                                     <TextBox x:Name="CommandTextBox"></TextBox>
                                     <Button x:Name="CommandButton">清空命令(清空以上输入)</Button>
-                                    
                                 </StackPanel>
                             </Grid>
                             

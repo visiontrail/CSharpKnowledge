@@ -9,22 +9,14 @@
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Application.Resources>
         <ResourceDictionary>
-            
+
+            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:WPF.ViewModel" />
+
             <ResourceDictionary.MergedDictionaries>
-                
                 <ResourceDictionary Source="Style/StyleOne.xaml"/>
-
-                <ResourceDictionary Source="Style/BrushOne.xaml">
-                    <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:WPF.ViewModel" />
-                </ResourceDictionary>
-
+                <ResourceDictionary Source="Style/BrushOne.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <ComboBox x:Key="RichDataGridCell_ComboBox2" SelectedIndex="0"/>
-            <DataTemplate x:Key="cellDropBox2" DataType="{x:Type model:DyDataDridModel}">
-                <ComboBox x:Name="RichDataGridCell_ComboBox" ItemsSource="{Binding p1}" SelectedIndex="0"/>
-            </DataTemplate>
-
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
