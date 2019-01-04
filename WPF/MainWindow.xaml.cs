@@ -115,6 +115,7 @@ namespace WPF
             SpecialTextBox st = new SpecialTextBox();
             st.SetValue(SpecialTextBox.DTextProperty, this.text1.Text);              // 为这个依赖属性设置对象;
             MessageBox.Show(st.GetValue(SpecialTextBox.DTextProperty) as string);
+            this.StuList2.GetType();
         }
         #endregion
 

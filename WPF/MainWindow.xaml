@@ -115,7 +115,6 @@
             </Setter>
         </Style>
 
-
     </Window.Resources>
 
     <Grid>
@@ -201,7 +200,6 @@
                             <!-- 路由事件和依赖属性都在这里 -->
                             <Grid x:Name="RouteEventGrid1" Grid.Row="0" routeevt:ButtonTime.ReportTime="RptTime">
                                 
-                                <!-- 路由事件RptTime处理 -->
                                 <StackPanel x:Name="sp1" routeevt:ButtonTime.ReportTime="RptTime">
                                     
                                     <Grid>
@@ -228,7 +226,9 @@
                             <Grid Grid.Row="1" Margin="0,10">
                                 <StackPanel x:Name="CommandStackPanel">
                                     <TextBox x:Name="CommandTextBox"></TextBox>
-                                    <Button x:Name="CommandButton">清空命令(清空以上输入)</Button>
+                                    <Button x:Name="CommandButton">
+                                        <Label FontStyle="Oblique">清空命令(清空以上输入)</Label>
+                                    </Button>
                                 </StackPanel>
                             </Grid>
                             
@@ -272,7 +272,6 @@
                                     </ListBox>
                                 </StackPanel>
                             </Border>
-
 
                         </Grid>
                     </DockPanel>
@@ -344,7 +343,7 @@
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="150"/>
                             <RowDefinition Height="170"/>
-                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="200"/>
                             <RowDefinition Height="100"/>
                             <RowDefinition Height="100"/>
                         </Grid.RowDefinitions>
@@ -410,7 +409,18 @@
                                 <StackPanel.DataContext>
                                     <local:Student x:Name="stus"></local:Student>
                                 </StackPanel.DataContext>
-                                <ListBox x:Name="StuList" ItemsSource="{Binding m_StuList}" DisplayMemberPath="m_Name"></ListBox>
+                                <ListBox x:Name="StuList" ItemsSource="{Binding m_StuList}" DisplayMemberPath="m_Name">
+                                </ListBox>
+
+                                <!-- 这个就是单纯的想看看ListBox的叶子节点到底存在了ListBox的哪个属性里 -->
+                                <!-- 事实证明保存在了LogicalChildren当中 -->
+                                <ListBox x:Name="StuList2">
+                                    <Label>123</Label>
+                                    <ListBoxItem>
+                                        <Button>BTN</Button>
+                                    </ListBoxItem>
+                                    <StackPanel></StackPanel>
+                                </ListBox>
                             </StackPanel>
                         </Border>
 
