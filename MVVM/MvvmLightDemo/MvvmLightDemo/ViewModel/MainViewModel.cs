@@ -28,7 +28,7 @@ namespace MvvmLightDemo.ViewModel
         /// <summary>
         /// 导航到上一页面按钮的依赖命令;
         /// </summary>
-        public RelayCommand<object> NavToPrePage { get; set; }
+        public RelayCommand NavToPrePage { get; set; }
 
         /// <summary>
         /// 主页Frame;
@@ -65,13 +65,14 @@ namespace MvvmLightDemo.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            NavToNextPage = new RelayCommand(NavNextPage);   // 导航到下一个Page页;
-            NavToPrePage = new RelayCommand<object>(NavPrePage);
-            
+            NavToNextPage = new RelayCommand(NavNextPage);          // 导航到下一个Page页;
+            NavToPrePage = new RelayCommand(NavPrePage);    // 返回到上一个Page页;
+
+            MainWindowFrame = new Frame();
             MPage = new MainPage();
             AttachPage = new PageTwo();
-            MainWindowFrame = new Frame();
 
+            // 将Frame自带的导航条隐藏;
             MainWindowFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden;
             MainWindowFrame.Content = MPage;
         }
@@ -87,7 +88,7 @@ namespace MvvmLightDemo.ViewModel
         /// <summary>
         /// 处理点击上一页;
         /// </summary>
-        private void NavPrePage(object obj)
+        private void NavPrePage()
         {
             MainWindowFrame.Content = MPage;
         }
