@@ -28,6 +28,15 @@ namespace MvvmLightDemo.ViewModel
             set { Set(ref m_LabelShow, value); }
         }
 
+        private string m_LabelShow2;
+        public string Label1Show2
+        {
+            get { return m_LabelShow2; }
+
+            // MvvmLight实现的Set方法,好处就是不用自己实现RaisePropertyChanged函数了;
+            set { Set(ref m_LabelShow2, value); }
+        }
+
         public MainPageViewModel()
         {
             Button_Click_ChangeText = new RelayCommand(ChangeText);

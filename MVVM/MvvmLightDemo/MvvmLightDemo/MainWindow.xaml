@@ -15,11 +15,13 @@
             <RowDefinition Height="90*"></RowDefinition>
         </Grid.RowDefinitions>
         
+
         <!-- 依赖命令的Binding -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" >
             <Button Command="{Binding NavToPrePage}">Nav To PrePage</Button>
             <Button Command="{Binding NavToNextPage}">Nav To NextPage</Button>
         </StackPanel>
+
 
         <!-- 依赖属性的Binding -->
         <Frame Content="{Binding MainWindowFrame}" Grid.Row="1" NavigationUIVisibility="Hidden"></Frame>
